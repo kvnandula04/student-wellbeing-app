@@ -1,9 +1,22 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  TextInput,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  Pressable,
+} from "react-native";
 import { CustomCard } from "./components/CustomCard";
-import { CARDCOLOR, PRIMARYCOLOR,  } from "./Constants";
+import { CARDCOLOR, PRIMARYCOLOR } from "./Constants";
 
-export default function LogFood() {
+export default function App() {
+  const [text, onChangeText] = React.useState(null);
+  const [number, onChangeNumber] = React.useState(null);
+
   return (
     <View style={styles.container}>
       <CustomCard
@@ -32,10 +45,46 @@ export default function LogFood() {
             >
               Food
             </Text>
-            <Text style={{ fontWeight: "bold", marginLeft: "22%", fontSize: 12 }}>Log Food</Text>
+            <Text
+              style={{ fontWeight: "bold", marginLeft: "22%", fontSize: 12 }}
+            >
+              Log Food
+            </Text>
           </View>
         </View>
       </CustomCard>
+
+      <SafeAreaView>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeText}
+          value={text}
+          placeholder="Enter food item..."
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeNumber}
+          value={number}
+          placeholder="Enter calories..."
+          keyboardType="numeric"
+        />
+        <Pressable
+          style={styles.button}
+          onPress={() => Alert.alert("Edit saved successfully!")}
+        >
+          <Text style={styles.text}>
+            {"Done"}
+          </Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => Alert.alert("Analytics page")}
+        >
+          <Text style={styles.text}>
+            {"Analytics"}
+          </Text>
+        </Pressable>
+      </SafeAreaView>
     </View>
   );
 }
@@ -45,4 +94,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: PRIMARYCOLOR,
   },
+  input: {
+    marginHorizontal: "5%",
+    marginTop: "5%",
+    padding: "3%",
+    borderWidth: 0.5,
+    borderColor: 'grey',
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    backgroundColor: CARDCOLOR,
+    marginHorizontal: "5%",
+    marginTop: "5%",
+    padding: "3%",
+    borderRadius: 10,
+    justifyContent: "center",
+  },
+  text: {
+    fontWeight: "bold", 
+    textAlign: "center", 
+    textTransform: 'uppercase'
+  }
 });
