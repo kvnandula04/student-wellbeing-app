@@ -1,0 +1,3 @@
+@react-navigation/native
+@react-navigation/material-bottom-tabs
+@ptomasroos/react-native-multi-slider
