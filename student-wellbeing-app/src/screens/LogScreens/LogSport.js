@@ -54,25 +54,25 @@ export default function LogSport() {
           </View>
         </View>
       </CustomCard>
-
-      <SafeAreaView>
+      <View>
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
           value={text}
           placeholder="Enter Sport Activity..."
         />
-        <MultiSlider
+        <View style={{ position: "relative", paddingHorizontal: "20%", paddingTop: "10%"}}>
+        <Text style={styles.text}>
+          {"Enter time spent:"}
+        </Text>
+          <MultiSlider
             style={styles.slider}
             sliderLength={240}
             min={0}
             max={120}
             step={10}
-            
         />
-
-
-
+        </View>
         <Pressable
           style={styles.button}
           onPress={() => Alert.alert("Edit saved successfully!")}
@@ -89,7 +89,7 @@ export default function LogSport() {
             {"Analytics"}
           </Text>
         </Pressable>
-      </SafeAreaView>
+      </View>
     </View>
   );
 }
@@ -123,9 +123,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase'
   },
   slider: {
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: 'stretch',
-    justifyContent: 'center',
+    backgroundColor: "#D5E4F2",
+
   }
 });
