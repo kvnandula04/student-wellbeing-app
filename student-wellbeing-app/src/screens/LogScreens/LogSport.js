@@ -10,11 +10,11 @@ import {
   Alert,
   Pressable,
 } from "react-native";
-import { CustomCard } from "../components/CustomCard";
-import { CARDCOLOR, PRIMARYCOLOR } from "../Constants";
+import { CustomCard } from "../../components/CustomCard";
+import { CARDCOLOR, PRIMARYCOLOR } from "../../styles/Constants";
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
-export default function App() {
+export default function LogSport() {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
 
@@ -34,7 +34,7 @@ export default function App() {
       >
         <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
           <Image
-            source={require("../assets/tennis.png")}
+            source={require("../../assets/tennis.png")}
             style={{
               width: 68 * 0.6,
               height: 114 * 0.6,

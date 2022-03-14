@@ -10,10 +10,10 @@ import {
   Alert,
   Pressable,
 } from "react-native";
-import { CustomCard } from "./components/CustomCard";
-import { CARDCOLOR, PRIMARYCOLOR } from "./Constants";
+import { CustomCard } from "../../components/CustomCard";
+import { CARDCOLOR, PRIMARYCOLOR } from "../../styles/Constants";
 
-export default function App() {
+export default function LogFood() {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
 
@@ -33,7 +33,7 @@ export default function App() {
       >
         <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
           <Image
-            source={require("./assets/food.png")}
+            source={require("../../assets/food.png")}
             style={{
               width: 130 * 0.6,
               height: 122 * 0.6,

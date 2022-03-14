@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import { SHADOWCOLOR } from "../Constants";
+import { SHADOWCOLOR } from "../styles/Constants";
 
 export const CustomCard = (props) => {
   return (
