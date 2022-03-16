@@ -13,7 +13,7 @@ import {
 import { CustomCard } from "../../components/CustomCard";
 import { CARDCOLOR, PRIMARYCOLOR } from "../../styles/Constants";
 
-export default function LogFood() {
+export default function LogFood({navigation}) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
 
@@ -78,7 +78,7 @@ export default function LogFood() {
         </Pressable>
         <Pressable
           style={styles.button}
-          onPress={() => Alert.alert("Analytics page")}
+          onPress={() => navigation.navigate("FoodAnalytics")}
         >
           <Text style={styles.text}>
             {"Analytics"}

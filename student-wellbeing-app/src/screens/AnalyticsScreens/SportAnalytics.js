@@ -28,7 +28,7 @@ const Stat = (props) => {
   );
 }
 
-export default function SportAnalytics() {
+export default function SportAnalytics({navigation}) {
     const data = {
         labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
         datasets: [{
@@ -98,7 +98,7 @@ export default function SportAnalytics() {
       </View>
       <Pressable
           style={styles.button}
-          onPress={() => Alert.alert("Analytics page")}
+          onPress={() => navigation.navigate("LogSport")}
         >
           <Text style={styles.text}>
             {"BACK"}

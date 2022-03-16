@@ -3,7 +3,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PlaceholderStyles from "../../styles/PlaceholderStyles";
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={PlaceholderStyles.container}>
       <Text>HomeScreen</Text>

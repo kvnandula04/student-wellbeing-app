@@ -2,3 +2,5 @@
 @react-navigation/material-bottom-tabs
 @ptomasroos/react-native-multi-slider
 @react-native-masked-view/masked-view
+react-native-chart-kit
+react-native-svg

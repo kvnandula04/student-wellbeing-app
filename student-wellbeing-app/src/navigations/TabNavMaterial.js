@@ -9,8 +9,12 @@ import LogProductivity from "../screens/LogScreens/LogProductivity";
 import LogSport from "../screens/LogScreens/LogSport";
 import LogFood from "../screens/LogScreens/LogFood";
 import LogSleep from "../screens/LogScreens/LogSleep";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FoodStackScreen from './FoodStackScreen';
+import SportStackScreen from './SportStackScreen';
 
 const Tab = createMaterialBottomTabNavigator();
+const FoodStack = createNativeStackNavigator();
 
 export default function TabNavMaterial() {
   return (
@@ -48,7 +52,7 @@ export default function TabNavMaterial() {
         />
         <Tab.Screen
           name="Sport"
-          component={LogSport}
+          component={SportStackScreen}
           options={{
             tabBarLabel: "Sport",
             tabBarIcon: ({color}) => (
@@ -72,7 +76,7 @@ export default function TabNavMaterial() {
         />
         <Tab.Screen
           name="Food"
-          component={LogFood}
+          component={FoodStackScreen}
           options={{
             tabBarLabel: "Food",
             tabBarIcon: ({ color }) => (
@@ -102,4 +106,3 @@ export default function TabNavMaterial() {
     </NavigationContainer>
   );
 }
-
