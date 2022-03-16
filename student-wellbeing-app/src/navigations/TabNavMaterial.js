@@ -4,17 +4,13 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import HomeScreen from "../screens/MainScreens/HomeScreen";
-import LogProductivity from "../screens/LogScreens/LogProductivity";
-import LogSport from "../screens/LogScreens/LogSport";
-import LogFood from "../screens/LogScreens/LogFood";
-import LogSleep from "../screens/LogScreens/LogSleep";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import FoodStackScreen from './FoodStackScreen';
-import SportStackScreen from './SportStackScreen';
+import FoodStackScreen from "./FoodStackScreen";
+import SportStackScreen from "./SportStackScreen";
+import HomeStackScreen from "./HomeStackScreen";
+import SleepStackScreen from "./SleepStackScreen";
+import ProductivityStackScreen from "./ProductivityStackScreen";
 
 const Tab = createMaterialBottomTabNavigator();
-const FoodStack = createNativeStackNavigator();
 
 export default function TabNavMaterial() {
   return (
@@ -23,8 +19,8 @@ export default function TabNavMaterial() {
         initialRouteName="Home"
         barStyle={{ backgroundColor: "#E35D5D" }}
         shifting={false}
-        activeColor='#FFFFFF'
-        inactiveColor='#BBBBBB'
+        activeColor="#FFFFFF"
+        inactiveColor="#BBBBBB"
         screenOptions={{
           headerStyle: {
             backgroundColor: "#E35D5D",
@@ -33,12 +29,12 @@ export default function TabNavMaterial() {
             fontWeight: "bold",
           },
           title: "Header",
-          color: 'white',
+          color: "white",
         }}
       >
         <Tab.Screen
           name="Productivity"
-          component={LogProductivity}
+          component={ProductivityStackScreen}
           options={{
             tabBarLabel: "Productivity",
             tabBarIcon: ({ color }) => (
@@ -55,7 +51,7 @@ export default function TabNavMaterial() {
           component={SportStackScreen}
           options={{
             tabBarLabel: "Sport",
-            tabBarIcon: ({color}) => (
+            tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="volleyball"
                 color={color}
@@ -66,7 +62,7 @@ export default function TabNavMaterial() {
         />
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeStackScreen}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
@@ -90,7 +86,7 @@ export default function TabNavMaterial() {
         />
         <Tab.Screen
           name="Sleep"
-          component={LogSleep}
+          component={SleepStackScreen}
           options={{
             tabBarLabel: "Sleep",
             tabBarIcon: ({ color }) => (
