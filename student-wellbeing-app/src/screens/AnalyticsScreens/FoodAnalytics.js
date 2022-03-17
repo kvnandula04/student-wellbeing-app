@@ -29,7 +29,7 @@ const Stat = (props) => {
   );
 }
 
-export default function FoodAnalytics() {
+export default function FoodAnalytics({navigation}) {
     const data = {
         labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
         datasets: [{
@@ -99,7 +99,7 @@ export default function FoodAnalytics() {
       </View>
       <Pressable
           style={styles.button}
-          onPress={() => Alert.alert("Analytics page")}
+          onPress={() => navigation.navigate("LogFood")}
         >
           <Text style={styles.text}>
             {"BACK"}

@@ -15,7 +15,7 @@ import { CARDCOLOR, PRIMARYCOLOR } from "../../styles/Constants";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import { EmptyCard } from "../../components/EmptyCard";
 
-export default function LogSport() {
+export default function LogSport({navigation}) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
 
@@ -87,7 +87,7 @@ export default function LogSport() {
         </Pressable>
         <Pressable
           style={styles.button}
-          onPress={() => Alert.alert("Analytics page")}
+          onPress={() => navigation.navigate("SportAnalytics")}
         >
           <Text style={styles.text}>{"Analytics"}</Text>
         </Pressable>
