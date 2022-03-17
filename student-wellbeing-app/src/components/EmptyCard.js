@@ -10,9 +10,9 @@ export const EmptyCard = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.cardColor,
+    backgroundColor: colors.CARDCOLOR,
     borderRadius: 10,
-    shadowColor: colors.shadowColor,
+    shadowColor: colors.SHADOWCOLOR,
     shadowOffset: { width: 4, height: 0 },
     shadowOpacity: 0.3,
     shadowRadius: 25,
