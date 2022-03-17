@@ -69,7 +69,7 @@ export default function LogFood({navigation}) {
           style={LogScreenStyles.button}
           onPress={() => Alert.alert("Edit saved successfully!")}
         >
-          <Text style={styles.text}>{"Done"}</Text>
+          <Text style={LogScreenStyles.text}>{"Done"}</Text>
         </Pressable>
         <Pressable
           style={LogScreenStyles.button}
