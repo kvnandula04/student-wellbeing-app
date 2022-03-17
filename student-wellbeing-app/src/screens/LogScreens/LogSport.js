@@ -10,14 +10,12 @@ import {
   Alert,
   Pressable,
 } from "react-native";
-import { CustomCard } from "../../components/CustomCard";
-import { CARDCOLOR, PRIMARYCOLOR } from "../../styles/Constants";
+import colors from "../../styles/Colors";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import { EmptyCard } from "../../components/EmptyCard";
 
 export default function LogSport({navigation}) {
   const [text, onChangeText] = React.useState(null);
-  const [number, onChangeNumber] = React.useState(null);
 
   return (
     <View style={styles.container}>
@@ -99,7 +97,7 @@ export default function LogSport({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: PRIMARYCOLOR,
+    backgroundColor: colors.PRIMARYCOLOR,
   },
   input: {
     marginHorizontal: "5%",
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   button: {
-    backgroundColor: CARDCOLOR,
+    backgroundColor: colors.CARDCOLOR,
     marginHorizontal: "5%",
     marginTop: "5%",
     padding: "3%",
