@@ -10,7 +10,7 @@ import {
   Alert,
   Pressable,
 } from "react-native";
-import { CustomCard } from "../../components/CustomCard";
+import { EmptyCard } from "../../components/EmptyCard";
 import { CARDCOLOR, PRIMARYCOLOR } from "../../styles/Constants";
 
 export default function LogFood() {
@@ -19,15 +19,12 @@ export default function LogFood() {
 
   return (
     <View style={styles.container}>
-      <CustomCard
+      <EmptyCard
         elevated={true}
         style={{
-          backgroundColor: CARDCOLOR,
           marginHorizontal: "5%",
           marginTop: "20%",
           padding: "7%",
-          borderRadius: 10,
-          flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
@@ -52,7 +49,7 @@ export default function LogFood() {
             </Text>
           </View>
         </View>
-      </CustomCard>
+      </EmptyCard>
 
       <SafeAreaView>
         <TextInput
@@ -72,17 +69,13 @@ export default function LogFood() {
           style={styles.button}
           onPress={() => Alert.alert("Edit saved successfully!")}
         >
-          <Text style={styles.text}>
-            {"Done"}
-          </Text>
+          <Text style={styles.text}>{"Done"}</Text>
         </Pressable>
         <Pressable
           style={styles.button}
           onPress={() => Alert.alert("Analytics page")}
         >
-          <Text style={styles.text}>
-            {"Analytics"}
-          </Text>
+          <Text style={styles.text}>{"Analytics"}</Text>
         </Pressable>
       </SafeAreaView>
     </View>
@@ -99,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     padding: "3%",
     borderWidth: 0.5,
-    borderColor: 'grey',
+    borderColor: "grey",
     borderRadius: 10,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -113,8 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    fontWeight: "bold", 
-    textAlign: "center", 
-    textTransform: 'uppercase'
-  }
+    fontWeight: "bold",
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
 });

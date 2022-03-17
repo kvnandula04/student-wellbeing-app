@@ -12,7 +12,8 @@ import {
 } from "react-native";
 import { CustomCard } from "../../components/CustomCard";
 import { CARDCOLOR, PRIMARYCOLOR } from "../../styles/Constants";
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
+import { EmptyCard } from "../../components/EmptyCard";
 
 export default function LogSport() {
   const [text, onChangeText] = React.useState(null);
@@ -20,15 +21,11 @@ export default function LogSport() {
 
   return (
     <View style={styles.container}>
-      <CustomCard
-        elevated={true}
+      <EmptyCard
         style={{
-          backgroundColor: CARDCOLOR,
           marginHorizontal: "5%",
           marginTop: "20%",
           padding: "7%",
-          borderRadius: 10,
-          flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
@@ -42,18 +39,23 @@ export default function LogSport() {
           />
           <View>
             <Text
-              style={{ fontWeight: "bold", marginLeft: "30%", fontSize: 30,  }}
+              style={{ fontWeight: "bold", marginLeft: "30%", fontSize: 30 }}
             >
               Sport
             </Text>
             <Text
-              style={{ fontWeight: "bold", marginLeft: "30%", fontSize: 12, paddingTop: 5 }}
+              style={{
+                fontWeight: "bold",
+                marginLeft: "30%",
+                fontSize: 12,
+                paddingTop: 5,
+              }}
             >
               Log Session
             </Text>
           </View>
         </View>
-      </CustomCard>
+      </EmptyCard>
       <View>
         <TextInput
           style={styles.input}
@@ -61,33 +63,33 @@ export default function LogSport() {
           value={text}
           placeholder="Enter Sport Activity..."
         />
-        <View style={{ position: "relative", paddingHorizontal: "20%", paddingTop: "10%"}}>
-        <Text style={styles.text}>
-          {"Enter time spent:"}
-        </Text>
+        <View
+          style={{
+            position: "relative",
+            paddingHorizontal: "20%",
+            paddingTop: "10%",
+          }}
+        >
+          <Text style={styles.text}>{"Enter time spent:"}</Text>
           <MultiSlider
             style={styles.slider}
             sliderLength={240}
             min={0}
             max={120}
             step={10}
-        />
+          />
         </View>
         <Pressable
           style={styles.button}
           onPress={() => Alert.alert("Edit saved successfully!")}
         >
-          <Text style={styles.text}>
-            {"Done"}
-          </Text>
+          <Text style={styles.text}>{"Done"}</Text>
         </Pressable>
         <Pressable
           style={styles.button}
           onPress={() => Alert.alert("Analytics page")}
         >
-          <Text style={styles.text}>
-            {"Analytics"}
-          </Text>
+          <Text style={styles.text}>{"Analytics"}</Text>
         </Pressable>
       </View>
     </View>
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     padding: "3%",
     borderWidth: 0.5,
-    borderColor: 'grey',
+    borderColor: "grey",
     borderRadius: 10,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -118,12 +120,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    fontWeight: "bold", 
-    textAlign: "center", 
-    textTransform: 'uppercase'
+    fontWeight: "bold",
+    textAlign: "center",
+    textTransform: "uppercase",
   },
   slider: {
     backgroundColor: "#D5E4F2",
-
-  }
+  },
 });
