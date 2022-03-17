@@ -1,24 +1,24 @@
 import * as React from "react";
 import {
-  SafeAreaView,
   TextInput,
   Image,
   StyleSheet,
   Text,
   View,
-  Button,
   Alert,
   Pressable,
 } from "react-native";
-import colors from "../../styles/Colors";
+
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
+import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
+import colors from "../../styles/Colors";
 
 export default function LogSport({navigation}) {
   const [text, onChangeText] = React.useState(null);
 
   return (
-    <View style={styles.container}>
+    <View style={LogScreenStyles.container}>
       <EmptyCard
         style={{
           marginHorizontal: "5%",
@@ -56,7 +56,7 @@ export default function LogSport({navigation}) {
       </EmptyCard>
       <View>
         <TextInput
-          style={styles.input}
+          style={LogScreenStyles.input}
           onChangeText={onChangeText}
           value={text}
           placeholder="Enter Sport Activity..."
@@ -68,7 +68,7 @@ export default function LogSport({navigation}) {
             paddingTop: "10%",
           }}
         >
-          <Text style={styles.text}>{"Enter time spent:"}</Text>
+          <Text style={LogScreenStyles.text}>{"Enter time spent:"}</Text>
           <MultiSlider
             style={styles.slider}
             sliderLength={240}
@@ -78,16 +78,16 @@ export default function LogSport({navigation}) {
           />
         </View>
         <Pressable
-          style={styles.button}
+          style={LogScreenStyles.button}
           onPress={() => Alert.alert("Edit saved successfully!")}
         >
-          <Text style={styles.text}>{"Done"}</Text>
+          <Text style={LogScreenStyles.text}>{"Done"}</Text>
         </Pressable>
         <Pressable
-          style={styles.button}
+          style={LogScreenStyles.button}
           onPress={() => navigation.navigate("SportAnalytics")}
         >
-          <Text style={styles.text}>{"Analytics"}</Text>
+          <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
         </Pressable>
       </View>
     </View>
@@ -95,33 +95,6 @@ export default function LogSport({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.PRIMARYCOLOR,
-  },
-  input: {
-    marginHorizontal: "5%",
-    marginTop: "5%",
-    padding: "3%",
-    borderWidth: 0.5,
-    borderColor: "grey",
-    borderRadius: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  button: {
-    backgroundColor: colors.CARDCOLOR,
-    marginHorizontal: "5%",
-    marginTop: "5%",
-    padding: "3%",
-    borderRadius: 10,
-    justifyContent: "center",
-  },
-  text: {
-    fontWeight: "bold",
-    textAlign: "center",
-    textTransform: "uppercase",
-  },
   slider: {
     backgroundColor: "#D5E4F2",
   },
