@@ -1,5 +1,5 @@
 export default {
-  primaryColor: "#FFFAF1",
-  shadowColor: "#000000",
-  cardColor: "#F9C6B4",
+  PRIMARYCOLOR: "#FFFAF1",
+  SHADOWCOLOR: "#000000",
+  CARDCOLOR: "#F9C6B4",
 };

@@ -8,8 +8,7 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-import colors from "../../styles/colors";
+import colors from "../../styles/Colors";
 import { EmptyCard } from "../../components/EmptyCard";
 
 export default function HomeScreen({navigation}) {
@@ -17,7 +16,7 @@ export default function HomeScreen({navigation}) {
     <SafeAreaView style={styles.container}>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor="{colors.primaryColor}"
+        backgroundColor="{colors.PRIMARYCOLOR}"
       />
 
       <View style={[styles.cardContainer, { flex: 0.15 }]}>
@@ -73,12 +72,12 @@ export default function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primaryColor,
+    backgroundColor: colors.PRIMARYCOLOR,
     padding: 10,
     justifyContent: "space-between",
   },
   card: {
-    backgroundColor: colors.cardColor,
+    backgroundColor: colors.CARDCOLOR,
     padding: 20,
   },
   cardContainer: {
