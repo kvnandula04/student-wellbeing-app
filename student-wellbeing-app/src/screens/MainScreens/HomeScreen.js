@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../styles/Colors";
 import { EmptyCard } from "../../components/EmptyCard";
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
