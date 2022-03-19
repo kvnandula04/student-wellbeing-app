@@ -13,7 +13,7 @@ import { EmptyCard } from "../../components/EmptyCard";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import colors from "../../styles/Colors";
 
-export default function LogFood({ navigation }) {
+export default function LogFood({navigation}) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
 
@@ -82,4 +82,6 @@ export default function LogFood({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  
+});
