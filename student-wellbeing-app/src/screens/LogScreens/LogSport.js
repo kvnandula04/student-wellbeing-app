@@ -75,7 +75,14 @@ export default function LogSport({navigation}) {
             min={0}
             max={120}
             step={10}
+            enableLabel
+            valueSuffix="Mins"
+            
+            
           />
+        </View>
+        <View>
+          <Text style={LogScreenStyles.text}>{"Session Rating:"}</Text>
         </View>
         <Pressable
           style={LogScreenStyles.button}
