@@ -68,7 +68,7 @@ export default function LogSport({navigation}) {
             paddingTop: "10%",
           }}
         >
-          <Text style={LogScreenStyles.text}>{"Enter time spent:"}</Text>
+          <Text style={LogScreenStyles.text}>{"Enter time spent (mins):"}</Text>
           <MultiSlider
             style={styles.slider}
             sliderLength={240}
@@ -76,7 +76,21 @@ export default function LogSport({navigation}) {
             max={120}
             step={10}
             enableLabel
-            valueSuffix="Mins"
+            
+            markerStyle={{
+              backgroundColor: '#fff',
+              elevation: 3,
+              height: 20,
+              width: 20,
+              borderRadius: 10,
+            }}
+            pressedMarkerStyle={{
+              backgroundColor: '#fff',
+              elevation: 3,
+              height: 20,
+              width: 20,
+              borderRadius: 10,
+            }}
             
             
           />
