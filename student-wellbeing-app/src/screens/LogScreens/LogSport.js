@@ -14,7 +14,7 @@ import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
 //import colors from "../../styles/Colors";
 
-export default function LogSport({ navigation }) {
+export default function LogSport({navigation}) {
   const [text, onChangeText] = React.useState(null);
 
   return (
