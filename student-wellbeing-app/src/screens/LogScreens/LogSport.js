@@ -37,14 +37,14 @@ export default function LogSport({navigation}) {
           />
           <View>
             <Text
-              style={{ fontWeight: "bold", marginLeft: "30%", fontSize: 30 }}
+              style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
             >
               Sport
             </Text>
             <Text
               style={{
                 fontWeight: "bold",
-                marginLeft: "30%",
+                marginLeft: "22%",
                 fontSize: 12,
                 paddingTop: 5,
               }}
