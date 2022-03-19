@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { EmptyCard } from "../../components/EmptyCard";
 import LogScreenStyles from "../../styles/LogScreenStyles";
-import colors from "../../styles/Colors";
+//import colors from "../../styles/Colors";
 
 export default function LogFood({ navigation }) {
   const [text, onChangeText] = React.useState(null);
