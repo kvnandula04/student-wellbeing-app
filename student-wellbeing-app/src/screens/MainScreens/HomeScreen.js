@@ -21,7 +21,11 @@ export default function HomeScreen({navigation}) {
 
       <View style={[styles.cardContainer, { flex: 0.15 }]}>
         <EmptyCard style={{ flex: 0.7 }}>
-          <Text>Daily Mood</Text>
+          <Image
+            soure={require("../../assets/mood.png")}
+            resizeMode="contain"
+            style={{ width: 50, height: 10 }}
+          />
         </EmptyCard>
 
         <EmptyCard style={{ flex: 0.25 }}>
@@ -34,16 +38,19 @@ export default function HomeScreen({navigation}) {
           <Image source={require("../../assets/book.png")} />
         </EmptyCard>
         <EmptyCard style={{ flex: 0.48 }}>
-          <Text>Sport</Text>
+          <Image source={require("../../assets/tennis.png")} />
         </EmptyCard>
       </View>
 
-      <View style={[styles.cardContainer, { flex: 0.3 }]}>
+      <View style={[styles.cardContainer, { flex: 0.3, paddingBottom: 5 }]}>
         <EmptyCard style={{ flex: 0.48 }}>
-          <Text>Food</Text>
+          <Image source={require("../../assets/food.png")} />
         </EmptyCard>
         <EmptyCard style={{ flex: 0.48 }}>
-          <Text>Sleep</Text>
+          <Image
+            source={require("../../assets/rest.png")}
+            style={{ width: "50%", height: "50%" }}
+          />
         </EmptyCard>
       </View>
 
@@ -58,11 +65,21 @@ export default function HomeScreen({navigation}) {
           },
         ]}
       >
-        <TouchableOpacity style={styles.bottomButtons}>
-          <EmptyCard />
+        <TouchableOpacity
+          onPress={() => alert("TODO")}
+          style={styles.bottomButtons}
+        >
+          <EmptyCard style={{ flex: 1 }}>
+            <Text>WEEKLY SUMMARY</Text>
+          </EmptyCard>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomButtons}>
-          <EmptyCard />
+        <TouchableOpacity
+          onPress={() => alert("TODO")}
+          style={styles.bottomButtons}
+        >
+          <EmptyCard style={{ flex: 1 }}>
+            <Text>ANALYTICS</Text>
+          </EmptyCard>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
