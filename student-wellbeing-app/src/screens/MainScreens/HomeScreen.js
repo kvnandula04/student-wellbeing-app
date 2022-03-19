@@ -16,7 +16,7 @@ export default function HomeScreen({navigation}) {
     <SafeAreaView style={styles.container}>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor="{colors.PRIMARYCOLOR}"
+        backgroundColor= {colors.PRIMARYCOLOR}
       />
 
       <View style={[styles.cardContainer, { flex: 0.15 }]}>
