@@ -12,9 +12,9 @@ import {
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
-import colors from "../../styles/Colors";
+//import colors from "../../styles/Colors";
 
-export default function LogSport({ navigation }) {
+export default function LogSport({navigation}) {
   const [text, onChangeText] = React.useState(null);
 
   return (
@@ -37,14 +37,14 @@ export default function LogSport({ navigation }) {
           />
           <View>
             <Text
-              style={{ fontWeight: "bold", marginLeft: "30%", fontSize: 30 }}
+              style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
             >
               Sport
             </Text>
             <Text
               style={{
                 fontWeight: "bold",
-                marginLeft: "30%",
+                marginLeft: "22%",
                 fontSize: 12,
                 paddingTop: 5,
               }}
