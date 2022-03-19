@@ -48,7 +48,7 @@ export default function HomeScreen({navigation}) {
         </EmptyCard>
         <EmptyCard style={{ flex: 0.48 }}>
           <Image
-            source={require("../../assets/rest.png")}
+            source={require("../../assets/sleep.png")}
             style={{ width: "50%", height: "50%" }}
           />
         </EmptyCard>
