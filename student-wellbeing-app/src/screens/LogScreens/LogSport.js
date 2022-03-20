@@ -76,7 +76,7 @@ export default function LogSport({navigation}) {
             max={120}
             step={10}
             enableLabel
-            
+
             markerStyle={{
               backgroundColor: '#fff',
               elevation: 3,
@@ -91,7 +91,7 @@ export default function LogSport({navigation}) {
               width: 20,
               borderRadius: 10,
             }}
-            
+
             
           />
         </View>
