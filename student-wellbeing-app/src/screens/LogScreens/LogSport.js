@@ -69,31 +69,36 @@ export default function LogSport({navigation}) {
           }}
         >
           <Text style={LogScreenStyles.text}>{"Enter time spent (mins):"}</Text>
-          <MultiSlider
-            style={styles.slider}
-            sliderLength={240}
-            min={0}
-            max={120}
-            step={10}
-            enableLabel
-
-            markerStyle={{
-              backgroundColor: '#fff',
-              elevation: 3,
-              height: 20,
-              width: 20,
-              borderRadius: 10,
+          <View
+            style={{
+              paddingTop: "15%",
             }}
-            pressedMarkerStyle={{
-              backgroundColor: '#fff',
-              elevation: 3,
-              height: 20,
-              width: 20,
-              borderRadius: 10,
-            }}
+          >
+            <MultiSlider
+              style={styles.slider}
+              sliderLength={240}
+              min={0}
+              max={120}
+              step={10}
+              enableLabel
 
-            
-          />
+              markerStyle={{
+                backgroundColor: '#fff',
+                elevation: 3,
+                height: 20,
+                width: 20,
+                borderRadius: 10,
+              }}
+              pressedMarkerStyle={{
+                backgroundColor: '#fff',
+                elevation: 3,
+                height: 20,
+                width: 20,
+                borderRadius: 10,
+              }}           
+            />  
+          </View>
+          
         </View>
         <View>
           <Text style={LogScreenStyles.text}>{"Session Rating:"}</Text>
