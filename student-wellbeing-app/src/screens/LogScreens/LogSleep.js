@@ -12,6 +12,7 @@ import {
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import { EmptyCard } from "../../components/EmptyCard";
 import Colors from "../../styles/Colors";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
 // import Stars from "react-native-stars";
 
 export default function LogSleep({ navigation }) {
