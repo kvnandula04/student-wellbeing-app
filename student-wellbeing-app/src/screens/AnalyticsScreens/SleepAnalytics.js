@@ -51,10 +51,10 @@ export default function SleepAnalytics({ navigation }) {
         >
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
             <Image
-              source={require("../../assets/rest.png")}
+              source={require("../../assets/sleep.png")}
               style={{
-                width: 130 * 0.6,
-                height: 122 * 0.6,
+                width: 90 * 0.6,
+                height: 69 * 0.6,
               }}
             />
             <View>
