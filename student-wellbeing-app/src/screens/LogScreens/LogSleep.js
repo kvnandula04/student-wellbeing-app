@@ -59,6 +59,38 @@ export default function LogSleep({ navigation }) {
       </EmptyCard>
 
       <SafeAreaView>
+
+      <View
+        style={{
+          position: "relative",
+          paddingHorizontal: "20%",
+          paddingTop: "10%",
+        }}>
+
+      <MultiSlider
+            style={styles.slider}
+            sliderLength={240}
+            min={0}
+            max={5}
+            step={1}
+            enableLabel
+
+            markerStyle={{
+              backgroundColor: '#fff',
+              elevation: 3,
+              height: 30,
+              width: 30,
+              borderRadius: 15,
+            }}
+            pressedMarkerStyle={{
+              backgroundColor: '#fff',
+              elevation: 4,
+              height: 20,
+              width: 20,
+              borderRadius: 20,
+            }}
+          />
+          </View>
         <Text
           style={{ fontWeight: "bold", marginLeft: "30%", marginTop: "5%" }}
         >
