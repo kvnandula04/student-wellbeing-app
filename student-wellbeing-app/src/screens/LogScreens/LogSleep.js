@@ -61,6 +61,12 @@ export default function LogSleep({ navigation }) {
 
       <SafeAreaView>
 
+      <Text
+          style={{ fontWeight: "bold", marginLeft: "30%", marginTop: "5%" }}
+        >
+          Rate your quality of sleep:
+        </Text>
+
       <View
         style={{
           position: "relative",
