@@ -12,13 +12,13 @@ import {
 } from "react-native";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
-// import Stars from "react-native-stars";
+import StarRating from "react-native-star-rating-widget";
 
 export default function LogSleep({ navigation }) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
   const [entry, onChangeEntry] = React.useState(null);
+  const [rating, setRating] = useState(0);
 
   return (
     <ScrollView>
@@ -59,6 +59,15 @@ export default function LogSleep({ navigation }) {
           </View>
         </EmptyCard>
 
+        <Text
+          style={[
+            LogScreenStyles.text,
+            { fontWeight: "bold", marginTop: "6%", marginRight: "3%" },
+          ]}
+        >
+          Enter time slept:
+        </Text>
+
         <View
           style={{
             flexDirection: "row",
@@ -66,12 +75,6 @@ export default function LogSleep({ navigation }) {
             alignContent: "center",
           }}
         >
-          <Text
-            style={[LogScreenStyles.text, { fontWeight: "bold", marginTop: "6%", marginRight: "3%" } ]}
-          >
-            Enter time slept:
-          </Text>
-
           <TextInput
             style={LogScreenStyles.timeinput}
             onChangeText={onChangeText}
@@ -89,41 +92,22 @@ export default function LogSleep({ navigation }) {
           />
         </View>
 
-        <Text
-          style={[LogScreenStyles.text, { fontWeight: "bold", marginTop: "5%" }]}
-        >
-          Sleep rating:
-        </Text>
-
         <View
           style={{
             position: "relative",
             paddingHorizontal: "20%",
-            paddingTop: "10%",
+            paddingTop: "5%",
           }}
         >
-          <MultiSlider
-            style={LogScreenStyles.slider}
-            sliderLength={240}
-            min={0}
-            max={5}
-            step={1}
-            enableLabel
-            markerStyle={{
-              backgroundColor: "#fff",
-              elevation: 3,
-              height: 20,
-              width: 20,
-              borderRadius: 10,
-            }}
-            pressedMarkerStyle={{
-              backgroundColor: "#fff",
-              elevation: 3,
-              height: 20,
-              width: 20,
-              borderRadius: 10,
-            }}
-          />
+          <Text
+            style={[
+              LogScreenStyles.text,
+              { fontWeight: "bold", marginTop: "5%", marginBottom: "5%" },
+            ]}
+          >
+            Sleep rating:
+          </Text>
+          <StarRating rating={rating} onChange={setRating} />
         </View>
 
         <TextInput

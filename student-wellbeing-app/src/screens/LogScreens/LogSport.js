@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   TextInput,
   ScrollView,
@@ -13,9 +13,11 @@ import {
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
+import StarRating from "react-native-star-rating-widget";
 
 export default function LogSport({ navigation }) {
   const [text, onChangeText] = React.useState(null);
+  const [rating, setRating] = useState(0);
 
   return (
     <ScrollView>
@@ -101,9 +103,24 @@ export default function LogSport({ navigation }) {
               />
             </View>
           </View>
-          <View>
-            <Text style={LogScreenStyles.text}>{"Session Rating:"}</Text>
+          
+          <View
+            style={{
+              position: "relative",
+              paddingHorizontal: "20%",
+            }}
+          >
+            <Text
+              style={[
+                LogScreenStyles.text,
+                { fontWeight: "bold", marginTop: "5%", marginBottom: "5%" },
+              ]}
+            >
+              Session rating:
+            </Text>
+            <StarRating rating={rating} onChange={setRating} />
           </View>
+
           <Pressable
             style={LogScreenStyles.button}
             onPress={() => Alert.alert("Edit saved successfully!")}
