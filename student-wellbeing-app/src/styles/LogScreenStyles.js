@@ -24,6 +24,15 @@ export default StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
   },
+  lastbutton: {
+    backgroundColor: colors.CARDCOLOR,
+    marginHorizontal: "5%",
+    marginTop: "5%",
+    marginBottom: "10%",
+    padding: "3%",
+    borderRadius: 10,
+    justifyContent: "center",
+  },
   text: {
     fontWeight: "bold",
     textAlign: "center",
