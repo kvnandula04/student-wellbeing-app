@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   StyleSheet,
+  ScrollView,
   Text,
   View,
   TextInput,
@@ -8,194 +9,146 @@ import {
   SafeAreaView,
   Alert,
   Pressable,
-  ScrollView,
 } from "react-native";
-import { EmptyCard } from "../../components/EmptyCard";
-import Colors from "../../styles/Colors";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import LogScreenStyles from "../../styles/LogScreenStyles";
+import { EmptyCard } from "../../components/EmptyCard";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
+// import Stars from "react-native-stars";
 
 export default function LogSleep({ navigation }) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
-  const [entry, onChnageEntry] = React.useState(null);
-
+  const [entry, onChangeEntry] = React.useState(null);
 
   return (
-    <View style={styles.container}>
-      <EmptyCard
-        elevated={true}
-        style={{
-          marginHorizontal: "5%",
-          marginTop: "20%",
-          padding: "7%",
-          justifyContent: "space-between",
-        }}
-      >
-        <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
-          <Image
-            source={require("../../assets/sleep.png")}
-            style={{
-              width: 180 * 0.6,
-              height: 114 * 0.6,
-            }}
-          />
-          <View>
-            <Text
-              style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
-            >
-              Sleep
-            </Text>
-            <Text
-              style={{
-                fontWeight: "bold",
-                marginLeft: "22%%",
-                fontSize: 15,
-                paddingTop: 5,
-              }}
-            >
-              Log Sleep
-            </Text>
-          </View>
-        </View>
-      </EmptyCard>
-
-      <SafeAreaView>
-
-      <Text
-          style={LogScreenStyles.text}
+    <ScrollView>
+      <View style={LogScreenStyles.container}>
+        <EmptyCard
+          style={{
+            marginHorizontal: "5%",
+            marginTop: "20%",
+            padding: "7%",
+            justifyContent: "space-between",
+          }}
         >
-          Rate your quality of sleep:
+          <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
+            <Image
+              source={require("../../assets/sleep.png")}
+              style={{
+                width: 90 * 0.9,
+                height: 69 * 0.9,
+              }}
+            />
+            <View>
+              <Text
+                style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
+              >
+                Sleep
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  marginLeft: "20%",
+                  fontSize: 15,
+                  paddingTop: 5,
+                }}
+              >
+                Log Sleep
+              </Text>
+            </View>
+          </View>
+        </EmptyCard>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <Text
+            style={[LogScreenStyles.text, { fontWeight: "bold", marginTop: "6%", marginRight: "3%" } ]}
+          >
+            Enter time slept:
+          </Text>
+
+          <TextInput
+            style={LogScreenStyles.timeinput}
+            onChangeText={onChangeText}
+            value={text}
+            keyboardType="number-pad"
+            placeholder="hrs."
+          />
+
+          <TextInput
+            style={LogScreenStyles.timeinput}
+            onChangeText={onChangeNumber}
+            value={number}
+            keyboardType="number-pad"
+            placeholder="mins."
+          />
+        </View>
+
+        <Text
+          style={[LogScreenStyles.text, { fontWeight: "bold", marginTop: "5%" }]}
+        >
+          Sleep rating:
         </Text>
 
-      <View
-        style={{
-          position: "relative",
-          paddingHorizontal: "20%",
-          paddingTop: "10%",
-        }}>
-
-      <MultiSlider
-            style={styles.slider}
+        <View
+          style={{
+            position: "relative",
+            paddingHorizontal: "20%",
+            paddingTop: "10%",
+          }}
+        >
+          <MultiSlider
+            style={LogScreenStyles.slider}
             sliderLength={240}
             min={0}
             max={5}
             step={1}
             enableLabel
-
             markerStyle={{
-              backgroundColor: '#fff',
+              backgroundColor: "#fff",
               elevation: 3,
-              height: 30,
-              width: 30,
-              borderRadius: 15,
-            }}
-            pressedMarkerStyle={{
-              backgroundColor: '#fff',
-              elevation: 4,
               height: 20,
               width: 20,
-              borderRadius: 20,
+              borderRadius: 10,
+            }}
+            pressedMarkerStyle={{
+              backgroundColor: "#fff",
+              elevation: 3,
+              height: 20,
+              width: 20,
+              borderRadius: 10,
             }}
           />
-          </View>
-        <Text style={LogScreenStyles.text}>
-          Time Slept:
-        </Text>
-
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          keyboardType="number-pad"
-          placeholder="HRS.."
-        />
-
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          keyboardType="number-pad"
-          placeholder="MINS."
-        />
+        </View>
 
         <TextInput
           multiline={true}
-          style={styles.largeInput}
-          onChnageEntry={onChnageEntry}
+          style={LogScreenStyles.largeInput}
+          onChangeEntry={onChangeEntry}
           value={entry}
           placeholder="Journal"
         />
 
         <Pressable
-          style={styles.button}
-          onPress={() => Alert.alert("edit saved successfully!")}
+          style={LogScreenStyles.button}
+          onPress={() => Alert.alert("Edit saved successfully!")}
         >
-          <Text style={styles.text}>{"Done"}</Text>
+          <Text style={LogScreenStyles.text}>{"Done"}</Text>
         </Pressable>
         <Pressable
-          style={styles.button}
+          style={LogScreenStyles.lastbutton}
           onPress={() => navigation.navigate("SleepAnalytics")}
         >
-          <Text style={styles.text}>{"Analytics"}</Text>
+          <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
         </Pressable>
-      </SafeAreaView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.PRIMARYCOLOR,
-  },
-  toptitle: {
-    shadowColor: Colors.SHADOWCOLOR,
-    shadowOffset: { width: 4, height: 0 },
-    shadowOpacity: 0.3,
-    shadowRadius: 25,
-    elevation: 5,
-  },
-  input: {
-    marginHorizontal: "42%",
-    marginTop: "3%",
-    padding: "3%",
-    borderWidth: 0.5,
-    borderColor: "grey",
-    borderRadius: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "lightgrey",
-  },
-  largeInput: {
-    marginHorizontal: "10%",
-    marginTop: "5%",
-    borderWidth: 0.5,
-    borderColor: "grey",
-    borderRadius: 10,
-    height: 100,
-    textAlignVertical: "top",
-  },
-  button: {
-    backgroundColor: Colors.CARDCOLOR,
-    marginHorizontal: "5%",
-    marginTop: "5%",
-    padding: "3%",
-    borderRadius: 10,
-    justifyContent: "center",
-  },
-
-  text: {
-    fontWeight: "bold",
-    textAlign: "center",
-    textTransform: "uppercase",
-  },
-  slider: {
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: "stretch",
-    justifyContent: "center",
-  },
-});
+const styles = StyleSheet.create({});
