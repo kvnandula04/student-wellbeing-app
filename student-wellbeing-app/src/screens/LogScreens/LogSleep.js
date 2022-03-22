@@ -8,17 +8,18 @@ import {
   SafeAreaView,
   Alert,
   Pressable,
+  ScrollView,
 } from "react-native";
-import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import { EmptyCard } from "../../components/EmptyCard";
 import Colors from "../../styles/Colors";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
-// import Stars from "react-native-stars";
+import LogScreenStyles from "../../styles/LogScreenStyles";
 
 export default function LogSleep({ navigation }) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
   const [entry, onChnageEntry] = React.useState(null);
+
 
   return (
     <View style={styles.container}>
@@ -35,20 +36,20 @@ export default function LogSleep({ navigation }) {
           <Image
             source={require("../../assets/sleep.png")}
             style={{
-              width: 90 * 0.6,
-              height: 69 * 0.6,
+              width: 180 * 0.6,
+              height: 114 * 0.6,
             }}
           />
           <View>
             <Text
-              style={{ fontWeight: "bold", marginLeft: "30%", fontSize: 30 }}
+              style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
             >
               Sleep
             </Text>
             <Text
               style={{
                 fontWeight: "bold",
-                marginLeft: "30%",
+                marginLeft: "22%%",
                 fontSize: 15,
                 paddingTop: 5,
               }}
@@ -62,7 +63,7 @@ export default function LogSleep({ navigation }) {
       <SafeAreaView>
 
       <Text
-          style={{ fontWeight: "bold", marginLeft: "30%", marginTop: "5%" }}
+          style={LogScreenStyles.text}
         >
           Rate your quality of sleep:
         </Text>
@@ -98,10 +99,8 @@ export default function LogSleep({ navigation }) {
             }}
           />
           </View>
-        <Text
-          style={{ fontWeight: "bold", marginLeft: "30%", marginTop: "5%" }}
-        >
-          Enter how long you slept:
+        <Text style={LogScreenStyles.text}>
+          Time Slept:
         </Text>
 
         <TextInput
@@ -109,7 +108,7 @@ export default function LogSleep({ navigation }) {
           onChangeText={onChangeText}
           value={text}
           keyboardType="number-pad"
-          placeholder="hrs.."
+          placeholder="HRS.."
         />
 
         <TextInput
@@ -117,7 +116,7 @@ export default function LogSleep({ navigation }) {
           onChangeText={onChangeNumber}
           value={number}
           keyboardType="number-pad"
-          placeholder="mins."
+          placeholder="MINS."
         />
 
         <TextInput
@@ -176,7 +175,6 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "grey",
     borderRadius: 10,
-    //padding: "15%",
     height: 100,
     textAlignVertical: "top",
   },
