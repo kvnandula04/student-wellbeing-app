@@ -5,6 +5,7 @@ import SportStackScreen from "./SportStackScreen";
 import FoodStackScreen from "./FoodStackScreen";
 import SleepStackScreen from "./SleepStackScreen";
 import HomeScreen from "../screens/MainScreens/HomeScreen";
+import Colors from "../styles/Colors";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -14,10 +15,16 @@ export default function HomeStackScreen() {
       initialRouteName="GoHome"
       screenOptions={{
         headerShown: false,
+        contentStyle: {
+          backgroundColor: Colors.PRIMARYCOLOR,
+        },
       }}
     >
       <HomeStack.Screen name="GoHome" component={HomeScreen} />
-      <HomeStack.Screen name="GoLogProductivity" component={ProductivityStackScreen} />
+      <HomeStack.Screen
+        name="GoLogProductivity"
+        component={ProductivityStackScreen}
+      />
       <HomeStack.Screen name="GoLogSport" component={SportStackScreen} />
       <HomeStack.Screen name="GoLogFood" component={FoodStackScreen} />
       <HomeStack.Screen name="GoLogSleep" component={SleepStackScreen} />
