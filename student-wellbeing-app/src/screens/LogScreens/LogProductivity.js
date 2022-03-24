@@ -14,10 +14,20 @@ import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
 import StarRating from "react-native-star-rating-widget";
+import { logProductivityData } from "../../utils/LogData";
 
 export default function LogProductivity({ navigation }) {
-  const [text, onChangeText] = React.useState(null);
+  const [text, onChangeText] = useState(null);
+  const [timeSpent, setTimeSpent] = useState(0);
   const [rating, setRating] = useState(0);
+
+  function submitProductivity() {
+    logProductivityData(text, timeSpent, rating);
+    // Alert.alert("Edit saved successfully");
+    onChangeText(null);
+    setTimeSpent(0);
+    setRating(0);
+  }
 
   return (
     <ScrollView>
@@ -91,6 +101,7 @@ export default function LogProductivity({ navigation }) {
                   width: 20,
                   borderRadius: 10,
                 }}
+                onValuesChange={(value) => setTimeSpent(value)}
               />
             </View>
           </View>
@@ -114,7 +125,9 @@ export default function LogProductivity({ navigation }) {
 
           <Pressable
             style={LogScreenStyles.button}
-            onPress={() => Alert.alert("Edit saved successfully!")}
+            onPress={() => {
+              submitProductivity();
+            }}
           >
             <Text style={LogScreenStyles.text}>{"Done"}</Text>
           </Pressable>
