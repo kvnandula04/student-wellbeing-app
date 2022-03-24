@@ -6,6 +6,12 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.PRIMARYCOLOR,
   },
+  topCard: {
+    marginHorizontal: "5%",
+    marginTop: "7%",
+    padding: "7%",
+    justifyContent: "flex-start",
+  },
   input: {
     marginHorizontal: "5%",
     marginTop: "5%",

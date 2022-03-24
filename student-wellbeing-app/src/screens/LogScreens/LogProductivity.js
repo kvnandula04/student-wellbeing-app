@@ -22,39 +22,30 @@ export default function LogProductivity({ navigation }) {
   return (
     <ScrollView>
       <View style={LogScreenStyles.container}>
-        <EmptyCard
-          style={{
-            marginHorizontal: "5%",
-            marginTop: "20%",
-            padding: "7%",
-            justifyContent: "space-between",
-          }}
-        >
-          <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
-            <Image
-              source={require("../../assets/book.png")}
+        <EmptyCard style={LogScreenStyles.topCard}>
+          <Image
+            source={require("../../assets/book.png")}
+            style={{
+              width: 130 * 0.6,
+              height: 104 * 0.6,
+            }}
+          />
+          <View>
+            <Text
+              style={{ fontWeight: "bold", marginLeft: "10%", fontSize: 30 }}
+            >
+              Productivity
+            </Text>
+            <Text
               style={{
-                width: 130 * 0.6,
-                height: 104 * 0.6,
+                fontWeight: "bold",
+                marginLeft: "12%",
+                fontSize: 12,
+                paddingTop: 5,
               }}
-            />
-            <View>
-              <Text
-                style={{ fontWeight: "bold", marginLeft: "10%", fontSize: 30 }}
-              >
-                Productivity
-              </Text>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  marginLeft: "12%",
-                  fontSize: 12,
-                  paddingTop: 5,
-                }}
-              >
-                Log Session
-              </Text>
-            </View>
+            >
+              Log Session
+            </Text>
           </View>
         </EmptyCard>
         <View>

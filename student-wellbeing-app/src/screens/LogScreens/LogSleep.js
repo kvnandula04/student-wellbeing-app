@@ -23,14 +23,7 @@ export default function LogSleep({ navigation }) {
   return (
     <ScrollView>
       <View style={LogScreenStyles.container}>
-        <EmptyCard
-          style={{
-            marginHorizontal: "5%",
-            marginTop: "20%",
-            padding: "7%",
-            justifyContent: "space-between",
-          }}
-        >
+        <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
             <Image
               source={require("../../assets/sleep.png")}
