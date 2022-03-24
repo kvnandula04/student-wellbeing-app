@@ -10,7 +10,6 @@ import SleepStackScreen from "./SleepStackScreen";
 import ProductivityStackScreen from "./ProductivityStackScreen";
 import Colors from "../styles/Colors";
 
-
 const Tab = createBottomTabNavigator();
 
 export default function TabNavMaterial() {
@@ -18,19 +17,20 @@ export default function TabNavMaterial() {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
-        barStyle={{ backgroundColor: "#E35D5D" }}
         shifting={false}
-        activeColor="#FFFFFF"
-        inactiveColor="#BBBBBB"
         screenOptions={{
+          tabBarStyle: { backgroundColor: "#E35D5D" },
           headerStyle: {
             backgroundColor: "#E35D5D",
           },
           headerTitleStyle: {
             fontWeight: "bold",
+            color: "#FFFFFF",
           },
           title: "Header",
           color: "white",
+          tabBarActiveTintColor: "#FFFFFF",
+          tabBarInactiveTintColor: "#BBBBBB",
         }}
       >
         <Tab.Screen
