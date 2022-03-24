@@ -88,7 +88,7 @@ export default function LogSleep({ navigation }) {
         <View
           style={{
             position: "relative",
-            paddingHorizontal: "20%",
+            paddingHorizontal: "22%",
             paddingTop: "5%",
           }}
         >
