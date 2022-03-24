@@ -5,5 +5,6 @@
 react-native-chart-kit
 react-native-svg
 react-native-screens
-react-native-star-rating-widget ( for npm, add --save at the end)
+react-native-star-rating-widget (for npm, add --save at the end)
 @react-navigation/bottom-tabs
+react-native-sqlite-storage (for npm, add --save at the end)
