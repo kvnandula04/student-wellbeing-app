@@ -1,8 +1,9 @@
 @react-navigation/native
-@react-navigation/material-bottom-tabs
+@react-navigation/material-bottom-tabs //NOT NEEDED ANYMORE AS WAS CAUSING ISSUES
 @ptomasroos/react-native-multi-slider
 @react-native-masked-view/masked-view
 react-native-chart-kit
 react-native-svg
 react-native-screens
 react-native-star-rating-widget ( for npm, add --save at the end)
+@react-navigation/bottom-tabs
