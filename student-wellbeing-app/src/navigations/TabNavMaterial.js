@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import FoodStackScreen from "./FoodStackScreen";
@@ -10,7 +10,8 @@ import SleepStackScreen from "./SleepStackScreen";
 import ProductivityStackScreen from "./ProductivityStackScreen";
 import Colors from "../styles/Colors";
 
-const Tab = createMaterialBottomTabNavigator();
+
+const Tab = createBottomTabNavigator();
 
 export default function TabNavMaterial() {
   return (
