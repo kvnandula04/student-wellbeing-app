@@ -107,7 +107,7 @@ export default function LogSport({ navigation }) {
           <View
             style={{
               position: "relative",
-              paddingHorizontal: "20%",
+              paddingHorizontal: "22%",
             }}
           >
             <Text
@@ -120,19 +120,23 @@ export default function LogSport({ navigation }) {
             </Text>
             <StarRating rating={rating} onChange={setRating} />
           </View>
-
-          <Pressable
-            style={LogScreenStyles.button}
-            onPress={() => Alert.alert("Edit saved successfully!")}
+          <View
+            style={{paddingTop: "5%"}}
           >
-            <Text style={LogScreenStyles.text}>{"Done"}</Text>
-          </Pressable>
-          <Pressable
-            style={LogScreenStyles.button}
-            onPress={() => navigation.navigate("SportAnalytics")}
-          >
-            <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
-          </Pressable>
+            <Pressable
+              style={LogScreenStyles.button}
+              onPress={() => Alert.alert("Edit saved successfully!")}
+              >
+              <Text style={LogScreenStyles.text}>{"Done"}</Text>
+            </Pressable>
+            <Pressable
+              style={LogScreenStyles.button}
+              onPress={() => navigation.navigate("SportAnalytics")}
+              >
+              <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
+            </Pressable>
+          </View>
+          
         </View>
       </View>
     </ScrollView>
