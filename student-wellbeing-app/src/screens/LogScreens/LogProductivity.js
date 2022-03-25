@@ -19,8 +19,8 @@ import { logProductivityData } from "../../utils/LogData";
 import * as SQLite from "expo-sqlite";
 import { createDatabase, resetDatabase } from "../../utils/SetupDatabase";
 
-// createDatabase();
-resetDatabase();
+// createDatabase(); // database created if it doens't exist
+resetDatabase(); // database resets after reloading app - for testing
 
 export default function LogProductivity({ navigation }) {
   const [text, onChangeText] = useState(null);
@@ -35,9 +35,8 @@ export default function LogProductivity({ navigation }) {
     logProductivityData(text, timeSpent, rating);
     // // Alert.alert("Edit saved successfully");
     // onChangeText(null);
-    // setTimeSpent(0);
-    // setRating(0);
-    testAdd();
+    setTimeSpent(0);
+    setRating(0);
     testGet();
   }
 
@@ -49,17 +48,6 @@ export default function LogProductivity({ navigation }) {
     });
   }
 
-  function testAdd() {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "INSERT INTO Productivity (Subject, Length, Rating) values (?,?,?)",
-        ["Maths", 2, 3]
-      );
-    });
-  }
-
-  // testAdd();
-  // testAdd2();
   testGet();
 
   return (
