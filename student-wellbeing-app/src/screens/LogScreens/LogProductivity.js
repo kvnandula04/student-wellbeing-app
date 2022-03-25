@@ -16,22 +16,73 @@ import { EmptyCard } from "../../components/EmptyCard";
 import StarRating from "react-native-star-rating-widget";
 import { logProductivityData } from "../../utils/LogData";
 
+import * as SQLite from "expo-sqlite";
+
 export default function LogProductivity({ navigation }) {
   const [text, onChangeText] = useState(null);
   const [timeSpent, setTimeSpent] = useState(0);
   const [rating, setRating] = useState(0);
 
+  const [testSQL, setTestSQL] = useState("Hi");
+
+  const db = SQLite.openDatabase("WellbeingDB.db");
+
   function submitProductivity() {
-    logProductivityData(text, timeSpent, rating);
-    // Alert.alert("Edit saved successfully");
-    onChangeText(null);
-    setTimeSpent(0);
-    setRating(0);
+    // logProductivityData(text, timeSpent, rating);
+    // // Alert.alert("Edit saved successfully");
+    // onChangeText(null);
+    // setTimeSpent(0);
+    // setRating(0);
+    // testGet();
   }
+
+  function createSQLTable() {
+    db.transaction((tx) => {
+      tx.executeSql("DROP TABLE Productivity;");
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS Productivity (ID INTEGER PRIMARY KEY AUTOINCREMENT, Subject TEXT, Length INTEGER, Rating INTEGER);"
+      );
+    });
+    // Alert.alert("Created table");
+  }
+
+  function testAdd() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "INSERT INTO Productivity (Subject, Length, Rating) values (?,?,?)",
+        ["Maths", 2, 3]
+      );
+    });
+  }
+
+  function testAdd2() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "INSERT INTO Productivity (Subject, Length, Rating) values (?,?,?)",
+        ["Chemistry", 3, 4]
+      );
+    });
+  }
+
+  function testGet() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * FROM Productivity WHERE (ID = ?)",
+        [2],
+        (_, { rows }) => setTestSQL(JSON.stringify(rows))
+      );
+    });
+  }
+
+  createSQLTable();
+  testAdd();
+  testAdd2();
+  testGet();
 
   return (
     <ScrollView>
       <View style={LogScreenStyles.container}>
+        <Text>{testSQL}</Text>
         <EmptyCard style={LogScreenStyles.topCard}>
           <Image
             source={require("../../assets/book.png")}
