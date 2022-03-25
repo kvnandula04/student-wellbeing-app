@@ -17,10 +17,7 @@ import StarRating from "react-native-star-rating-widget";
 import { logProductivityData } from "../../utils/LogData";
 
 import * as SQLite from "expo-sqlite";
-import { createDatabase, resetDatabase } from "../../utils/SetupDatabase";
-
-// createDatabase(); // database created if it doens't exist
-resetDatabase(); // database resets after reloading app - for testing
+import { CreateDatabase, ResetDatabase } from "../../utils/SetupDatabase";
 
 export default function LogProductivity({ navigation }) {
   const [text, onChangeText] = useState(null);
@@ -34,10 +31,30 @@ export default function LogProductivity({ navigation }) {
   function submitProductivity() {
     logProductivityData(text, timeSpent, rating);
     // // Alert.alert("Edit saved successfully");
-    // onChangeText(null);
+    onChangeText(null);
     setTimeSpent(0);
     setRating(0);
+
+    //test func
     testGet();
+  }
+
+  function testAdd() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "INSERT INTO Productivity (Subject, Length, Rating) values (?,?,?)",
+        ["Maths", 2, 3]
+      );
+    });
+  }
+
+  function testAdd2() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "INSERT INTO Productivity (Subject, Length, Rating) values (?,?,?)",
+        ["Chemistry", 3, 4]
+      );
+    });
   }
 
   function testGet() {
@@ -48,6 +65,11 @@ export default function LogProductivity({ navigation }) {
     });
   }
 
+  // createSQLTable();
+  CreateDatabase();
+
+  testAdd();
+  testAdd2();
   testGet();
 
   return (
@@ -131,7 +153,7 @@ export default function LogProductivity({ navigation }) {
           <View
             style={{
               position: "relative",
-              paddingHorizontal: "24.5%",
+              paddingHorizontal: "20%",
             }}
           >
             <Text
@@ -158,6 +180,14 @@ export default function LogProductivity({ navigation }) {
             onPress={() => navigation.navigate("ProductivityAnalytics")}
           >
             <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
+          </Pressable>
+          <Pressable
+            style={LogScreenStyles.button}
+            onPress={() => {
+              ResetDatabase();
+            }}
+          >
+            <Text style={LogScreenStyles.text}>{"Reset Database"}</Text>
           </Pressable>
         </View>
       </View>

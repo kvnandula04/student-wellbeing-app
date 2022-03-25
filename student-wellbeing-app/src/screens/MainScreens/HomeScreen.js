@@ -13,7 +13,20 @@ import Colors from "../../styles/Colors";
 import { EmptyCard } from "../../components/EmptyCard";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 
+// import sqlite from "react-native-sqlite-storage";
+import * as SQLite from "expo-sqlite";
+import { useEffect } from "react/cjs/react.production.min";
+
+// const db = SQLite.openDatabase("WellbeingDB.db");
+// const foo = "yo";
+
 export default function HomeScreen({ navigation }) {
+  // useEffect(() => {
+  //   createTable();
+  // });
+
+  // createSQLTable();
+
   return (
     <SafeAreaView style={styles.container}>
       {/* <ScrollView> */}
@@ -24,6 +37,7 @@ export default function HomeScreen({ navigation }) {
 
       <View style={[styles.cardContainer, { flex: 0.2 }]}>
         <EmptyCard style={{ flex: 0.7 }}>
+          {/* <Text>{foo}</Text> */}
           <Text
             style={[
               LogScreenStyles.text,
