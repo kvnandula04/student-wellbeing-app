@@ -109,7 +109,7 @@ export default function LogProductivity({ navigation }) {
           <View
             style={{
               position: "relative",
-              paddingHorizontal: "20%",
+              paddingHorizontal: "24.5%",
             }}
           >
             <Text
