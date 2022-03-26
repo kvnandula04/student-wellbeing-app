@@ -14,14 +14,26 @@ import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
 import StarRating from "react-native-star-rating-widget";
+import { selectAllFromDB } from "../../utils/GeneralDBFunc";
+import { logSportData } from "../../utils/LogData";
 
 export default function LogSport({ navigation }) {
-  const [text, onChangeText] = React.useState(null);
+  const [text, onChangeText] = useState(null);
+  const [timeSpent, setTimeSpent] = useState(0);
   const [rating, setRating] = useState(0);
+
+  // var tableData = selectAllFromDB("Sport");
+
+  // function submitSport() {
+  //   logSportData(text, timeSpent, rating);
+  //   onChangeText(null);
+  //   setRating(0);
+  // }
 
   return (
     <ScrollView>
       <View style={LogScreenStyles.container}>
+        {/* <Text>{tableData}</Text> // temporary */}
         <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
             <Image
@@ -93,6 +105,7 @@ export default function LogSport({ navigation }) {
                   width: 20,
                   borderRadius: 10,
                 }}
+                onValuesChange={(value) => setTimeSpent(value)}
               />
             </View>
           </View>
@@ -116,7 +129,7 @@ export default function LogSport({ navigation }) {
           <View style={{ paddingTop: "5%" }}>
             <Pressable
               style={LogScreenStyles.button}
-              onPress={() => Alert.alert("Edit saved successfully!")}
+              onPress={() => submitSport()}
             >
               <Text style={LogScreenStyles.text}>{"Done"}</Text>
             </Pressable>

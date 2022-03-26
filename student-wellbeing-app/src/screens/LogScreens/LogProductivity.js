@@ -16,9 +16,7 @@ import { EmptyCard } from "../../components/EmptyCard";
 import StarRating from "react-native-star-rating-widget";
 import { logProductivityData } from "../../utils/LogData";
 
-import * as SQLite from "expo-sqlite";
-import { createDatabase, resetDatabase } from "../../utils/SetupDatabase";
-import { connectToDB, selectAllFromDB } from "../../utils/GeneralDBFunc";
+import { selectAllFromDB } from "../../utils/GeneralDBFunc";
 
 // createDatabase(); // database created if it doens't exist
 // resetDatabase(); // database resets after reloading app - for testing
@@ -27,21 +25,23 @@ export default function LogProductivity({ navigation }) {
   const [text, onChangeText] = useState(null);
   const [timeSpent, setTimeSpent] = useState(0);
   const [rating, setRating] = useState(0);
+  const [tableData, setTableData] = useState("No Data");
 
-  var tableData = selectAllFromDB("Productivity"); // data from SQL table for debug purposes - remove when ready
+  selectAllFromDB("Productivity", setTableData); // data from SQL table for debug purposes - remove when ready
 
   function submitProductivity() {
     logProductivityData(text, timeSpent, rating);
     // // Alert.alert("Edit saved successfully");
     onChangeText(null);
-    setTimeSpent(0);
+    // setTimeSpent(0); // slider doesn't reset to 0 so best to keep value on last value
     setRating(0);
   }
 
   return (
     <ScrollView>
+      <Text>{tableData}</Text>
       <View style={LogScreenStyles.container}>
-        <Text>{tableData}</Text>
+        {/* <Text>Hello</Text> // temporary */}
         <EmptyCard style={LogScreenStyles.topCard}>
           <Image
             source={require("../../assets/book.png")}

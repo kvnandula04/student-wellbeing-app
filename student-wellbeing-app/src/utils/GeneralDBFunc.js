@@ -5,13 +5,11 @@ export function connectToDB() {
   return SQLite.openDatabase("WellbeingDB.db");
 }
 
-export function selectAllFromDB(tableName) {
+export function selectAllFromDB(tableName, setData) {
   const db = connectToDB();
-  const [data, setData] = useState(null);
   db.transaction((tx) => {
     tx.executeSql(`SELECT * FROM ${tableName}`, [], (_, { rows }) =>
       setData(JSON.stringify(rows))
     );
   });
-  return data;
 }
