@@ -9,6 +9,7 @@ import HomeStackScreen from "./HomeStackScreen";
 import SleepStackScreen from "./SleepStackScreen";
 import ProductivityStackScreen from "./ProductivityStackScreen";
 import Colors from "../styles/Colors";
+import Develop from "../screens/DevelopScreens/Develop";
 
 const Tab = createBottomTabNavigator();
 
@@ -93,6 +94,20 @@ export default function TabNavMaterial() {
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="bed-outline"
+                color={color}
+                size={26}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Develop"
+          component={Develop}
+          options={{
+            tabBarLabel: "Develop",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="account-cog-outline"
                 color={color}
                 size={26}
               />
