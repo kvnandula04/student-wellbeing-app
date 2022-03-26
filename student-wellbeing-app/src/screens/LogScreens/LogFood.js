@@ -12,13 +12,26 @@ import {
 } from "react-native";
 import { EmptyCard } from "../../components/EmptyCard";
 import LogScreenStyles from "../../styles/LogScreenStyles";
+import { selectAllFromDB } from "../../utils/GeneralDBFunc";
+import { logFoodData } from "../../utils/LogDataDB";
 
 export default function LogFood({ navigation }) {
   const [text, onChangeText] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
 
+  // data from SQL table for debug purposes - remove when ready
+  const [tableData, setTableData] = React.useState("No Data");
+  selectAllFromDB("Food", setTableData);
+
+  function submitFood() {
+    logFoodData(text, number);
+    onChangeText(null);
+    onChangeNumber(null);
+  }
+
   return (
     <ScrollView>
+      <Text>{tableData}</Text>
       <View style={LogScreenStyles.container}>
         <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
@@ -65,7 +78,7 @@ export default function LogFood({ navigation }) {
           />
           <Pressable
             style={LogScreenStyles.button}
-            onPress={() => Alert.alert("Edit saved successfully!")}
+            onPress={() => submitFood()}
           >
             <Text style={LogScreenStyles.text}>{"Done"}</Text>
           </Pressable>

@@ -13,15 +13,30 @@ import {
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
 import StarRating from "react-native-star-rating-widget";
+import { selectAllFromDB } from "../../utils/GeneralDBFunc";
+import { logSleepData } from "../../utils/LogDataDB";
 
 export default function LogSleep({ navigation }) {
-  const [text, onChangeText] = React.useState(null);
-  const [number, onChangeNumber] = React.useState(null);
+  const [hours, onChangeHours] = React.useState(null);
+  const [minutes, onChangeMinutes] = React.useState(null);
   const [entry, onChangeEntry] = React.useState(null);
   const [rating, setRating] = useState(0);
 
+  // data from SQL table for debug purposes - remove when ready
+  const [tableData, setTableData] = useState("No Data");
+  selectAllFromDB("Sleep", setTableData);
+
+  function submitSleep() {
+    logSleepData(hours, minutes, rating, entry);
+    onChangeHours(null);
+    onChangeMinutes(null);
+    onChangeEntry(null);
+    setRating(null);
+  }
+
   return (
     <ScrollView>
+      <Text>{tableData}</Text>
       <View style={LogScreenStyles.container}>
         <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
@@ -70,16 +85,16 @@ export default function LogSleep({ navigation }) {
         >
           <TextInput
             style={LogScreenStyles.timeinput}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={onChangeHours}
+            value={hours}
             keyboardType="number-pad"
             placeholder="hrs."
           />
 
           <TextInput
             style={LogScreenStyles.timeinput}
-            onChangeText={onChangeNumber}
-            value={number}
+            onChangeText={onChangeMinutes}
+            value={minutes}
             keyboardType="number-pad"
             placeholder="mins."
           />
@@ -106,15 +121,12 @@ export default function LogSleep({ navigation }) {
         <TextInput
           multiline={true}
           style={LogScreenStyles.largeInput}
-          onChangeEntry={onChangeEntry}
+          onChangeText={onChangeEntry}
           value={entry}
           placeholder="Journal"
         />
 
-        <Pressable
-          style={LogScreenStyles.button}
-          onPress={() => Alert.alert("Edit saved successfully!")}
-        >
+        <Pressable style={LogScreenStyles.button} onPress={() => submitSleep()}>
           <Text style={LogScreenStyles.text}>{"Done"}</Text>
         </Pressable>
         <Pressable

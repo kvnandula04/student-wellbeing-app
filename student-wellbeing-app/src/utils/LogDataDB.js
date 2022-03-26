@@ -32,3 +32,15 @@ export const logFoodData = (food, calories) => {
     ]);
   });
 };
+
+export const logSleepData = (hours, minutes, rating, journal) => {
+  Alert.alert(
+    `Hours: ${hours}, minutes: ${minutes}, rating: ${rating}, journal: ${journal}`
+  );
+  db.transaction((tx) => {
+    tx.executeSql(
+      "INSERT INTO Sleep (TimeHours, TimeMinutes, Rating, Journal) values (?,?,?,?)",
+      [hours, minutes, rating, journal]
+    );
+  });
+};

@@ -14,7 +14,7 @@ import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
 import StarRating from "react-native-star-rating-widget";
-import { logProductivityData } from "../../utils/LogData";
+import { logProductivityData } from "../../utils/LogDataDB";
 
 import { selectAllFromDB } from "../../utils/GeneralDBFunc";
 
@@ -25,9 +25,10 @@ export default function LogProductivity({ navigation }) {
   const [text, onChangeText] = useState(null);
   const [timeSpent, setTimeSpent] = useState(0);
   const [rating, setRating] = useState(0);
-  const [tableData, setTableData] = useState("No Data");
 
-  selectAllFromDB("Productivity", setTableData); // data from SQL table for debug purposes - remove when ready
+  // data from SQL table for debug purposes - remove when ready
+  const [tableData, setTableData] = useState("No Data");
+  selectAllFromDB("Productivity", setTableData);
 
   function submitProductivity() {
     logProductivityData(text, timeSpent, rating);

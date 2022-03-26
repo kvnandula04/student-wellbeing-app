@@ -15,25 +15,27 @@ import LogScreenStyles from "../../styles/LogScreenStyles";
 import { EmptyCard } from "../../components/EmptyCard";
 import StarRating from "react-native-star-rating-widget";
 import { selectAllFromDB } from "../../utils/GeneralDBFunc";
-import { logSportData } from "../../utils/LogData";
+import { logSportData } from "../../utils/LogDataDB";
 
 export default function LogSport({ navigation }) {
   const [text, onChangeText] = useState(null);
   const [timeSpent, setTimeSpent] = useState(0);
   const [rating, setRating] = useState(0);
 
-  // var tableData = selectAllFromDB("Sport");
+  // data from SQL table for debug purposes - remove when ready
+  const [tableData, setTableData] = useState("No Data");
+  selectAllFromDB("Sport", setTableData);
 
-  // function submitSport() {
-  //   logSportData(text, timeSpent, rating);
-  //   onChangeText(null);
-  //   setRating(0);
-  // }
+  function submitSport() {
+    logSportData(text, timeSpent, rating);
+    onChangeText(null);
+    setRating(0);
+  }
 
   return (
     <ScrollView>
+      <Text>{tableData}</Text>
       <View style={LogScreenStyles.container}>
-        {/* <Text>{tableData}</Text> // temporary */}
         <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
             <Image
