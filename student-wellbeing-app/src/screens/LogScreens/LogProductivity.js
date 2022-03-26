@@ -18,42 +18,30 @@ import { logProductivityData } from "../../utils/LogData";
 
 import * as SQLite from "expo-sqlite";
 import { createDatabase, resetDatabase } from "../../utils/SetupDatabase";
+import { connectToDB, selectAllFromDB } from "../../utils/GeneralDBFunc";
 
 // createDatabase(); // database created if it doens't exist
-resetDatabase(); // database resets after reloading app - for testing
+// resetDatabase(); // database resets after reloading app - for testing
 
 export default function LogProductivity({ navigation }) {
   const [text, onChangeText] = useState(null);
   const [timeSpent, setTimeSpent] = useState(0);
   const [rating, setRating] = useState(0);
 
-  const [testSQL, setTestSQL] = useState("Hi");
-
-  const db = SQLite.openDatabase("WellbeingDB.db");
+  var tableData = selectAllFromDB("Productivity"); // data from SQL table for debug purposes - remove when ready
 
   function submitProductivity() {
     logProductivityData(text, timeSpent, rating);
     // // Alert.alert("Edit saved successfully");
-    // onChangeText(null);
+    onChangeText(null);
     setTimeSpent(0);
     setRating(0);
-    testGet();
   }
-
-  function testGet() {
-    db.transaction((tx) => {
-      tx.executeSql("SELECT * FROM Productivity", [], (_, { rows }) =>
-        setTestSQL(JSON.stringify(rows))
-      );
-    });
-  }
-
-  testGet();
 
   return (
     <ScrollView>
       <View style={LogScreenStyles.container}>
-        <Text>{testSQL}</Text>
+        <Text>{tableData}</Text>
         <EmptyCard style={LogScreenStyles.topCard}>
           <Image
             source={require("../../assets/book.png")}
