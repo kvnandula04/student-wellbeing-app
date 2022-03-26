@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import LogSport from './src/screens/LogScreens/LogSport';
-import LogFood from './src/screens/LogScreens/LogFood';
-import TabNavMaterial from './src/navigations/TabNavMaterial';
+import TabNavMaterial from "./src/navigations/TabNavMaterial";
+// import { useEffect } from "react";
+import * as SQLite from "expo-sqlite";
+
+const db = SQLite.openDatabase("WellbeingDB.db");
 
 export default function App() {
-  return (
-    <TabNavMaterial></TabNavMaterial>
-  );
+  //   // useEffect(() => {
+  //   //   createTable();
+  //   // });
+
+  db.transaction((tx) => {
+    tx.executeSql(
+      `CREATE TABLE IF NOT EXISTS Productivity (ID INTEGER PRIMARY KEY AUTOINCREMENT, Subject VARCHAR(20), Length INTEGER, Rating INTEGER`
+    );
+  });
+
+  return <TabNavMaterial></TabNavMaterial>;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// // https://www.youtube.com/watch?v=GkuPPJ7AOSQ&t=1s
