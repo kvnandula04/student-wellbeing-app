@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: "10%",
     bottom: "10%",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
   },
   moodimage: {
