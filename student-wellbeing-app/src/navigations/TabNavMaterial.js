@@ -1,4 +1,5 @@
 import React from "react";
+import { Image, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -8,12 +9,20 @@ import SportStackScreen from "./SportStackScreen";
 import HomeStackScreen from "./HomeStackScreen";
 import SleepStackScreen from "./SleepStackScreen";
 import ProductivityStackScreen from "./ProductivityStackScreen";
-import Colors from "../styles/Colors";
 import Develop from "../screens/DevelopScreens/Develop";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavMaterial() {
+  let [fontsLoaded] = useFonts({
+    Marker: require("../assets/fonts/PermanentMarker-Regular.ttf"),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -25,10 +34,22 @@ export default function TabNavMaterial() {
             backgroundColor: "#E35D5D",
           },
           headerTitleStyle: {
-            fontWeight: "bold",
-            color: "#FFFFFF",
+            fontFamily: "Marker",
+            fontWeight: 'bold',
+            fontSize: 30,
+            color: '#FFFFFF',
+            paddingBottom: '15%',
           },
-          title: "Header",
+          headerRight: () => (
+            <MaterialCommunityIcons
+              name="cog"
+              color="#FFFFFF"
+              size={26}
+              onPress={() => alert("Open goals page")}
+              style={{ paddingBottom: "10%", paddingRight: "10%" }}
+            />
+          ),
+          title: "Wellbeing",
           color: "white",
           tabBarActiveTintColor: "#FFFFFF",
           tabBarInactiveTintColor: "#BBBBBB",
