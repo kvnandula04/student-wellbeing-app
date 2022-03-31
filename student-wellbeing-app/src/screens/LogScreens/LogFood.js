@@ -38,8 +38,8 @@ export default function LogFood({ navigation }) {
             <Image
               source={require("../../assets/food.png")}
               style={{
-                width: 130 * 0.6,
-                height: 122 * 0.6,
+                width: 130 * 0.5,
+                height: 122 * 0.55,
               }}
             />
             <View>

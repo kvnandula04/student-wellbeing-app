@@ -53,13 +53,13 @@ export default function SleepAnalytics({ navigation }) {
             <Image
               source={require("../../assets/sleep.png")}
               style={{
-                width: 90 * 0.6,
-                height: 69 * 0.6,
+                width: 90 * 0.7,
+                height: 90 * 0.7,
               }}
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
+                style={{ fontWeight: "bold", marginTop: "5%", marginLeft: "20%", fontSize: 30 }}
               >
                 Sleep
               </Text>

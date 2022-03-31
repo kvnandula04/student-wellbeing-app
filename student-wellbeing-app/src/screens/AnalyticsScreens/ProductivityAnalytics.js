@@ -54,12 +54,12 @@ export default function ProductivityAnalytics({ navigation }) {
               source={require("../../assets/book.png")}
               style={{
                 width: 130 * 0.6,
-                height: 122 * 0.6,
+                height: 130 * 0.6,
               }}
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginLeft: "10%", fontSize: 30 }}
+                style={{ fontWeight: "bold", marginTop: "7%", marginLeft: "10%", fontSize: 30 }}
               >
                 Productivity
               </Text>

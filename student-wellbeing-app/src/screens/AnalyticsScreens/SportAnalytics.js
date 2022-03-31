@@ -53,18 +53,18 @@ export default function SportAnalytics({ navigation }) {
             <Image
               source={require("../../assets/tennis.png")}
               style={{
-                width: 68 * 0.6,
+                width: 114 * 0.7,
                 height: 114 * 0.6,
               }}
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
+                style={{ fontWeight: "bold", marginTop: "5%", marginLeft: "15%", fontSize: 30 }}
               >
                 Sport
               </Text>
               <Text
-                style={{ fontWeight: "bold", marginLeft: "22%", fontSize: 12 }}
+                style={{ fontWeight: "bold", marginLeft: "17%", fontSize: 12 }}
               >
                 Analytics
               </Text>

@@ -102,7 +102,7 @@ export default function HomeScreen({ navigation }) {
         <EmptyCard style={{ flex: 0.48 }}>
           <Image
             source={require("../../assets/book.png")}
-            style={[styles.image, { width: 130 * 0.7, height: 104 * 0.7 }]}
+            style={[styles.image, { width: 130 * 0.6, height: 130 * 0.6 }]}
           />
           <Text style={styles.secondaryText}>Maths - 30 mins</Text>
           <Text style={styles.primaryText}>65 / 125 mins</Text>
@@ -110,7 +110,7 @@ export default function HomeScreen({ navigation }) {
         <EmptyCard style={{ flex: 0.48 }}>
           <Image
             source={require("../../assets/tennis.png")}
-            style={[styles.image, { width: 68 * 0.6, height: 114 * 0.6 }]}
+            style={[styles.image, { width: 114 * 0.75, height: 114 * 0.75 }]}
           />
           <Text style={styles.secondaryText}>Tennis - 60 mins</Text>
           <Text style={styles.primaryText}>60 / 60 mins</Text>
@@ -129,7 +129,7 @@ export default function HomeScreen({ navigation }) {
         <EmptyCard style={{ flex: 0.48 }}>
           <Image
             source={require("../../assets/sleep.png")}
-            style={[styles.image, { width: 90 * 1, height: 69 * 1 }]}
+            style={[styles.image, { width: 90 * 0.85, height: 90 * 0.85 }]}
           />
           <Text style={styles.secondaryText}>Yesterday - 7 hrs</Text>
           <Text style={styles.primaryText}>7 / 8 hrs</Text>

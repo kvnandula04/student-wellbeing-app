@@ -53,13 +53,13 @@ export default function FoodAnalytics({ navigation }) {
             <Image
               source={require("../../assets/food.png")}
               style={{
-                width: 130 * 0.6,
-                height: 122 * 0.6,
+                width: 130 * 0.5,
+                height: 122 * 0.55,
               }}
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginLeft: "20%", fontSize: 30 }}
+                style={{ fontWeight: "bold", marginTop: "7%", marginLeft: "20%", fontSize: 30 }}
               >
                 Food
               </Text>

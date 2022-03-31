@@ -43,8 +43,8 @@ export default function LogSleep({ navigation }) {
             <Image
               source={require("../../assets/sleep.png")}
               style={{
-                width: 90 * 0.9,
-                height: 69 * 0.9,
+                width: 90 * 0.7,
+                height: 90 * 0.7,
               }}
             />
             <View>

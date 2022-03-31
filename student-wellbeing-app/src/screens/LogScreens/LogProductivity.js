@@ -48,7 +48,7 @@ export default function LogProductivity({ navigation }) {
             source={require("../../assets/book.png")}
             style={{
               width: 130 * 0.6,
-              height: 104 * 0.6,
+              height: 130 * 0.6,
             }}
           />
           <View>
