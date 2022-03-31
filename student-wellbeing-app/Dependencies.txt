@@ -9,3 +9,5 @@ react-native-star-rating-widget (for npm, add --save at the end)
 @react-navigation/bottom-tabs
 react-native-sqlite-storage (for npm, add --save at the end)
 expo-sqlite
+expo-font
+expo-app-loading
