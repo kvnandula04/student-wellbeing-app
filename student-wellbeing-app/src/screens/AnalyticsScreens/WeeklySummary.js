@@ -20,7 +20,7 @@ const backendvalue2 = "Sports Activity";
 const backendvalue3 = "Overall Sleep";
 const backendvalue4 = 52;
 const backendvalue5 = 38;
-const backendvalue6 = 24;
+const backendvalue6 = -24;
 
 
 /*
@@ -117,9 +117,9 @@ export default function WeeklySummary({navigation}) {
         }}
       >
         <View>
-        <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 12, fontWeight: "bold", color: "green"}}> {backendvalue1} up by {backendvalue4}% this week </Text>       
-        <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 12, fontWeight: "bold", color: "green"}}> {backendvalue2} up by {backendvalue5}% this week </Text>
-        <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 12, fontWeight: "bold", color: "red"}}>{backendvalue3} down by {backendvalue6}% this week </Text> 
+        <Text style={[styles.text, (backendvalue4 > 0) ? styles.ispositive : styles.isnegative]}> {backendvalue1} up by {backendvalue4}% this week </Text>       
+        <Text style ={[styles.text, (backendvalue5 > 0) ? styles.ispositive : styles.isnegative]}> {backendvalue2} up by {backendvalue5}% this week </Text>
+        <Text style ={[styles.text, (backendvalue6 > 0) ? styles.ispositive : styles.isnegative]}>{backendvalue3} down by {backendvalue6}% this week </Text> 
         </View>
         </EmptyCard>
       </View>
@@ -164,6 +164,14 @@ const styles = StyleSheet.create({
       fontWeight: "bold", 
       textAlign: "center", 
       textTransform: 'uppercase'
+    },
+    ispositive: {
+      color: "green",
+      fontSize: 12,
+    },
+    isnegative: {
+      color: "red",
+      fontSize: 12,
     },
     analyticstext: {
       marginBottom: "4%",
