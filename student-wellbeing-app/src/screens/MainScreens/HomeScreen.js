@@ -148,7 +148,7 @@ export default function HomeScreen({ navigation }) {
         ]}
       >
         <TouchableOpacity
-          onPress={() => alert("TODO")}
+          onPress={() => navigation.navigate("GoWeeklyAnalytics")}
           style={styles.bottomButtons}
         >
           <EmptyCard style={{ flex: 1 }}>

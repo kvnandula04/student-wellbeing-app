@@ -6,6 +6,7 @@ import FoodStackScreen from "./FoodStackScreen";
 import SleepStackScreen from "./SleepStackScreen";
 import HomeScreen from "../screens/MainScreens/HomeScreen";
 import Colors from "../styles/Colors";
+import WeeklySummary from "../screens/AnalyticsScreens/WeeklySummary";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function HomeStackScreen() {
       <HomeStack.Screen name="GoLogSport" component={SportStackScreen} />
       <HomeStack.Screen name="GoLogFood" component={FoodStackScreen} />
       <HomeStack.Screen name="GoLogSleep" component={SleepStackScreen} />
+      <HomeStack.Screen name="GoWeeklyAnalytics" component={WeeklySummary} />
     </HomeStack.Navigator>
   );
 }

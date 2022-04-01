@@ -125,7 +125,7 @@ export default function WeeklySummary({navigation}) {
       </View>
       <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("ProductivityAnalytics")}
+          onPress={() => navigation.navigate("GoHome")}
         >
           <Text style={styles.text}>
             {"BACK"}
