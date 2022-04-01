@@ -9,7 +9,7 @@ import {
   Pressable,
   Dimensions
 } from "react-native";
-import { CustomCard } from "./components/CustomCard";
+import { EmptyCard } from "../../components/EmptyCard";
 import { LineChart } from "react-native-chart-kit";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 
@@ -40,7 +40,7 @@ export default function WeeklySummary({navigation}) {
         <>
         <ScrollView>
         <View style = {AnalyticsScreenStyles.container}>
-        <CustomCard
+        <EmptyCard
         elevated={true}
         style={{
           backgroundColor: CARDCOLOR,
@@ -68,7 +68,7 @@ export default function WeeklySummary({navigation}) {
             </Text>
           </View>
         </View>
-      </CustomCard>
+      </EmptyCard>
       <View style={PlaceholderStyles.container}>
         <LineChart
           data={data}
@@ -86,7 +86,7 @@ export default function WeeklySummary({navigation}) {
         <Text style ={{textAlign: "center", marginBottom: "3%", fontSize: 8, fontWeight: "bold",}}> Day </Text>
         <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 14, fontWeight: "bold",}}> Insights </Text>
         <View style={styles.container}>
-        <CustomCard
+        <EmptyCard
         elevated={true}
         style={{
           backgroundColor: CARDCOLOR,
@@ -100,9 +100,9 @@ export default function WeeklySummary({navigation}) {
           justifyContent: "space-between",
         }}
       >
-        </CustomCard>
+        </EmptyCard>
         <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 14, fontWeight: "bold",}}> Weekly Comparison </Text>
-        <CustomCard
+        <EmptyCard
         elevated={true}
         style={{
           backgroundColor: CARDCOLOR,
@@ -120,7 +120,7 @@ export default function WeeklySummary({navigation}) {
         <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 12, fontWeight: "bold", color: "green"}}> {backendvalue2} up by {backendvalue5}% this week </Text>
         <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 12, fontWeight: "bold", color: "red"}}>{backendvalue3} down by {backendvalue6}% this week </Text> 
         </View>
-        </CustomCard>
+        </EmptyCard>
       </View>
       <Pressable
           style={styles.button}
