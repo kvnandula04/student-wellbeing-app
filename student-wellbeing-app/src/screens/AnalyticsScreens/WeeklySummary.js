@@ -12,6 +12,7 @@ import {
 import { EmptyCard } from "../../components/EmptyCard";
 import { LineChart } from "react-native-chart-kit";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
+import Colors from "../../styles/Colors";
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Productivity";
@@ -43,7 +44,7 @@ export default function WeeklySummary({navigation}) {
         <EmptyCard
         elevated={true}
         style={{
-          backgroundColor: CARDCOLOR,
+          backgroundColor: Colors.CARDCOLOR,
           marginHorizontal: "5%",
           marginTop: "8%",
           padding: "7%",
@@ -54,7 +55,7 @@ export default function WeeklySummary({navigation}) {
       >
         <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
           <Image
-            source={require("./assets/stats.png")}
+            source={require("../../assets/stats.png")}
             style={{
               width: 130 * 0.6,
               height: 130 * 0.6,
@@ -75,8 +76,8 @@ export default function WeeklySummary({navigation}) {
           width={screenWidth * 0.7}
           height={170}
           chartConfig={{
-            backgroundGradientFrom: PRIMARYCOLOR,
-            backgroundGradientTo: PRIMARYCOLOR,
+            backgroundGradientFrom: Colors.PRIMARYCOLOR,
+            backgroundGradientTo: Colors.PRIMARYCOLOR,
             decimalPlaces: 0, 
             color: (opacity = 255) => 'black'
           }}
@@ -89,7 +90,7 @@ export default function WeeklySummary({navigation}) {
         <EmptyCard
         elevated={true}
         style={{
-          backgroundColor: CARDCOLOR,
+          backgroundColor: Colors.CARDCOLOR,
           marginHorizontal: "5%",
           marginTop: "3%",///
           marginBottom: "3%",////
@@ -105,7 +106,7 @@ export default function WeeklySummary({navigation}) {
         <EmptyCard
         elevated={true}
         style={{
-          backgroundColor: CARDCOLOR,
+          backgroundColor: Colors.CARDCOLOR,
           marginHorizontal: "5%",
           marginTop: "3%",///
           padding: "5%",
@@ -138,7 +139,7 @@ export default function WeeklySummary({navigation}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: PRIMARYCOLOR,
+      backgroundColor: Colors.PRIMARYCOLOR,
     },
     input: {
       marginHorizontal: "5%",
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
       justifyContent: "space-between",
     },
     button: {
-      backgroundColor: CARDCOLOR,
+      backgroundColor: Colors.CARDCOLOR,
       marginHorizontal: "5%",
       marginTop: "5%",
       marginBottom: "8%",///
