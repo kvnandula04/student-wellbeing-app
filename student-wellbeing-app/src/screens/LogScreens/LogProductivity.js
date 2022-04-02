@@ -112,7 +112,7 @@ export default function LogProductivity({ navigation }) {
                   width: 20,
                   borderRadius: 10,
                 }}
-                onValuesChange={(value) => setTimeSpent(value)}
+                onValuesChange={(value) => setTimeSpent(parseInt(value))}
               />
             </View>
           </View>

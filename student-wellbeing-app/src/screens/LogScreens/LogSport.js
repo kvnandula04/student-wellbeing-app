@@ -47,7 +47,12 @@ export default function LogSport({ navigation }) {
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginTop: "5%", marginLeft: "15%", fontSize: 30 }}
+                style={{
+                  fontWeight: "bold",
+                  marginTop: "5%",
+                  marginLeft: "15%",
+                  fontSize: 30,
+                }}
               >
                 Sport
               </Text>
@@ -107,7 +112,7 @@ export default function LogSport({ navigation }) {
                   width: 20,
                   borderRadius: 10,
                 }}
-                onValuesChange={(value) => setTimeSpent(value)}
+                onValuesChange={(value) => setTimeSpent(parseInt(value))}
               />
             </View>
           </View>

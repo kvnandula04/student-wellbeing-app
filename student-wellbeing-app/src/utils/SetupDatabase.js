@@ -29,5 +29,5 @@ export function resetDatabase() {
     tx.executeSql("DROP TABLE Sleep;");
   });
   createDatabase();
-  Alert.alert("Reset table");
+  Alert.alert("Reset database");
 }
