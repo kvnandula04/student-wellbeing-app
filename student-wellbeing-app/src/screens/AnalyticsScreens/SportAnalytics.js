@@ -20,8 +20,8 @@ const backendvalue1 = "Tuesday";
 const backendvalue2 = "2" + "hrs";
 const backendvalue3 = "8" + "hrs";
 
-const [tableData, setTableData] = useState("No Data");
-selectAllFromDB("Sport", setTableData);
+// const [tableData, setTableData] = useState("No Data");
+// selectAllFromDB("Sport", setTableData);
 
 const Stat = (props) => {
   return (
