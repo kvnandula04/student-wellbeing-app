@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PlaceholderStyles from "../../styles/PlaceholderStyles";
 import {
   Image,
@@ -7,12 +7,14 @@ import {
   View,
   Pressable,
   Dimensions,
+  Alert,
   ScrollView,
 } from "react-native";
 import { EmptyCard } from "../../components/EmptyCard";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
+import { getGraphData } from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Tuesday";
@@ -26,16 +28,26 @@ const Stat = (props) => {
 };
 
 export default function ProductivityAnalytics({ navigation }) {
+  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
+
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
     datasets: [
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: [1, 3, 2, 4, 7, 6, 9],
+        // data: [1, 3, 2, 4, 7, 6, 9],
+        data: graphData,
       },
     ],
   };
+
+  function getData() {
+    // get graph data - getData button needs to be pressed multiple times for it to work - temporary until proper solution
+    // Alert.alert("getting data");
+    getGraphData(graphData, setGraphData, "Productivity");
+    // console.log(graphData);
+  }
 
   return (
     <ScrollView>
@@ -59,7 +71,12 @@ export default function ProductivityAnalytics({ navigation }) {
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginTop: "7%", marginLeft: "10%", fontSize: 30 }}
+                style={{
+                  fontWeight: "bold",
+                  marginTop: "7%",
+                  marginLeft: "10%",
+                  fontSize: 30,
+                }}
               >
                 Productivity
               </Text>
@@ -109,7 +126,15 @@ export default function ProductivityAnalytics({ navigation }) {
         </View>
         <Pressable
           style={AnalyticsScreenStyles.button}
-          onPress={() => navigation.navigate("LogProductivity")}
+          onPress={() => {
+            getGraphData(graphData, setGraphData, "Productivity");
+          }}
+        >
+          <Text style={AnalyticsScreenStyles.text}>{"Get Data"}</Text>
+        </Pressable>
+        <Pressable
+          style={AnalyticsScreenStyles.button}
+          onPress={() => getData()}
         >
           <Text style={AnalyticsScreenStyles.text}>{"BACK"}</Text>
         </Pressable>

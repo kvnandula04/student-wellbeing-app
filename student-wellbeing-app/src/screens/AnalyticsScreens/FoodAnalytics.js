@@ -13,6 +13,7 @@ import { EmptyCard } from "../../components/EmptyCard";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
+import { getGraphData } from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Tuesday";
@@ -26,6 +27,7 @@ const Stat = (props) => {
 };
 
 export default function FoodAnalytics({ navigation }) {
+  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
     datasets: [
@@ -59,7 +61,12 @@ export default function FoodAnalytics({ navigation }) {
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginTop: "7%", marginLeft: "20%", fontSize: 30 }}
+                style={{
+                  fontWeight: "bold",
+                  marginTop: "7%",
+                  marginLeft: "20%",
+                  fontSize: 30,
+                }}
               >
                 Food
               </Text>
