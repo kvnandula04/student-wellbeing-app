@@ -33,7 +33,7 @@ export function insertTestData() {
   db.transaction((tx) => {
     for (let i = 0; i < productivity_test_data.length; i++) {
       tx.executeSql(
-        "INSERT INTO Productivity (DateAndTime, Subject, Length, Rating) values (datetime('now', ?, ?),?,?,?)",
+        "INSERT INTO Productivity (Date, Time, Subject, Length, Rating) values (date('now', ?),time('now', ?),?,?,?)",
         productivity_test_data[i]
       );
     }
