@@ -7,7 +7,7 @@ export const logProductivityData = (subject, length, rating) => {
   Alert.alert(`Subject: ${subject}, Rating: ${rating}, Length: ${length}`);
   db.transaction((tx) => {
     tx.executeSql(
-      "INSERT INTO Productivity (DateAndTime, Subject, Length, Rating) values (datetime('now'),?,?,?)",
+      "INSERT INTO Productivity (Date, Time, Subject, Length, Rating) values (date('now'),time('now'),?,?,?)",
       [subject, length, rating]
     );
   });
@@ -17,7 +17,7 @@ export const logSportData = (activity, length, rating) => {
   Alert.alert(`Activity: ${activity}, Rating: ${rating}, Length: ${length}`);
   db.transaction((tx) => {
     tx.executeSql(
-      "INSERT INTO Sport (DateAndTime, Activity, Length, Rating) values (datetime('now'),?,?,?)",
+      "INSERT INTO Sport (Date, Time, Activity, Length, Rating) values (date('now'),time('now'),?,?,?)",
       [activity, length, rating]
     );
   });
@@ -27,7 +27,7 @@ export const logFoodData = (food, calories) => {
   Alert.alert(`Food: ${food}, Calories: ${calories}`);
   db.transaction((tx) => {
     tx.executeSql(
-      "INSERT INTO Food (DateAndTime, FoodName, Calories) values (datetime('now'),?,?)",
+      "INSERT INTO Food (Date, Time, FoodName, Calories) values (date('now'),time('now'),?,?)",
       [food, calories]
     );
   });
@@ -39,7 +39,7 @@ export const logSleepData = (hours, minutes, rating, journal) => {
   );
   db.transaction((tx) => {
     tx.executeSql(
-      "INSERT INTO Sleep (DateAndTime, TimeHours, TimeMinutes, Rating, Journal) values (datetime('now'),?,?,?,?)",
+      "INSERT INTO Sleep (Date, Time, TimeHours, TimeMinutes, Rating, Journal) values (date('now'),time('now'),?,?,?,?)",
       [hours, minutes, rating, journal]
     );
   });

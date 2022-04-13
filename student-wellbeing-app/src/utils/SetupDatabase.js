@@ -6,16 +6,16 @@ const db = SQLite.openDatabase("WellbeingDB.db");
 export function createDatabase() {
   db.transaction((tx) => {
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS Productivity (ID INTEGER PRIMARY KEY AUTOINCREMENT, DateAndTime TEXT, Subject TEXT, Length INTEGER, Rating INTEGER);"
+      "CREATE TABLE IF NOT EXISTS Productivity (ID INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Time TEXT, Subject TEXT, Length INTEGER, Rating INTEGER);"
     );
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS Sport (ID INTEGER PRIMARY KEY AUTOINCREMENT, DateAndTime TEXT, Activity TEXT, Length INTEGER, Rating INTEGER);"
+      "CREATE TABLE IF NOT EXISTS Sport (ID INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Time TEXT, Activity TEXT, Length INTEGER, Rating INTEGER);"
     );
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS Food (ID INTEGER PRIMARY KEY AUTOINCREMENT, DateAndTime TEXT, FoodName TEXT, Calories INTEGER);"
+      "CREATE TABLE IF NOT EXISTS Food (ID INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Time TEXT, FoodName TEXT, Calories INTEGER);"
     );
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS Sleep (ID INTEGER PRIMARY KEY AUTOINCREMENT, DateAndTime TEXT, TimeHours Integer, TimeMinutes INTEGER, Rating INTEGER, Journal TEXT);"
+      "CREATE TABLE IF NOT EXISTS Sleep (ID INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Time TEXT, TimeHours Integer, TimeMinutes INTEGER, Rating INTEGER, Journal TEXT);"
     );
   });
 }
