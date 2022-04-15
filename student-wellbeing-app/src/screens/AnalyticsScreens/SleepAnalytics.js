@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PlaceholderStyles from "../../styles/PlaceholderStyles";
 import {
   Image,
@@ -13,6 +13,7 @@ import { EmptyCard } from "../../components/EmptyCard";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
+import { getGraphDataSleep } from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Tuesday";
@@ -26,16 +27,24 @@ const Stat = (props) => {
 };
 
 export default function SleepAnalytics({ navigation }) {
+  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [statsData, setStatsData] = useState([" ", 0, 0]); // day, today's length, this week's length
+
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
     datasets: [
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: [1, 3, 2, 4, 7, 6, 9],
+        // data: [1, 3, 2, 4, 7, 6, 9],
+        data: graphData,
       },
     ],
   };
+
+  useEffect(() => {
+    getGraphDataSleep(graphData, setGraphData, statsData, setStatsData);
+  }, []);
 
   return (
     <ScrollView>
@@ -59,7 +68,12 @@ export default function SleepAnalytics({ navigation }) {
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginTop: "5%", marginLeft: "20%", fontSize: 30 }}
+                style={{
+                  fontWeight: "bold",
+                  marginTop: "5%",
+                  marginLeft: "20%",
+                  fontSize: 30,
+                }}
               >
                 Sleep
               </Text>
@@ -98,13 +112,13 @@ export default function SleepAnalytics({ navigation }) {
         </View>
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Longest sleep day: <Stat name={backendvalue1} />
+            Longest sleep day: <Stat name={statsData[0]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's sleep: <Stat name={backendvalue2} />
+            Today's sleep: <Stat name={statsData[1].toFixed(2)} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's sleep score: <Stat name={backendvalue3} />
+            This week's sleep score: <Stat name={statsData[2]} />
           </Text>
         </View>
         <Pressable

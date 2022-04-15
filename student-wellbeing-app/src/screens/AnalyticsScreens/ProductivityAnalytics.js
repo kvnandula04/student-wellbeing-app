@@ -17,9 +17,6 @@ import { LineChart } from "react-native-chart-kit";
 import { getGraphData } from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
-const backendvalue1 = "Tuesday";
-const backendvalue2 = "2" + "hrs";
-const backendvalue3 = "8" + "hrs";
 
 const Stat = (props) => {
   return (
@@ -29,7 +26,6 @@ const Stat = (props) => {
 
 export default function ProductivityAnalytics({ navigation }) {
   const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
-  // const [forceRefresh, setForceRefresh] = useState(null);
   const [statsData, setStatsData] = useState([" ", 0, 0]); // day, today's length, this week's length
 
   const data = {
@@ -130,13 +126,13 @@ export default function ProductivityAnalytics({ navigation }) {
         </View>
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Most productive on: {statsData[0]}
+            Most productive on: <Stat name={statsData[0]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's productivity: {(statsData[1] / 60).toFixed(2)} hours
+            Today's productivity: <Stat name={statsData[1] / 60} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's productivity: {(statsData[2] / 60).toFixed(2)} hours
+            This week's productivity: <Stat name={statsData[2] / 60} />
           </Text>
         </View>
         {/* <Pressable
