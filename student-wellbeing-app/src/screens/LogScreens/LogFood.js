@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -16,11 +16,11 @@ import { selectAllFromDB } from "../../utils/GeneralDBFunc";
 import { logFoodData } from "../../utils/LogDataDB";
 
 export default function LogFood({ navigation }) {
-  const [text, onChangeText] = React.useState(null);
-  const [number, onChangeNumber] = React.useState(null);
+  const [text, onChangeText] = useState(null);
+  const [number, onChangeNumber] = useState(null);
 
   // data from SQL table for debug purposes - remove when ready
-  const [tableData, setTableData] = React.useState("No Data");
+  const [tableData, setTableData] = useState("No Data");
   selectAllFromDB("Food", setTableData);
 
   function submitFood() {

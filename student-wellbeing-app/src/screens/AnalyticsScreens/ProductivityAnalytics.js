@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PlaceholderStyles from "../../styles/PlaceholderStyles";
 import {
   Image,
@@ -29,6 +29,8 @@ const Stat = (props) => {
 
 export default function ProductivityAnalytics({ navigation }) {
   const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
+  // const [forceRefresh, setForceRefresh] = useState(null);
+  const [statsData, setStatsData] = useState([" ", 0, 0]); // day, today's length, this week's length
 
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
@@ -42,12 +44,25 @@ export default function ProductivityAnalytics({ navigation }) {
     ],
   };
 
-  function getData() {
-    // get graph data - getData button needs to be pressed multiple times for it to work - temporary until proper solution
-    // Alert.alert("getting data");
-    getGraphData(graphData, setGraphData, "Productivity");
+  useEffect(() => {
+    getGraphData(
+      graphData,
+      setGraphData,
+      "Productivity",
+      statsData,
+      setStatsData
+    );
+    // setForceRefresh(1);
+    // console.log(statsData);
     // console.log(graphData);
-  }
+  }, []);
+
+  // function getData() {
+  //   // get graph data - getData button needs to be pressed multiple times for it to work - temporary until proper solution
+  //   // Alert.alert("getting data");
+  //   getGraphData(graphData, setGraphData, "Productivity");
+  //   // console.log(graphData);
+  // }
 
   return (
     <ScrollView>
@@ -115,26 +130,26 @@ export default function ProductivityAnalytics({ navigation }) {
         </View>
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Most productive on: <Stat name={backendvalue1} />
+            Most productive on: {statsData[0]}
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's productivity: <Stat name={backendvalue2} />
+            Today's productivity: {(statsData[1] / 60).toFixed(2)} hours
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's productivity: <Stat name={backendvalue3} />
+            This week's productivity: {(statsData[2] / 60).toFixed(2)} hours
           </Text>
         </View>
-        <Pressable
+        {/* <Pressable
           style={AnalyticsScreenStyles.button}
           onPress={() => {
             getGraphData(graphData, setGraphData, "Productivity");
           }}
         >
           <Text style={AnalyticsScreenStyles.text}>{"Get Data"}</Text>
-        </Pressable>
+        </Pressable> */}
         <Pressable
           style={AnalyticsScreenStyles.button}
-          onPress={() => getData()}
+          onPress={() => navigation.navigate("LogProductivity")}
         >
           <Text style={AnalyticsScreenStyles.text}>{"BACK"}</Text>
         </Pressable>
