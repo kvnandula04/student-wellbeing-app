@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PlaceholderStyles from "../../styles/PlaceholderStyles";
 import {
   Image,
@@ -14,14 +14,9 @@ import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
 import { selectAllFromDB } from "../../utils/GeneralDBFunc";
+import { getGraphData } from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
-const backendvalue1 = "Tuesday";
-const backendvalue2 = "2" + "hrs";
-const backendvalue3 = "8" + "hrs";
-
-// const [tableData, setTableData] = useState("No Data");
-// selectAllFromDB("Sport", setTableData);
 
 const Stat = (props) => {
   return (
@@ -30,16 +25,23 @@ const Stat = (props) => {
 };
 
 export default function SportAnalytics({ navigation }) {
+  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [statsData, setStatsData] = useState(["", 0, 0]); // day, today length, week length
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
     datasets: [
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: [1, 3, 2, 4, 7, 6, 9],
+        // data: [1, 3, 2, 4, 7, 6, 9],
+        data: graphData,
       },
     ],
   };
+
+  useEffect(() => {
+    getGraphData(graphData, setGraphData, "Sport", statsData, setStatsData);
+  }, []);
 
   return (
     <ScrollView>
@@ -63,7 +65,12 @@ export default function SportAnalytics({ navigation }) {
             />
             <View>
               <Text
-                style={{ fontWeight: "bold", marginTop: "5%", marginLeft: "15%", fontSize: 30 }}
+                style={{
+                  fontWeight: "bold",
+                  marginTop: "5%",
+                  marginLeft: "15%",
+                  fontSize: 30,
+                }}
               >
                 Sport
               </Text>
@@ -102,13 +109,13 @@ export default function SportAnalytics({ navigation }) {
         </View>
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Most active on: <Stat name={backendvalue1} />
+            Most active on: <Stat name={statsData[0]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's activity: <Stat name={backendvalue2} />
+            Today's activity: <Stat name={statsData[1]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's activity: <Stat name={backendvalue3} />
+            This week's activity: <Stat name={statsData[2]} />
           </Text>
         </View>
         <Pressable

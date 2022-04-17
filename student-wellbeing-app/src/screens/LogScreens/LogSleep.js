@@ -27,7 +27,12 @@ export default function LogSleep({ navigation }) {
   selectAllFromDB("Sleep", setTableData);
 
   function submitSleep() {
-    logSleepData(hours, minutes, rating, entry);
+    logSleepData(
+      hours == null ? 0 : hours,
+      minutes == null ? 0 : minutes,
+      rating,
+      entry
+    );
     onChangeHours(null);
     onChangeMinutes(null);
     onChangeEntry(null);

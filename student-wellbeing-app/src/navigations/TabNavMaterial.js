@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Button } from "react-native";
+import { Image, Button, Platform, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -12,8 +12,11 @@ import ProductivityStackScreen from "./ProductivityStackScreen";
 import Develop from "../screens/DevelopScreens/Develop";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
+import Colors from "../styles/Colors";
 
 const Tab = createBottomTabNavigator();
+let paddingHeader = '15%';
+let headerColour = '#FFFFFF';
 
 export default function TabNavMaterial() {
   let [fontsLoaded] = useFonts({
@@ -23,8 +26,19 @@ export default function TabNavMaterial() {
     return <AppLoading />;
   }
 
+  if (Platform.OS === 'android') {
+    paddingHeader = '0%'
+    headerColour = '#E35D5D'
+  } else {
+    paddingHeader = '15%'
+  }
+
   return (
     <NavigationContainer>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor= {"black"}
+      />
       <Tab.Navigator
         initialRouteName="Home"
         shifting={false}
@@ -38,7 +52,7 @@ export default function TabNavMaterial() {
             fontWeight: 'bold',
             fontSize: 30,
             color: '#FFFFFF',
-            paddingBottom: '15%',
+            paddingBottom: paddingHeader,
           },
           headerRight: () => (
             <MaterialCommunityIcons
@@ -46,7 +60,7 @@ export default function TabNavMaterial() {
               color="#FFFFFF"
               size={26}
               onPress={() => alert("Open goals page")}
-              style={{ paddingBottom: "10%", paddingRight: "10%" }}
+              style={{ paddingBottom: paddingHeader, paddingRight: "10%" }}
             />
           ),
           title: "Wellbeing",

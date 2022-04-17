@@ -40,7 +40,7 @@ export default function LogProductivity({ navigation }) {
 
   return (
     <ScrollView>
-      <Text>{tableData}</Text>
+      {/* <Text>{tableData}</Text> */}
       <View style={LogScreenStyles.container}>
         {/* <Text>Hello</Text> // temporary */}
         <EmptyCard style={LogScreenStyles.topCard}>
