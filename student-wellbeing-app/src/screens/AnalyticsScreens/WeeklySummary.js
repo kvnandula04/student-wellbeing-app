@@ -13,14 +13,26 @@ import { EmptyCard } from "../../components/EmptyCard";
 import { LineChart } from "react-native-chart-kit";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import Colors from "../../styles/Colors";
+//import statsData from "./ProductivityAnalytics.js" need to import data to map to graphs
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Productivity";
 const backendvalue2 = "Sports Activity";
 const backendvalue3 = "Overall Sleep";
-const backendvalue4 = 52;
-const backendvalue5 = 38;
-const backendvalue6 = -24;
+//i've used random numbers but the numbers are supposed to be pulled from the database
+const tempComp1 = (((3.5 - 2.5)/2.5)*100).toFixed(0);//percentage change of productivity
+const wcomp1 = (tempComp1 > 0) ? " up" + " by " +  (tempComp1): " down" + " by " +  (-tempComp1);
+const tempComp2 = (((2.5 - 3.5)/2.5)*100).toFixed(0);//percentage change of sports activity
+const wcomp2 = (tempComp2 > 0) ? " up" + " by " +  (tempComp2): " down" + " by " +  (-tempComp2);
+const tempComp3 = (((3.9 - 2.5)/2.5)*100).toFixed(0);//percentage change of productivity
+const wcomp3 = (tempComp3 > 0) ? " up" + " by " +  (tempComp3): " down" + " by " +  (-tempComp3);
+
+const good_prod_message = "Good Job being productive, keep it up!";
+const bad_prod_message = "Got a little lazy this week? Try planning your days a little more often!";
+const good_sports_message = "Got a good amount of exercise this week!";
+const bad_sports_message = "It's not good to be static so often. How about going for some more walks next week?";
+const good_sleep_message = "Well done prioritising sleep. Make sure you continue to!";
+const bad_sleep_message = "Try to sleep some more. You won't be able to function well if you don't!";
 
 
 /*
@@ -85,7 +97,7 @@ export default function WeeklySummary({navigation}) {
         />
         </View>
         <Text style ={{textAlign: "center", marginBottom: "3%", fontSize: 8, fontWeight: "bold",}}> Day </Text>
-        <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 14, fontWeight: "bold",}}> Insights </Text>
+        <Text style ={styles.text}> Weekly Comparison: </Text>
         <View style={styles.container}>
         <EmptyCard
         elevated={true}
@@ -101,8 +113,13 @@ export default function WeeklySummary({navigation}) {
           justifyContent: "space-between",
         }}
       >
+        <View>
+        <Text style={[styles.wcomptext, (tempComp1 > 0) ? styles.ispositive : styles.isnegative]}> {backendvalue1}{wcomp1}% this week </Text>       
+        <Text style ={[styles.wcomptext, (tempComp2 > 0) ? styles.ispositive : styles.isnegative]}> {backendvalue2}{wcomp2}% this week </Text>
+        <Text style ={[styles.wcomptext, (tempComp3 > 0) ? styles.ispositive : styles.isnegative]}>{backendvalue3}{wcomp3}% this week </Text> 
+        </View>
         </EmptyCard>
-        <Text style ={{textAlign: "center", textTransform: "uppercase", fontSize: 14, fontWeight: "bold",}}> Weekly Comparison </Text>
+        <Text style ={styles.text}> Insights: </Text>
         <EmptyCard
         elevated={true}
         style={{
@@ -117,9 +134,9 @@ export default function WeeklySummary({navigation}) {
         }}
       >
         <View>
-        <Text style={[styles.text, (backendvalue4 > 0) ? styles.ispositive : styles.isnegative]}> {backendvalue1} up by {backendvalue4}% this week </Text>       
-        <Text style ={[styles.text, (backendvalue5 > 0) ? styles.ispositive : styles.isnegative]}> {backendvalue2} up by {backendvalue5}% this week </Text>
-        <Text style ={[styles.text, (backendvalue6 > 0) ? styles.ispositive : styles.isnegative]}>{backendvalue3} down by {backendvalue6}% this week </Text> 
+        <Text style={[styles.insightstext, (tempComp1 > 0) ? styles.ispositive : styles.isnegative]}> {(tempComp1 > 0) ? good_prod_message : bad_prod_message} </Text>       
+        <Text style ={[styles.insightstext,(tempComp2 > 0) ? styles.ispositive : styles.isnegative]}> {(tempComp2 > 0) ? good_sports_message : bad_sports_message} </Text>
+        <Text style ={[styles.insightstext,(tempComp3 > 0) ? styles.ispositive : styles.isnegative]}> {(tempComp3 > 0) ? good_sleep_message : bad_sleep_message} </Text> 
         </View>
         </EmptyCard>
       </View>
@@ -163,18 +180,24 @@ const styles = StyleSheet.create({
     text: {
       fontWeight: "bold", 
       textAlign: "center", 
-      textTransform: 'uppercase'
+      textTransform: 'uppercase',
     },
     ispositive: {
       color: "green",
-      fontSize: 12,
     },
     isnegative: {
       color: "red",
-      fontSize: 12,
     },
-    analyticstext: {
-      marginBottom: "4%",
-      marginLeft: "5%",
+    wcomptext: {
+      fontWeight: "bold", 
+      textAlign: "center", 
+      textTransform: 'uppercase',
+      fontSize: 12
+    },
+    insightstext: {
+      fontWeight: "bold", 
+      textAlign: "center", 
+      textTransform: 'uppercase',
+      fontSize: 10
     }
   }); 
