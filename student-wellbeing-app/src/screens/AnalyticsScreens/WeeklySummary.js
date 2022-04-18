@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import PlaceholderStyles from "../../styles/PlaceholderStyles";
 import {
   ScrollView,
@@ -13,19 +13,12 @@ import { EmptyCard } from "../../components/EmptyCard";
 import { LineChart } from "react-native-chart-kit";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import Colors from "../../styles/Colors";
-//import statsData from "./ProductivityAnalytics.js" need to import data to map to graphs
+import { getGraphData} from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Productivity";
 const backendvalue2 = "Sports Activity";
 const backendvalue3 = "Overall Sleep";
-//i've used random numbers but the numbers are supposed to be pulled from the database
-const tempComp1 = (((3.5 - 2.5)/2.5)*100).toFixed(0);//percentage change of productivity
-const wcomp1 = (tempComp1 > 0) ? " up" + " by " +  (tempComp1): " down" + " by " +  (-tempComp1);
-const tempComp2 = (((2.5 - 3.5)/2.5)*100).toFixed(0);//percentage change of sports activity
-const wcomp2 = (tempComp2 > 0) ? " up" + " by " +  (tempComp2): " down" + " by " +  (-tempComp2);
-const tempComp3 = (((3.9 - 2.5)/2.5)*100).toFixed(0);//percentage change of productivity
-const wcomp3 = (tempComp3 > 0) ? " up" + " by " +  (tempComp3): " down" + " by " +  (-tempComp3);
 
 const good_prod_message = "Good Job being productive, keep it up!";
 const bad_prod_message = "Got a little lazy this week? Try planning your days a little more often!";
@@ -39,12 +32,59 @@ const bad_sleep_message = "Try to sleep some more. You won't be able to function
 /////'s are used to indicate where i have changed the original design rules.
 */
 export default function WeeklySummary({navigation}) {
+    //the first two data update well after an injection, but they don't, also using the day value instead of week
+    const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [statsData, setStatsData] = useState([" ", 0, 0]); 
+
+    useEffect(()=>{
+      getGraphData(
+      graphData,
+      setGraphData,
+      "Productivity",
+      statsData,
+      setStatsData
+      );
+    },[]);
+    const tempComp1 = (((statsData[1] - 250)/250)*100).toFixed(0);//percentage change of productivity - updates well
+    const [statsData1, setStatsData1] = useState([" ", 0, 0]); 
+    const [graphData1, setGraphData1] = useState([0, 0, 0, 0, 0, 0, 0]);
+    useEffect(()=>{
+      getGraphData(
+      graphData1,
+      setGraphData1,
+      "Sport",
+      statsData1,
+      setStatsData1
+      );
+    },[]);
+    const tempComp2 = (((statsData1[1] - 90)/90)*100).toFixed(0);//percentage change of sports activity - updates well
+    const [statsData2, setStatsData2] = useState([" ", 0, 0]); 
+    const [graphData2, setGraphData2] = useState([0, 0, 0, 0, 0, 0, 0]);
+    useEffect(()=>{
+      getGraphData(
+      graphData2,
+      setGraphData2,
+      "Sleep",
+      statsData2,
+      setStatsData2
+      );
+      console.log(statsData2[1]);
+    },[]);
+    const tempComp3 = (((statsData2[1] - 510)/510)*100).toFixed(0);//percentage change of sleep - doesn't update well
+
+    const wcomp1 = (tempComp1 > 0) ? " up" + " by " +  (tempComp1): " down" + " by " +  (-tempComp1);
+    const wcomp2 = (tempComp2 > 0) ? " up" + " by " +  (tempComp2): " down" + " by " +  (-tempComp2);
+    const wcomp3 = (tempComp3 > 0) ? " up" + " by " +  (tempComp3): " down" + " by " +  (-tempComp3);
+
+
+
     const data = {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      //need to do a dropdown menu for this
+        labels: graphData,
         datasets: [{
             lineTension: 0.5,
             borderWidth: 2,
-            data: [1,3,2,4,7,6,9]
+            data: graphData1
     
         }]
     }
