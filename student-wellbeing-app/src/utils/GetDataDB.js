@@ -41,7 +41,12 @@ export const getGraphData = (
 
           actual_day = (js_date.getDay() - 1 + 7) % 7;
 
-          if (js_date > previous_monday) {
+          // console.log(previous_monday);
+
+          if (
+            js_date > previous_monday ||
+            js_date.toDateString() == previous_monday.toDateString()
+          ) {
             this_week = true;
           }
 
@@ -80,9 +85,14 @@ export const getGraphData = (
             }
           }
 
-          if (js_date.toDateString == date.toDateString) {
+          if (js_date.toDateString() == date.toDateString()) {
             // today_length = element.TotalLength;
             statsInfo[1] = element.TotalLength;
+          }
+
+          // if the day is monday, this prevents last weeks data being shown on graph
+          if (js_date.toDateString() == previous_monday.toDateString()) {
+            this_week == false;
           }
 
           // setGraphData(data);
@@ -90,6 +100,7 @@ export const getGraphData = (
           //   console.log(element);
         });
         // console.log(data);
+        // console.log(statsInfo);
         setGraphData(data);
         setStatsData(statsInfo);
         // console.log(statsData);
