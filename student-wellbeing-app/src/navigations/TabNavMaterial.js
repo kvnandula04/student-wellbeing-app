@@ -104,8 +104,19 @@ export default function TabNavMaterial() {
               />
             </View>
             <Pressable
+              style={[styles.button, styles.buttonClose,]}
+              onPress={() => updateGoals()}
+            >
+              <Text style={styles.textStyle}>Update Goals</Text>
+            </Pressable>
+            <View
+              style={{
+                paddingBottom: '5%'
+              }}
+            />
+            <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => { setModalVisible(!modalVisible); updateGoals()}}
+              onPress={() => setModalVisible(!modalVisible)}
             >
               <Text style={styles.textStyle}>Hide Goals</Text>
             </Pressable>
@@ -267,13 +278,13 @@ const styles = StyleSheet.create({
     elevation: 2
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "black",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: Colors.CARDCOLOR,
   },
   textStyle: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
     textAlign: "center"
   },
