@@ -157,10 +157,6 @@ export default function TabNavMaterial() {
         }}
       >
         <Tab.Screen
-          name="Goals"
-          component={ProductivityStackScreen}
-        />
-        <Tab.Screen
           name="Productivity"
           component={ProductivityStackScreen}
           options={{
