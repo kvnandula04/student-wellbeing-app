@@ -15,6 +15,9 @@ import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import Colors from "../../styles/Colors";
 import { getGraphData} from "../../utils/GetDataDB";
 
+
+
+
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Productivity";
 const backendvalue2 = "Sports Activity";
@@ -27,10 +30,10 @@ const bad_sports_message = "It's not good to be static so often. How about going
 const good_sleep_message = "Well done prioritising sleep. Make sure you continue to!";
 const bad_sleep_message = "Try to sleep some more. You won't be able to function well if you don't!";
 
-
 /*
 /////'s are used to indicate where i have changed the original design rules.
 */
+
 export default function WeeklySummary({navigation}) {
     //the first two data update well after an injection, but they don't, also using the day value instead of week
     const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -56,7 +59,7 @@ export default function WeeklySummary({navigation}) {
       statsData1,
       setStatsData1
       );
-    },[]);
+    },[]);  
     const tempComp2 = (((statsData1[1] - 90)/90)*100).toFixed(0);//percentage change of sports activity - updates well
     const [statsData2, setStatsData2] = useState([" ", 0, 0]); 
     const [graphData2, setGraphData2] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -76,19 +79,51 @@ export default function WeeklySummary({navigation}) {
     const wcomp2 = (tempComp2 > 0) ? " up" + " by " +  (tempComp2): " down" + " by " +  (-tempComp2);
     const wcomp3 = (tempComp3 > 0) ? " up" + " by " +  (tempComp3): " down" + " by " +  (-tempComp3);
 
-
-
-    const data = {
-      //need to do a dropdown menu for this
-        labels: graphData,
-        datasets: [{
-            lineTension: 0.5,
-            borderWidth: 2,
-            data: graphData1
+    //used buttons instead of dropdown - dropdown giving me unnecessary problems
+    var data = {
+      labels: graphData,
+      datasets: [{
+          lineTension: 0.5,
+          borderWidth: 2,
+          data: graphData1
     
-        }]
+      }]
     }
+    var [dataval, setdataval] = useState(0);
+    useEffect(() => {
+      setdataval(dataval);
+    })
+
+    const dataset1 = {
+      labels: graphData2,
+      datasets: [{
+          lineTension: 0.5,
+          borderWidth: 2,
+          data: graphData
     
+      }]
+    }
+    const dataset2 = {
+      labels: graphData1,
+      datasets: [{
+          lineTension: 0.5,
+          borderWidth: 2,
+          data: graphData
+    
+      }]
+    }
+    const dataset3 = {
+      labels: graphData,
+          datasets: [{
+              lineTension: 0.5,
+              borderWidth: 2,
+              data: graphData1
+        
+          }]
+        }
+    
+    
+
     return(
         <>
         <ScrollView>
@@ -122,10 +157,52 @@ export default function WeeklySummary({navigation}) {
           </View>
         </View>
       </EmptyCard>
+      <View style = {{flexDirection: "column", alignItems: "center"}}>
+        <Text style ={{textAlign: "center", marginBottom: "3%", fontWeight: "bold", marginTop: "3%"}}>Select the Graph you want to display:</Text>
+        <Text style ={{textAlign: "center", marginBottom: "3%", fontStyle: "italic", fontSize: 10}}>[PR: Productivity, SP: Sport, SL: Sleep]</Text>
+          <EmptyCard
+        elevated={true}
+        style={{
+          backgroundColor: Colors.CARDCOLOR,
+          marginHorizontal: "10%",
+          marginBottom: "5%",
+          padding: "1%",
+          borderRadius: 10,
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <Pressable
+          style={styles.selectionButton}
+          onPress={() => setdataval(dataval = -1)}
+          
+        >
+          <Text style={styles.wcomptext}>
+            {"PR/SL"}
+          </Text>
+        </Pressable>
+        <Pressable
+          style={styles.selectionButton}
+          onPress={() => setdataval(dataval = 0)}
+        >
+          <Text style={styles.wcomptext}>
+            {"SP/SL"}
+          </Text>
+        </Pressable>
+        <Pressable
+          style={styles.selectionButton}
+          onPress={() => setdataval(dataval = 1)}
+        >
+          <Text style={styles.wcomptext}>
+            {"SP/PR"}
+          </Text>
+        </Pressable>
+      </EmptyCard>
+      </View>
       <View style={PlaceholderStyles.container}>
         <LineChart
-          data={data}
-          width={screenWidth * 0.7}
+          data = {(dataval == -1) ? dataset1: (dataval == 0) ? dataset2: dataset3}
+          width={Dimensions.get("window").width * 0.8}
           height={170}
           chartConfig={{
             backgroundGradientFrom: Colors.PRIMARYCOLOR,
@@ -133,10 +210,13 @@ export default function WeeklySummary({navigation}) {
             decimalPlaces: 0, 
             color: (opacity = 255) => 'black'
           }}
-          style={{marginTop: "8%", marginRight: 5, borderRadius: 10}}
+          style={{marginTop: "3%", marginRight: 5, borderRadius: 10}}
         />
         </View>
-        <Text style ={{textAlign: "center", marginBottom: "3%", fontSize: 8, fontWeight: "bold",}}> Day </Text>
+        <Text style ={{textAlign: "center", marginBottom: "2%", fontSize: 8, fontWeight: "bold", marginTop: "1%"}}> Day of the Week </Text>
+        </View>
+        
+        <View>
         <Text style ={styles.text}> Weekly Comparison: </Text>
         <View style={styles.container}>
         <EmptyCard
@@ -239,5 +319,14 @@ const styles = StyleSheet.create({
       textAlign: "center", 
       textTransform: 'uppercase',
       fontSize: 10
-    }
+    },
+    selectionButton: {
+      backgroundColor: Colors.PRIMARYCOLOR,
+            marginHorizontal: "5%",
+            marginTop: "2%",
+            marginBottom: "2%",///
+            padding: "3%",
+            borderRadius: 5,
+            justifyContent: "center",}
+    
   }); 
