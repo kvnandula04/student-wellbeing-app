@@ -135,10 +135,20 @@ export default function LogSleep({ navigation }) {
           <Text style={LogScreenStyles.text}>{"Done"}</Text>
         </Pressable>
         <Pressable
-          style={LogScreenStyles.lastbutton}
+          style={LogScreenStyles.button}
           onPress={() => navigation.navigate("SleepAnalytics")}
         >
           <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
+        </Pressable>
+        <Pressable
+          style={LogScreenStyles.lastbutton}
+          onPress={() =>
+            navigation.navigate("ShowAllCategoryData", {
+              category: "Sleep",
+            })
+          }
+        >
+          <Text style={LogScreenStyles.text}>{"SHOW ALL DATA"}</Text>
         </Pressable>
       </View>
     </ScrollView>

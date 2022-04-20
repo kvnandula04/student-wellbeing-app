@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LogProductivity from "../screens/LogScreens/LogProductivity";
 import ProductivityAnalytics from "../screens/AnalyticsScreens/ProductivityAnalytics";
 import Colors from "../styles/Colors";
+import ShowAllCategoryData from "../screens/AnalyticsScreens/ShowAllCategoryData";
 
 const ProductivityStack = createNativeStackNavigator();
 
@@ -23,6 +24,10 @@ export default function ProductivityStackScreen() {
       <ProductivityStack.Screen
         name="ProductivityAnalytics"
         component={ProductivityAnalytics}
+      />
+      <ProductivityStack.Screen
+        name="ShowAllCategoryData"
+        component={ShowAllCategoryData}
       />
     </ProductivityStack.Navigator>
   );

@@ -88,6 +88,16 @@ export default function LogFood({ navigation }) {
           >
             <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
           </Pressable>
+          <Pressable
+            style={LogScreenStyles.button}
+            onPress={() =>
+              navigation.navigate("ShowAllCategoryData", {
+                category: "Food",
+              })
+            }
+          >
+            <Text style={LogScreenStyles.text}>{"SHOW ALL DATA"}</Text>
+          </Pressable>
         </SafeAreaView>
       </View>
     </ScrollView>

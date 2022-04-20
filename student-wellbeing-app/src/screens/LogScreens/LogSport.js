@@ -146,6 +146,16 @@ export default function LogSport({ navigation }) {
             >
               <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
             </Pressable>
+            <Pressable
+              style={LogScreenStyles.button}
+              onPress={() =>
+                navigation.navigate("ShowAllCategoryData", {
+                  category: "Sport",
+                })
+              }
+            >
+              <Text style={LogScreenStyles.text}>{"SHOW ALL DATA"}</Text>
+            </Pressable>
           </View>
         </View>
       </View>

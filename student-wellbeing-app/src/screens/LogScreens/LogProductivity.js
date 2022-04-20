@@ -148,6 +148,16 @@ export default function LogProductivity({ navigation }) {
           >
             <Text style={LogScreenStyles.text}>{"Analytics"}</Text>
           </Pressable>
+          <Pressable
+            style={LogScreenStyles.button}
+            onPress={() =>
+              navigation.navigate("ShowAllCategoryData", {
+                category: "Productivity",
+              })
+            }
+          >
+            <Text style={LogScreenStyles.text}>{"SHOW ALL DATA"}</Text>
+          </Pressable>
         </View>
       </View>
     </ScrollView>
