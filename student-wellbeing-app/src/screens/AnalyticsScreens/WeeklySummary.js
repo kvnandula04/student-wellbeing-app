@@ -104,11 +104,11 @@ export default function WeeklySummary({navigation}) {
       }]
     }
     const dataset2 = {
-      labels: graphData1,
+      labels: graphData2,
       datasets: [{
           lineTension: 0.5,
           borderWidth: 2,
-          data: graphData
+          data: graphData1
     
       }]
     }
