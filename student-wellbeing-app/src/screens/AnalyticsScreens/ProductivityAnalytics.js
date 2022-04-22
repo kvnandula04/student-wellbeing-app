@@ -129,10 +129,12 @@ export default function ProductivityAnalytics({ navigation }) {
             Most productive on: <Stat name={statsData[0]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's productivity: <Stat name={statsData[1] / 60} />
+            Today's productivity:{" "}
+            <Stat name={(statsData[1] / 60).toFixed(2) + " hours"} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's productivity: <Stat name={statsData[2] / 60} />
+            This week's productivity:{" "}
+            <Stat name={(statsData[2] / 60).toFixed(2) + " hours"} />
           </Text>
         </View>
         {/* <Pressable

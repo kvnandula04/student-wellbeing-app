@@ -115,10 +115,10 @@ export default function SleepAnalytics({ navigation }) {
             Longest sleep day: <Stat name={statsData[0]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's sleep: <Stat name={statsData[1].toFixed(2)} />
+            Today's sleep: <Stat name={statsData[1].toFixed(2) + " hours"} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's sleep score: <Stat name={statsData[2]} />
+            This week's sleep score: <Stat name={statsData[2].toFixed(2)} />
           </Text>
         </View>
         <Pressable

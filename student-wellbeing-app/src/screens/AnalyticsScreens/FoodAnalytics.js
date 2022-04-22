@@ -16,9 +16,6 @@ import { LineChart } from "react-native-chart-kit";
 import { getGraphData, getGraphDataFood } from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
-const backendvalue1 = "Tuesday";
-const backendvalue2 = "2138";
-const backendvalue3 = "6/10";
 
 const Stat = (props) => {
   return (
@@ -118,7 +115,7 @@ export default function FoodAnalytics({ navigation }) {
             Today's calories: <Stat name={statsData[1]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's score: <Stat name={statsData[2]} />
+            This week's score: <Stat name={statsData[2].toFixed(2)} />
           </Text>
         </View>
         <Pressable

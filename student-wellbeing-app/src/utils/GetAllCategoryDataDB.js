@@ -4,7 +4,7 @@ export const getAllCategoryData = (category, setData) => {
   const db = connectToDB();
   db.transaction((tx) => {
     tx.executeSql(
-      `SELECT * FROM ${category} ORDER BY Date DESC`,
+      `SELECT * FROM ${category} ORDER BY Date DESC, Time DESC`,
       [],
       (txObj, resultsSet) => {
         let x = resultsSet.rows._array;

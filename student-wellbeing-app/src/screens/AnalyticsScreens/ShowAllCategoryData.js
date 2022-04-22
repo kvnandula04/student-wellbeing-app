@@ -108,12 +108,12 @@ export default function ShowAllData({ route, navigation }) {
 const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
-    marginLeft: "10%",
-    fontSize: 25,
+    marginLeft: "5%",
+    fontSize: 20,
   },
   subTitle: {
-    marginLeft: "12%",
-    fontSize: 15,
+    marginLeft: "10%",
+    fontSize: 12,
     paddingTop: 5,
   },
 });

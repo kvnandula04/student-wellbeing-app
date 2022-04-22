@@ -112,10 +112,10 @@ export default function SportAnalytics({ navigation }) {
             Most active on: <Stat name={statsData[0]} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's activity: <Stat name={statsData[1]} />
+            Today's activity: <Stat name={statsData[1] + " minutes"} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's activity: <Stat name={statsData[2]} />
+            This week's activity: <Stat name={statsData[2] + " minutes"} />
           </Text>
         </View>
         <Pressable
