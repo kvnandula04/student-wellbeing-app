@@ -23,8 +23,8 @@ export default function LogSport({ navigation }) {
   const [rating, setRating] = useState(0);
 
   // data from SQL table for debug purposes - remove when ready
-  const [tableData, setTableData] = useState("No Data");
-  selectAllFromDB("Sport", setTableData);
+  //const [tableData, setTableData] = useState("No Data");
+  //selectAllFromDB("Sport", setTableData);
 
   function submitSport() {
     logSportData(text, timeSpent, rating);
@@ -34,7 +34,7 @@ export default function LogSport({ navigation }) {
 
   return (
     <ScrollView>
-      <Text>{tableData}</Text>
+      {/* <Text>{tableData}</Text> */}
       <View style={LogScreenStyles.container}>
         <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>

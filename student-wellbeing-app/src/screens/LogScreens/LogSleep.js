@@ -23,8 +23,8 @@ export default function LogSleep({ navigation }) {
   const [rating, setRating] = useState(0);
 
   // data from SQL table for debug purposes - remove when ready
-  const [tableData, setTableData] = useState("No Data");
-  selectAllFromDB("Sleep", setTableData);
+  //const [tableData, setTableData] = useState("No Data");
+  //selectAllFromDB("Sleep", setTableData);
 
   function submitSleep() {
     logSleepData(
@@ -41,7 +41,7 @@ export default function LogSleep({ navigation }) {
 
   return (
     <ScrollView>
-      <Text>{tableData}</Text>
+      {/* <Text>{tableData}</Text> */}
       <View style={LogScreenStyles.container}>
         <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>

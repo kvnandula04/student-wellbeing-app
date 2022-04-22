@@ -12,20 +12,24 @@ import Colors from "../../styles/Colors";
 import { EmptyCard } from "../../components/EmptyCard";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 
-import { getProd, getHomeScreenInfo } from "../../utils/HomeScreenDBFunc";
+import {
+  getHomeScreenInfo,
+  getTodaysInfo,
+  getGoals,
+} from "../../utils/HomeScreenDBFunc";
 import { useIsFocused } from "@react-navigation/native";
 
 export default function HomeScreen({ navigation }) {
-  const [info, setInfo] = useState({
-    //prod: "",
-    //sport: "",
-    //food: "",
-    //sleep: "",
-  });
+  //info -> the last entry in the table to do with that thing
+  const [info, setInfo] = useState({});
+  const [goals, setGoals] = useState({});
+  const [todaysInfo, setTodaysInfo] = useState({});
   const isFocused = useIsFocused();
 
   useEffect(() => {
     getHomeScreenInfo(info, setInfo);
+    getTodaysInfo(todaysInfo, setTodaysInfo);
+    getGoals(setGoals);
   }, [isFocused]);
 
   return (
@@ -105,7 +109,9 @@ export default function HomeScreen({ navigation }) {
             style={[styles.image, { width: 130 * 0.6, height: 130 * 0.6 }]}
           />
           <Text style={styles.secondaryText}>{info.prod}</Text>
-          <Text style={styles.primaryText}>65 / 125 mins</Text>
+          <Text style={styles.primaryText}>
+            {todaysInfo.prod} / {goals.prod} mins
+          </Text>
         </EmptyCard>
         <EmptyCard style={{ flex: 0.48 }}>
           <Image
@@ -113,7 +119,9 @@ export default function HomeScreen({ navigation }) {
             style={[styles.image, { width: 114 * 0.75, height: 114 * 0.75 }]}
           />
           <Text style={styles.secondaryText}>{info.sport}</Text>
-          <Text style={styles.primaryText}>60 / 60 mins</Text>
+          <Text style={styles.primaryText}>
+            {todaysInfo.sport} / {goals.sport} mins
+          </Text>
         </EmptyCard>
       </View>
 
@@ -124,7 +132,9 @@ export default function HomeScreen({ navigation }) {
             style={[styles.image, { width: 130 * 0.6, height: 122 * 0.6 }]}
           />
           <Text style={styles.secondaryText}>{info.food}</Text>
-          <Text style={styles.primaryText}>700 / 2300 cals</Text>
+          <Text style={styles.primaryText}>
+            {todaysInfo.food} / {goals.food} cals
+          </Text>
         </EmptyCard>
         <EmptyCard style={{ flex: 0.48 }}>
           <Image
@@ -132,7 +142,9 @@ export default function HomeScreen({ navigation }) {
             style={[styles.image, { width: 90 * 0.85, height: 90 * 0.85 }]}
           />
           <Text style={styles.secondaryText}>{info.sleep}</Text>
-          <Text style={styles.primaryText}>7 / 8 hrs</Text>
+          <Text style={styles.primaryText}>
+            {todaysInfo.sleep} / {goals.sleep} hrs
+          </Text>
         </EmptyCard>
       </View>
 

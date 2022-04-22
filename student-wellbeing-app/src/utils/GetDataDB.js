@@ -140,7 +140,10 @@ export const getGraphDataFood = (
 
           actual_day = (js_date.getDay() - 1 + 7) % 7;
 
-          if (js_date > previous_monday) {
+          if (
+            js_date > previous_monday ||
+            js_date.toDateString() == previous_monday.toDateString()
+          ) {
             this_week = true;
           }
 
@@ -215,11 +218,13 @@ export const getGraphDataSleep = (
           const date = new Date(); // todays date
           const previous_monday = new Date();
           previous_monday.setDate(date.getDate() - ((date.getDay() + 6) % 7));
-
           actual_day = (js_date.getDay() - 1 + 7) % 7;
-
-          if (js_date > previous_monday) {
+          if (
+            js_date >= previous_monday ||
+            js_date.toDateString() == previous_monday.toDateString()
+          ) {
             this_week = true;
+            console.log(js_date);
           }
 
           if (this_week) {

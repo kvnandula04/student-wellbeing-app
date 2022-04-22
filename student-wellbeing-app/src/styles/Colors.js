@@ -1,5 +1,7 @@
 export default {
   PRIMARYCOLOR: "#FFFAF1",
+  SECONDARYCOLOR: "#E35D5D",
   SHADOWCOLOR: "#000000",
   CARDCOLOR: "#F9C6B4",
+  WHITE: "#FFF",
 };

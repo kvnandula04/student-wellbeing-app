@@ -20,8 +20,8 @@ export default function LogFood({ navigation }) {
   const [number, onChangeNumber] = useState(null);
 
   // data from SQL table for debug purposes - remove when ready
-  const [tableData, setTableData] = useState("No Data");
-  selectAllFromDB("Food", setTableData);
+  //const [tableData, setTableData] = useState("No Data");
+  //selectAllFromDB("Food", setTableData);
 
   function submitFood() {
     logFoodData(text, number);
@@ -31,7 +31,7 @@ export default function LogFood({ navigation }) {
 
   return (
     <ScrollView>
-      <Text>{tableData}</Text>
+      {/* <Text>{tableData}</Text> */}
       <View style={LogScreenStyles.container}>
         <EmptyCard style={LogScreenStyles.topCard}>
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
@@ -103,5 +103,3 @@ export default function LogFood({ navigation }) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({});

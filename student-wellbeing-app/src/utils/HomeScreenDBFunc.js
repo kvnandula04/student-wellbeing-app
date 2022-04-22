@@ -1,28 +1,8 @@
 import { connectToDB } from "./GeneralDBFunc";
-import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { goalStorageKeys } from "../styles/Constants";
 
 const divider = " - ";
-
-export const getProd = () => {
-  const db = connectToDB();
-  let subject = "";
-  let length = 0;
-  const [s, setS] = useState("");
-  const [l, setL] = useState(0);
-  db.transaction((tx) => {
-    tx.executeSql(
-      "SELECT Subject, Length FROM Productivity ORDER BY Date ASC",
-      [],
-      (txObj, result) => {
-        let x = result.rows._array.reverse();
-        setS(x[0]["Subject"]);
-        setL(x[0]["Length"]);
-      },
-      null
-    );
-  });
-  return s + " - " + l;
-};
 
 export const getHomeScreenInfo = (info, setInfo) => {
   const db = connectToDB();
@@ -98,4 +78,75 @@ export const getHomeScreenInfo = (info, setInfo) => {
       (txObj, error) => console.log("ERROR ", error)
     );
   });
+};
+
+export const getTodaysInfo = (todaysInfo, setTodaysInfo) => {
+  const db = connectToDB();
+
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT SUM(Length) AS TotalLength FROM Productivity WHERE Date = date()",
+      [],
+      (_, res) => {
+        let item = res.rows.item(0);
+        let val = 0;
+        item.TotalLength && (val = item.TotalLength);
+        setTodaysInfo((prevState) => ({ ...prevState, prod: val }));
+      },
+      (_, err) => console.log(err)
+    );
+
+    tx.executeSql(
+      "SELECT SUM(Length) AS TotalLength FROM Sport WHERE Date = date()",
+      [],
+      (_, res) => {
+        let item = res.rows.item(0);
+        let val = 0;
+        item.TotalLength && (val = item.TotalLength);
+        setTodaysInfo((prevState) => ({ ...prevState, sport: val }));
+      },
+      (_, err) => console.log(err)
+    );
+
+    tx.executeSql(
+      "SELECT SUM(Calories) AS TotalCal FROM Food WHERE Date = date()",
+      [],
+      (_, res) => {
+        let item = res.rows.item(0);
+        let val = 0;
+        item.TotalCal && (val = item.TotalCal);
+        setTodaysInfo((prevState) => ({ ...prevState, food: val }));
+      },
+      (_, err) => console.log(err)
+    );
+
+    tx.executeSql(
+      "SELECT SUM(TimeHours) AS TotalTime FROM Sleep WHERE Date = date()",
+      [],
+      (_, res) => {
+        let item = res.rows.item(0);
+        let val = 0;
+        item.TotalTime && (val = item.TotalTime);
+        setTodaysInfo((prevState) => ({ ...prevState, sleep: val }));
+      },
+      (_, err) => console.log(err)
+    );
+  });
+};
+
+export const getGoals = async (setGoals) => {
+  try {
+    const prod = await AsyncStorage.getItem(goalStorageKeys.productivity);
+    const sleep = await AsyncStorage.getItem(goalStorageKeys.sleep);
+    const sport = await AsyncStorage.getItem(goalStorageKeys.sport);
+    const food = await AsyncStorage.getItem(goalStorageKeys.food);
+    setGoals({
+      prod: prod,
+      sleep: sleep,
+      sport: sport,
+      food: food,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

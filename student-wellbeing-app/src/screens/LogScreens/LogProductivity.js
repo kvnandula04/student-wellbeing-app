@@ -27,8 +27,8 @@ export default function LogProductivity({ navigation }) {
   const [rating, setRating] = useState(0);
 
   // data from SQL table for debug purposes - remove when ready
-  const [tableData, setTableData] = useState("No Data");
-  selectAllFromDB("Productivity", setTableData);
+  //const [tableData, setTableData] = useState("No Data");
+  //selectAllFromDB("Productivity", setTableData);
 
   function submitProductivity() {
     logProductivityData(text, timeSpent, rating);
