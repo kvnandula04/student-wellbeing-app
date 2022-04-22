@@ -17,7 +17,14 @@ export default function ShowAllData({ route, navigation }) {
   // data shown depends on category
   const Item = ({ data }) => (
     <View>
-      <EmptyCard style={LogScreenStyles.topCard}>
+      <EmptyCard
+        style={{
+          marginHorizontal: "5%",
+          marginTop: "3%",
+          padding: "7%",
+          justifyContent: "flex-start",
+        }}
+      >
         <View>
           {/* Conditional rendering of Titles */}
           {data.Subject != undefined ? (
@@ -89,7 +96,7 @@ export default function ShowAllData({ route, navigation }) {
   );
 
   const renderItem = ({ item }) => (
-    <View>
+    <View style={{ marginBottom: "3%" }}>
       <Item data={item} />
     </View>
   );
