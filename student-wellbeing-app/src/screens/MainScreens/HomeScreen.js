@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  ScrollView,
   Text,
   View,
   StatusBar,
@@ -13,19 +12,21 @@ import Colors from "../../styles/Colors";
 import { EmptyCard } from "../../components/EmptyCard";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 
-// import sqlite from "react-native-sqlite-storage";
-import * as SQLite from "expo-sqlite";
-import { useEffect } from "react/cjs/react.production.min";
-
-// const db = SQLite.openDatabase("WellbeingDB.db");
-// const foo = "yo";
+import { getProd, getHomeScreenInfo } from "../../utils/HomeScreenDBFunc";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function HomeScreen({ navigation }) {
-  // useEffect(() => {
-  //   createTable();
-  // });
+  const [info, setInfo] = useState({
+    //prod: "",
+    //sport: "",
+    //food: "",
+    //sleep: "",
+  });
+  const isFocused = useIsFocused();
 
-  // createSQLTable();
+  useEffect(() => {
+    getHomeScreenInfo(info, setInfo);
+  }, [isFocused]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,7 +38,6 @@ export default function HomeScreen({ navigation }) {
 
       <View style={[styles.cardContainer, { flex: 0.2 }]}>
         <EmptyCard style={{ flex: 0.7 }}>
-          {/* <Text>{foo}</Text> */}
           <Text
             style={[
               LogScreenStyles.text,
@@ -104,7 +104,7 @@ export default function HomeScreen({ navigation }) {
             source={require("../../assets/book.png")}
             style={[styles.image, { width: 130 * 0.6, height: 130 * 0.6 }]}
           />
-          <Text style={styles.secondaryText}>Maths - 30 mins</Text>
+          <Text style={styles.secondaryText}>{info.prod}</Text>
           <Text style={styles.primaryText}>65 / 125 mins</Text>
         </EmptyCard>
         <EmptyCard style={{ flex: 0.48 }}>
@@ -112,7 +112,7 @@ export default function HomeScreen({ navigation }) {
             source={require("../../assets/tennis.png")}
             style={[styles.image, { width: 114 * 0.75, height: 114 * 0.75 }]}
           />
-          <Text style={styles.secondaryText}>Tennis - 60 mins</Text>
+          <Text style={styles.secondaryText}>{info.sport}</Text>
           <Text style={styles.primaryText}>60 / 60 mins</Text>
         </EmptyCard>
       </View>
@@ -123,7 +123,7 @@ export default function HomeScreen({ navigation }) {
             source={require("../../assets/food.png")}
             style={[styles.image, { width: 130 * 0.6, height: 122 * 0.6 }]}
           />
-          <Text style={styles.secondaryText}>Pasta - 200 cals</Text>
+          <Text style={styles.secondaryText}>{info.food}</Text>
           <Text style={styles.primaryText}>700 / 2300 cals</Text>
         </EmptyCard>
         <EmptyCard style={{ flex: 0.48 }}>
@@ -131,7 +131,7 @@ export default function HomeScreen({ navigation }) {
             source={require("../../assets/sleep.png")}
             style={[styles.image, { width: 90 * 0.85, height: 90 * 0.85 }]}
           />
-          <Text style={styles.secondaryText}>Yesterday - 7 hrs</Text>
+          <Text style={styles.secondaryText}>{info.sleep}</Text>
           <Text style={styles.primaryText}>7 / 8 hrs</Text>
         </EmptyCard>
       </View>
