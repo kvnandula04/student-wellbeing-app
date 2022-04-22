@@ -88,7 +88,7 @@ export default function SleepAnalytics({ navigation }) {
         <View style={PlaceholderStyles.container}>
           <LineChart
             data={data}
-            width={screenWidth * 0.9}
+            width={Dimensions.get("window").width * 0.8}
             height={250}
             chartConfig={{
               backgroundGradientFrom: colors.PRIMARYCOLOR,
