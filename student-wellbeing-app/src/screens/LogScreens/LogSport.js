@@ -30,6 +30,7 @@ export default function LogSport({ navigation }) {
     logSportData(text, timeSpent, rating);
     onChangeText(null);
     setRating(0);
+    setTimeSpent(0);
   }
 
   return (
@@ -112,6 +113,7 @@ export default function LogSport({ navigation }) {
                   width: 20,
                   borderRadius: 10,
                 }}
+                values = {[timeSpent]}
                 onValuesChange={(value) => setTimeSpent(parseInt(value))}
               />
             </View>

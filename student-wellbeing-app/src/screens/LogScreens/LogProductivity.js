@@ -34,7 +34,7 @@ export default function LogProductivity({ navigation }) {
     logProductivityData(text, timeSpent, rating);
     // // Alert.alert("Edit saved successfully");
     onChangeText(null);
-    // setTimeSpent(0); // slider doesn't reset to 0 so best to keep value on last value
+    setTimeSpent(0);
     setRating(0);
   }
 
@@ -112,6 +112,7 @@ export default function LogProductivity({ navigation }) {
                   width: 20,
                   borderRadius: 10,
                 }}
+                values = {[timeSpent]}
                 onValuesChange={(value) => setTimeSpent(parseInt(value))}
               />
             </View>
