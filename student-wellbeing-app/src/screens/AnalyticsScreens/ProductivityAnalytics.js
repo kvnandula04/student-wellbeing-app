@@ -9,13 +9,14 @@ import {
   Dimensions,
   Alert,
   ScrollView,
+  Button,
 } from "react-native";
 import { EmptyCard } from "../../components/EmptyCard";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
-import { getGraphData } from "../../utils/GetDataDB";
-
+import { getStats } from "../../utils/GetDataDB";
+import { getDataAsArray, updateDataBuffer } from "../../utils/GraphDBFunc";
 const screenWidth = Dimensions.get("window").width;
 
 const Stat = (props) => {
@@ -25,8 +26,14 @@ const Stat = (props) => {
 };
 
 export default function ProductivityAnalytics({ navigation }) {
-  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
-  const [statsData, setStatsData] = useState([" ", 0, 0]); // day, today's length, this week's length
+  const [stats, setStats] = useState({
+    mostOn: "",
+    today: 0,
+    week: 0,
+  });
+  const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
+  const [graphBuffer, setGraphBuffer] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [readHead, setReadHead] = useState(0);
 
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
@@ -34,31 +41,23 @@ export default function ProductivityAnalytics({ navigation }) {
       {
         lineTension: 0.5,
         borderWidth: 2,
-        // data: [1, 3, 2, 4, 7, 6, 9],
-        data: graphData,
+        data: graphBuffer,
       },
     ],
   };
 
   useEffect(() => {
-    getGraphData(
-      graphData,
-      setGraphData,
-      "Productivity",
-      statsData,
-      setStatsData
-    );
-    // setForceRefresh(1);
-    // console.log(statsData);
-    // console.log(graphData);
+    getDataAsArray("SUM(Length)", "Productivity", setWeekData);
+    getStats("Length", "Productivity", setStats);
   }, []);
 
-  // function getData() {
-  //   // get graph data - getData button needs to be pressed multiple times for it to work - temporary until proper solution
-  //   // Alert.alert("getting data");
-  //   getGraphData(graphData, setGraphData, "Productivity");
-  //   // console.log(graphData);
-  // }
+  useEffect(() => {
+    setReadHead(weekData.length - 1);
+  }, [weekData]);
+
+  useEffect(() => {
+    setGraphBuffer(weekData[readHead]);
+  }, [readHead]);
 
   return (
     <ScrollView>
@@ -67,7 +66,7 @@ export default function ProductivityAnalytics({ navigation }) {
           elevated={true}
           style={{
             marginHorizontal: "5%",
-            marginTop: "20%",
+            marginTop: "10%",
             padding: "7%",
             justifyContent: "space-between",
           }}
@@ -111,11 +110,12 @@ export default function ProductivityAnalytics({ navigation }) {
               color: (opacity = 255) => "black",
             }}
             style={{ marginTop: "10%", marginRight: 5, borderRadius: 10 }}
+            fromZero
           />
           <Text
             style={{
               textAlign: "center",
-              marginBottom: "8%",
+              marginBottom: "3%",
               fontSize: 8,
               fontWeight: "bold",
             }}
@@ -124,27 +124,49 @@ export default function ProductivityAnalytics({ navigation }) {
             Day{" "}
           </Text>
         </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "flex-start",
+            marginBottom: "3%",
+            marginLeft: "10%",
+          }}
+        >
+          <Pressable
+            style={{
+              backgroundColor: colors.CARDCOLOR,
+              borderRadius: 10,
+            }}
+            onPress={() =>
+              updateDataBuffer(readHead, setReadHead, weekData.length, -1)
+            }
+          >
+            <Text style={{ padding: "2%" }}>back</Text>
+          </Pressable>
+          <Pressable
+            style={{ backgroundColor: colors.CARDCOLOR, borderRadius: 10 }}
+            onPress={() =>
+              updateDataBuffer(readHead, setReadHead, weekData.length, 1)
+            }
+          >
+            <Text style={{ padding: "2%" }}>forward</Text>
+          </Pressable>
+        </View>
+
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Most productive on: <Stat name={statsData[0]} />
+            Most productive on: <Stat name={stats.mostOn} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
             Today's productivity:{" "}
-            <Stat name={(statsData[1] / 60).toFixed(2) + " hours"} />
+            <Stat name={(stats.today / 60).toFixed(2) + " hours"} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's productivity:{" "}
-            <Stat name={(statsData[2] / 60).toFixed(2) + " hours"} />
+            This week's average productivity:{" "}
+            <Stat name={(stats.week / 60).toFixed(2) + " hours"} />
           </Text>
         </View>
-        {/* <Pressable
-          style={AnalyticsScreenStyles.button}
-          onPress={() => {
-            getGraphData(graphData, setGraphData, "Productivity");
-          }}
-        >
-          <Text style={AnalyticsScreenStyles.text}>{"Get Data"}</Text>
-        </Pressable> */}
         <Pressable
           style={AnalyticsScreenStyles.button}
           onPress={() => navigation.navigate("LogProductivity")}

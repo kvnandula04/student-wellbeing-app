@@ -2,6 +2,34 @@
 
 import { connectToDB } from "./GeneralDBFunc";
 
+const daysOfTheWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+function argmax(arr) {
+  if (arr.length === 0) {
+    return -1;
+  }
+
+  var max = arr[0];
+  var maxIndex = 0;
+
+  for (var i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      maxIndex = i;
+      max = arr[i];
+    }
+  }
+
+  return maxIndex;
+}
+
 // should work for productivity and sport
 export const getGraphData = (
   graphData,
@@ -14,7 +42,6 @@ export const getGraphData = (
 
   // console.log("getgraphdatafunc");
   const db = connectToDB();
-  console.log(category);
   db.transaction((tx) => {
     tx.executeSql(
       "SELECT Date, SUM(Length) AS TotalLength, date('now') FROM " +
@@ -39,7 +66,7 @@ export const getGraphData = (
           const previous_monday = new Date();
           previous_monday.setDate(date.getDate() - ((date.getDay() + 6) % 7));
 
-          actual_day = (js_date.getDay() - 1 + 7) % 7;
+          let actual_day = (js_date.getDay() + 6) % 7;
 
           // console.log(previous_monday);
 
@@ -138,7 +165,7 @@ export const getGraphDataFood = (
           const previous_monday = new Date();
           previous_monday.setDate(date.getDate() - ((date.getDay() + 6) % 7));
 
-          actual_day = (js_date.getDay() - 1 + 7) % 7;
+          let actual_day = (js_date.getDay() - 1 + 7) % 7;
 
           if (
             js_date > previous_monday ||
@@ -271,3 +298,113 @@ export const getGraphDataSleep = (
     );
   });
 };
+
+//returns a JS array of numbers that correspond to the TotalLength of a category from the database
+//will always return an array split into weeks
+//e.g. [[0, 0, 0, 0, 0, 0, 0], [120, 40, 0, 0, 0, 0, 0]]
+export const getDataAsArray = (field, category, setDataArray) => {
+  const db = connectToDB();
+
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT Date, SUM(" +
+        field +
+        ") AS TotalLength FROM " +
+        category +
+        " GROUP BY Date ORDER BY Date ASC",
+      [],
+      (txObj, res) => {
+        let rows = res.rows;
+        //temporary arrays to hold the values and dates for TotalLength
+        let temp = [];
+        let dates = [];
+
+        let lastDate = new Date(rows.item(0).Date);
+        //lastDate.setDate(lastDate.getDate() - 1);
+
+        for (let i = 0; i < rows.length; i++) {
+          let element = res.rows.item(i);
+          let js_date = new Date(element.Date);
+          if (js_date.getDate() == lastDate.getDate()) {
+            temp.push(element.TotalLength);
+            dates.push(js_date);
+          } else {
+            //executes when the user has skipped a day by adding 0 to the temp array for totalLength
+            temp.push(0);
+            dates.push(lastDate);
+            i--;
+          }
+          lastDate.setDate(lastDate.getDate() + 1);
+        }
+        let firstDay = (dates[0].getDay() + 6) % 7;
+        let lastDay = (dates[dates.length - 1].getDay() + 6) % 7;
+
+        //adds padding to the beginning and end of temp array to ensure that (temp.length % 7 = 0)
+        if (lastDay != 6) {
+          let trailingZeroes = 6 - (lastDay % 7);
+          for (let i = 0; i < trailingZeroes; i++) {
+            temp.push(0);
+          }
+        }
+        for (let i = 0; i < firstDay; i++) {
+          temp.unshift(0);
+        }
+
+        let final = [];
+        for (let i = 0; i < temp.length; i += 7) {
+          final.push(temp.slice(i, i + 7));
+        }
+        setDataArray(final);
+      },
+      (_, err) => console.log(err)
+    );
+  });
+};
+
+export const getStats = (field, category, setStats) => {
+  const db = connectToDB();
+
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT Date, SUM(" +
+        field +
+        ") AS TotalLength FROM " +
+        category +
+        " GROUP BY Date ORDER BY DATE ASC",
+      [],
+      (_, res) => {
+        let rows = res.rows;
+        let dayTotals = [0, 0, 0, 0, 0, 0, 0];
+        let weekTotal = 0;
+        let todayTotal = 0;
+        let today = new Date();
+        let prevMonday = new Date();
+        prevMonday.setDate(prevMonday.getDate() - ((today.getDay() + 6) % 7));
+
+        for (let i = 0; i < rows.length; i++) {
+          let element = rows.item(i);
+          let date = new Date(element.Date);
+          dayTotals[date.getDay()] += element.TotalLength;
+
+          if (today.getDate() == date.getDate()) {
+            todayTotal += element.TotalLength;
+          }
+
+          if (date.getDate() >= prevMonday.getDate()) {
+            //console.log(element.Date);
+            weekTotal += element.TotalLength;
+          }
+        }
+        let highest = daysOfTheWeek[argmax(dayTotals)];
+        setStats({
+          mostOn: highest,
+          today: todayTotal,
+          week: weekTotal / ((today.getDay() + 6) % 7),
+        });
+      },
+      (_, err) => console.log(err)
+    );
+  });
+};
+
+getSleepStats = () => {};
