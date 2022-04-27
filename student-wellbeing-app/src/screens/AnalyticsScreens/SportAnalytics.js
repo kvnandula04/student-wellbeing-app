@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { EmptyCard } from "../../components/EmptyCard";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
 //import { selectAllFromDB } from "../../utils/GeneralDBFunc";
@@ -116,7 +117,7 @@ export default function SportAnalytics({ navigation }) {
           <Text
             style={{
               textAlign: "center",
-              marginBottom: "8%",
+              marginBottom: "3%",
               fontSize: 8,
               fontWeight: "bold",
             }}
@@ -125,34 +126,49 @@ export default function SportAnalytics({ navigation }) {
             Day{" "}
           </Text>
         </View>
+
         <View
           style={{
             flexDirection: "row",
-            alignItems: "flex-start",
+            alignItems: "center",
+            justifyContent: "center",
             marginBottom: "3%",
-            marginLeft: "10%",
           }}
         >
           <Pressable
             style={{
               backgroundColor: colors.CARDCOLOR,
+              opacity: "1%",
               borderRadius: 10,
             }}
             onPress={() =>
               updateDataBuffer(readHead, setReadHead, weekData.length, -1)
             }
           >
-            <Text style={{ padding: "2%" }}>back</Text>
+            <MaterialCommunityIcons
+              style={{ padding: "2%" }}
+              name="arrow-left"
+              size={20}
+            />
           </Pressable>
+          <View style={{ width: "2.5%" }} />
           <Pressable
-            style={{ backgroundColor: colors.CARDCOLOR, borderRadius: 10 }}
+            style={{
+              backgroundColor: colors.CARDCOLOR,
+              borderRadius: 10,
+            }}
             onPress={() =>
               updateDataBuffer(readHead, setReadHead, weekData.length, 1)
             }
           >
-            <Text style={{ padding: "2%" }}>forward</Text>
+            <MaterialCommunityIcons
+              style={{ padding: "2%" }}
+              name="arrow-right"
+              size={20}
+            />
           </Pressable>
         </View>
+
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
             Most active on: <Stat name={stats.mostOn} />
