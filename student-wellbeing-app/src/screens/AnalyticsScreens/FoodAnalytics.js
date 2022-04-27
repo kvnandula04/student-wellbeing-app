@@ -13,7 +13,8 @@ import { EmptyCard } from "../../components/EmptyCard";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
-import { getGraphData, getGraphDataFood } from "../../utils/GetDataDB";
+import { getStats } from "../../utils/GetDataDB";
+import { getDataAsArray, updateDataBuffer } from "../../utils/GraphDBFunc";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -24,8 +25,14 @@ const Stat = (props) => {
 };
 
 export default function FoodAnalytics({ navigation }) {
-  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
-  const [statsData, setStatsData] = useState(["", 0, 0]);
+  const [stats, setStats] = useState({
+    mostOn: "",
+    today: 0,
+    week: 0,
+  });
+  const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
+  const [graphBuffer, setGraphBuffer] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [readHead, setReadHead] = useState(0);
 
   const data = {
     labels: ["M", "T", "W", "T", "F", "S", "S"],
@@ -33,15 +40,23 @@ export default function FoodAnalytics({ navigation }) {
       {
         lineTension: 0.5,
         borderWidth: 2,
-        // data: [1, 3, 2, 4, 7, 6, 9],
-        data: graphData,
+        data: graphBuffer,
       },
     ],
   };
 
   useEffect(() => {
-    getGraphDataFood(graphData, setGraphData, statsData, setStatsData);
+    getDataAsArray("SUM(Calories)", "Food", setWeekData);
+    getStats("Calories", "Food", setStats);
   }, []);
+
+  useEffect(() => {
+    setReadHead(weekData.length - 1);
+  }, [weekData]);
+
+  useEffect(() => {
+    setGraphBuffer(weekData[readHead]);
+  }, [readHead]);
 
   return (
     <ScrollView>
@@ -94,6 +109,7 @@ export default function FoodAnalytics({ navigation }) {
               color: (opacity = 255) => "black",
             }}
             style={{ marginTop: "10%", marginRight: 5, borderRadius: 10 }}
+            fromZero
           />
           <Text
             style={{
@@ -107,15 +123,45 @@ export default function FoodAnalytics({ navigation }) {
             Day{" "}
           </Text>
         </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "flex-start",
+            marginBottom: "3%",
+            marginLeft: "10%",
+          }}
+        >
+          <Pressable
+            style={{
+              backgroundColor: colors.CARDCOLOR,
+              borderRadius: 10,
+            }}
+            onPress={() =>
+              updateDataBuffer(readHead, setReadHead, weekData.length, -1)
+            }
+          >
+            <Text style={{ padding: "2%" }}>back</Text>
+          </Pressable>
+          <Pressable
+            style={{ backgroundColor: colors.CARDCOLOR, borderRadius: 10 }}
+            onPress={() =>
+              updateDataBuffer(readHead, setReadHead, weekData.length, 1)
+            }
+          >
+            <Text style={{ padding: "2%" }}>forward</Text>
+          </Pressable>
+        </View>
+
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Most calories on: <Stat name={statsData[0]} />
+            Most calories on: <Stat name={stats.mostOn} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's calories: <Stat name={statsData[1]} />
+            Today's calories: <Stat name={stats.today} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's score: <Stat name={statsData[2].toFixed(2)} />
+            This week's average: <Stat name={stats.week} />
           </Text>
         </View>
         <Pressable
