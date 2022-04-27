@@ -162,7 +162,7 @@ export default function SportAnalytics({ navigation }) {
             <Stat name={stats.today.toFixed(2) + " minutes"} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's activity:{" "}
+            This week's average:{" "}
             <Stat name={stats.week.toFixed(2) + " minutes"} />
           </Text>
         </View>

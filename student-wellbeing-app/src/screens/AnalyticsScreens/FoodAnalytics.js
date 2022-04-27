@@ -58,8 +58,6 @@ export default function FoodAnalytics({ navigation }) {
     setGraphBuffer(weekData[readHead]);
   }, [readHead]);
 
-  console.log(stats);
-
   return (
     <ScrollView>
       <View style={AnalyticsScreenStyles.container}>
