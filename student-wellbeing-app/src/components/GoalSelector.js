@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   View,
@@ -10,12 +10,16 @@ import {
 import Colors from "../styles/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { goalStorageKeys } from "../styles/Constants";
+import { getGoals } from "../utils/HomeScreenDBFunc";
 
 export const GoalSelector = ({ modalVisible, setModalVisible }) => {
   const [ProductivityValue, setProductivity] = useState(0);
   const [SportValue, setSport] = useState(0);
   const [CalorieValue, setCalorie] = useState(0);
   const [SleepValue, setSleep] = useState(0);
+
+  //for displaying the goals that are already stored
+  const [goals, setGoals] = useState({});
 
   const updateGoals = async () => {
     try {
@@ -31,6 +35,10 @@ export const GoalSelector = ({ modalVisible, setModalVisible }) => {
     }
     setModalVisible(false);
   };
+
+  useEffect(() => {
+    getGoals(setGoals);
+  });
 
   return (
     <Modal
@@ -54,26 +62,22 @@ export const GoalSelector = ({ modalVisible, setModalVisible }) => {
           />
           <View style={{ paddingBottom: "10%", paddingTop: "5%" }}>
             <TextInput
-              placeholder={
-                ":Enter Productivity Goal (mins): " + ProductivityValue
-              }
+              placeholder={":Enter Productivity Goal (mins): " + goals.prod}
               keyboardType="numeric"
               onChangeText={(newText) => setProductivity(newText)}
             />
             <TextInput
-              placeholder={":Enter Sports Goal (mins): " + SportValue}
+              placeholder={":Enter Sports Goal (mins): " + goals.sport}
               keyboardType="numeric"
               onChangeText={(newText) => setSport(newText)}
             />
             <TextInput
-              placeholder={
-                ":Enter Calories Goal (total kcals): " + CalorieValue
-              }
+              placeholder={":Enter Calories Goal (total kcals): " + goals.food}
               keyboardType="numeric"
               onChangeText={(newText) => setCalorie(newText)}
             />
             <TextInput
-              placeholder={":Enter Sleep Goal (hours): " + SleepValue}
+              placeholder={":Enter Sleep Goal (hours): " + goals.sleep}
               keyboardType="numeric"
               onChangeText={(newText) => setSleep(newText)}
             />

@@ -17,6 +17,9 @@ export function createDatabase() {
     tx.executeSql(
       "CREATE TABLE IF NOT EXISTS Sleep (ID INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Time TEXT, TimeHours Integer, TimeMinutes INTEGER, Rating INTEGER, Journal TEXT);"
     );
+    tx.executeSql(
+      "CREATE TABLE IF NOT EXISTS Mood (Date TEXT PRIMARY KEY, Rating);"
+    );
   });
 }
 
@@ -27,6 +30,8 @@ export function resetDatabase() {
     tx.executeSql("DROP TABLE Sport;");
     tx.executeSql("DROP TABLE Food;");
     tx.executeSql("DROP TABLE Sleep;");
+    tx.executeSql("DROP TABLE Mood;");
+    tx.executeSql;
   });
   createDatabase();
   Alert.alert("Reset database");

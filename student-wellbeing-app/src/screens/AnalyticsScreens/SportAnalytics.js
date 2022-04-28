@@ -14,9 +14,7 @@ import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
-//import { selectAllFromDB } from "../../utils/GeneralDBFunc";
-//import { getGraphData } from "../../utils/GetDataDB";
-import { getDataAsArray, updateDataBuffer } from "../../utils/GraphDBFunc";
+import { getDataAsWeeks, updateDataBuffer } from "../../utils/GraphDBFunc";
 import { getStats } from "../../utils/GetDataDB";
 
 const screenWidth = Dimensions.get("window").width;
@@ -49,7 +47,7 @@ export default function SportAnalytics({ navigation }) {
   };
 
   useEffect(() => {
-    getDataAsArray("SUM(Length)", "Sport", setWeekData);
+    getDataAsWeeks("SUM(Length)", "Sport", setWeekData);
     getStats("Length", "Sport", setStats);
   }, []);
 

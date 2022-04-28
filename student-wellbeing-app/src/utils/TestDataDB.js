@@ -55,6 +55,12 @@ export function insertTestData() {
         data.sleep[i]
       );
     }
+    for (let i = 0; i < data.mood.length; i++) {
+      tx.executeSql(
+        "REPLACE INTO Mood (Date, Rating) values (date('now', ?), ?)",
+        data.mood[i]
+      );
+    }
   });
   Alert.alert("Added test data");
 }
@@ -131,5 +137,16 @@ const data = {
     ["-3 days", "-7 hours", 7, 30, 5, "journal"],
     ["-2 days", "-7 hours", 8, 20, 5, "journal"],
     ["-1 days", "-7 hours", 6, 0, 3, "journal"],
+  ],
+  mood: [
+    ["-10 days", 4],
+    ["-9 days", 3],
+    ["-8 days", 5],
+    ["-7 days", 5],
+    ["-6 days", 3],
+    ["-4 days", 2],
+    ["-3 days", 2],
+    ["-2 days", 5],
+    ["-1 days", 4],
   ],
 };

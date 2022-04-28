@@ -14,8 +14,8 @@ import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
-import { getDataAsArray, updateDataBuffer } from "../../utils/GraphDBFunc";
 import { getStats } from "../../utils/GetDataDB";
+import { getDataAsWeeks, updateDataBuffer } from "../../utils/GraphDBFunc";
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Tuesday";
@@ -50,7 +50,7 @@ export default function SleepAnalytics({ navigation }) {
   };
 
   useEffect(() => {
-    getDataAsArray("(TimeHours + (TimeMinutes / 60))", "Sleep", setWeekData);
+    getDataAsWeeks("(TimeHours + (TimeMinutes / 60))", "Sleep", setWeekData);
     getStats("(TimeHours + TimeMinutes / 60)", "Sleep", setStats);
   }, []);
 

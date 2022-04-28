@@ -17,8 +17,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
 import { getStats } from "../../utils/GetDataDB";
-import { getDataAsArray, updateDataBuffer } from "../../utils/GraphDBFunc";
-import Colors from "../../styles/Colors";
+import { getDataAsWeeks, updateDataBuffer } from "../../utils/GraphDBFunc";
+
 const screenWidth = Dimensions.get("window").width;
 
 const Stat = (props) => {
@@ -49,7 +49,7 @@ export default function ProductivityAnalytics({ navigation }) {
   };
 
   useEffect(() => {
-    getDataAsArray("SUM(Length)", "Productivity", setWeekData);
+    getDataAsWeeks("SUM(Length)", "Productivity", setWeekData);
     getStats("Length", "Productivity", setStats);
   }, []);
 

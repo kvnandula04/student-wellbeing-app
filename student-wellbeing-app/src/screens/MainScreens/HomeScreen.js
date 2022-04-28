@@ -12,6 +12,8 @@ import Colors from "../../styles/Colors";
 import { EmptyCard } from "../../components/EmptyCard";
 import LogScreenStyles from "../../styles/LogScreenStyles";
 
+import { logMoodData } from "../../utils/LogDataDB";
+
 import {
   getHomeScreenInfo,
   getTodaysInfo,
@@ -63,31 +65,46 @@ export default function HomeScreen({ navigation }) {
               justifyContent: "space-evenly",
             }}
           >
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => alert("TODO")}>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => logMoodData(1)}
+            >
               <Image
                 style={styles.moodimage}
                 source={require("../../assets/mood1.png")}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => alert("TODO")}>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => logMoodData(2)}
+            >
               <Image
                 style={styles.moodimage}
                 source={require("../../assets/mood2.png")}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => alert("TODO")}>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => logMoodData(3)}
+            >
               <Image
                 style={styles.moodimage}
                 source={require("../../assets/mood3.png")}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => alert("TODO")}>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => logMoodData(4)}
+            >
               <Image
                 style={styles.moodimage}
                 source={require("../../assets/mood4.png")}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{ flex: 1 }} onPress={() => alert("TODO")}>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => logMoodData(5)}
+            >
               <Image
                 style={styles.moodimage}
                 source={require("../../assets/mood5.png")}
@@ -97,7 +114,9 @@ export default function HomeScreen({ navigation }) {
         </EmptyCard>
 
         <EmptyCard style={{ flex: 0.25, flexDirection: "column" }}>
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>58</Text>
+          <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+            {calculatePoints(goals, todaysInfo).toFixed(0)}
+          </Text>
           <Text style={{ marginTop: "0%" }}>points</Text>
         </EmptyCard>
       </View>
@@ -168,17 +187,28 @@ export default function HomeScreen({ navigation }) {
           </EmptyCard>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => alert("TODO")}
+          onPress={() => navigation.navigate("GoMoodAnalytics")}
           style={styles.bottomButtons}
         >
           <EmptyCard style={{ flex: 1 }}>
-            <Text style={LogScreenStyles.text}>Analytics</Text>
+            <Text style={LogScreenStyles.text}>Mood Analytics</Text>
           </EmptyCard>
         </TouchableOpacity>
       </View>
       {/* </ScrollView> */}
     </SafeAreaView>
   );
+}
+
+function calculatePoints(goals, todaysInfo) {
+  let p = [
+    todaysInfo.prod / goals.prod,
+    todaysInfo.food / goals.food,
+    todaysInfo.sleep / goals.sleep,
+    todaysInfo.sport / goals.sport,
+  ];
+  let points = p.reduce((partialSum, a) => partialSum + a, 0);
+  return points * 25;
 }
 
 const styles = StyleSheet.create({

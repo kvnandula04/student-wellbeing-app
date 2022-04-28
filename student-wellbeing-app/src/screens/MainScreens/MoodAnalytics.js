@@ -12,6 +12,7 @@ import {
 import { EmptyCard } from "../../components/EmptyCard";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 import colors from "../../styles/Colors";
 import { LineChart } from "react-native-chart-kit";
 import { getStats } from "../../utils/GetDataDB";
@@ -25,7 +26,7 @@ const Stat = (props) => {
   );
 };
 
-export default function FoodAnalytics({ navigation }) {
+export default function MoodAnalytics({ navigation }) {
   const [stats, setStats] = useState({
     mostOn: "",
     today: 0,
@@ -47,8 +48,9 @@ export default function FoodAnalytics({ navigation }) {
   };
 
   useEffect(() => {
-    getDataAsWeeks("SUM(Calories)", "Food", setWeekData);
-    getStats("Calories", "Food", setStats);
+    getDataAsWeeks("Rating", "Mood", setWeekData);
+    getStats("Rating", "Mood", setStats);
+    updateDataBuffer(readHead, setReadHead, weekData.length - 1, 0);
   }, []);
 
   useEffect(() => {
@@ -66,32 +68,32 @@ export default function FoodAnalytics({ navigation }) {
           elevated={true}
           style={{
             marginHorizontal: "5%",
-            marginTop: "20%",
-            padding: "7%",
+            marginTop: "10%",
             justifyContent: "space-between",
+            padding: 10,
           }}
         >
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
             <Image
-              source={require("../../assets/food.png")}
+              source={require("../../assets/mood5.png")}
               style={{
-                width: 130 * 0.5,
-                height: 122 * 0.55,
+                width: 130 * 0.6,
+                height: 130 * 0.6,
               }}
             />
             <View>
               <Text
                 style={{
                   fontWeight: "bold",
-                  marginTop: "7%",
-                  marginLeft: "20%",
+                  marginTop: "10%",
+                  marginLeft: "10%",
                   fontSize: 30,
                 }}
               >
-                Food
+                Mood
               </Text>
               <Text
-                style={{ fontWeight: "bold", marginLeft: "22%", fontSize: 12 }}
+                style={{ fontWeight: "bold", marginLeft: "10%", fontSize: 12 }}
               >
                 Analytics
               </Text>
@@ -169,18 +171,19 @@ export default function FoodAnalytics({ navigation }) {
 
         <View>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Most calories on: <Stat name={stats.mostOn} />
+            Happiest on: <Stat name={stats.mostOn} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's calories: <Stat name={stats.today} />
+            Today's mood: <Stat name={stats.today} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's average: <Stat name={stats.week} />
+            This week's average mood:{" "}
+            <Stat name={(stats.week / 60).toFixed(2)} />
           </Text>
         </View>
         <Pressable
           style={AnalyticsScreenStyles.button}
-          onPress={() => navigation.navigate("LogFood")}
+          onPress={() => navigation.navigate("GoHome")}
         >
           <Text style={AnalyticsScreenStyles.text}>{"BACK"}</Text>
         </Pressable>

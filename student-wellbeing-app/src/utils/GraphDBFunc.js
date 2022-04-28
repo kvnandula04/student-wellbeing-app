@@ -7,6 +7,8 @@ export const updateDataBuffer = (readHead, setReadHead, len, direction = 0) => {
         setReadHead(readHead - 1);
       }
       break;
+    case 0:
+      setReadHead(readHead);
     case 1:
       if (readHead < len - 1) {
         setReadHead(readHead + 1);
@@ -18,7 +20,7 @@ export const updateDataBuffer = (readHead, setReadHead, len, direction = 0) => {
 //returns a JS array of numbers that correspond to the TotalLength of a category from the database
 //will always return an array split into weeks
 //e.g. [[0, 0, 0, 0, 0, 0, 0], [120, 40, 0, 0, 0, 0, 0]]
-export const getDataAsArray = (field, category, setDataArray) => {
+export const getDataAsWeeks = (field, category, setDataArray) => {
   const db = connectToDB();
 
   db.transaction((tx) => {

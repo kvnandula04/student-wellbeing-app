@@ -44,3 +44,14 @@ export const logSleepData = (hours, minutes, rating, journal) => {
     );
   });
 };
+
+export const logMoodData = (rating) => {
+  db.transaction((tx) => {
+    tx.executeSql(
+      "REPLACE INTO Mood (Date, Rating) values (date('now'), ?)",
+      [rating],
+      (_, res) => alert(`Logged rating '${rating}'`),
+      (_, err) => console.log(err)
+    );
+  });
+};
