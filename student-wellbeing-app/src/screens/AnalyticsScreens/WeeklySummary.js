@@ -13,7 +13,8 @@ import { EmptyCard } from "../../components/EmptyCard";
 import { LineChart } from "react-native-chart-kit";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import Colors from "../../styles/Colors";
-import { getGraphData } from "../../utils/GetDataDB";
+import { getGraphData, getGraphDataSleep, getStats} from "../../utils/GetDataDB";
+import { getDataAsWeeks } from "../../utils/GraphDBFunc";
 
 const screenWidth = Dimensions.get("window").width;
 const backendvalue1 = "Productivity";
@@ -35,10 +36,10 @@ const bad_sleep_message =
 /////'s are used to indicate where i have changed the original design rules.
 */
 
-export default function WeeklySummary({ navigation }) {
-  //the first two data update well after an injection, but they don't, also using the day value instead of week
-  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
-  const [statsData, setStatsData] = useState([" ", 0, 0]);
+export default function WeeklySummary({navigation}) {
+    const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [statsData, setStatsData] = useState([" ", 0, 0]); 
+    const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
 
   useEffect(() => {
     getGraphData(
@@ -47,45 +48,86 @@ export default function WeeklySummary({ navigation }) {
       "Productivity",
       statsData,
       setStatsData
-    );
-  }, []);
-  const tempComp1 = (((statsData[1] - 250) / 250) * 100).toFixed(0); //percentage change of productivity - updates well
-  const [statsData1, setStatsData1] = useState([" ", 0, 0]);
-  const [graphData1, setGraphData1] = useState([0, 0, 0, 0, 0, 0, 0]);
-  useEffect(() => {
-    getGraphData(graphData1, setGraphData1, "Sport", statsData1, setStatsData1);
-  }, []);
-  const tempComp2 = (((statsData1[1] - 90) / 90) * 100).toFixed(0); //percentage change of sports activity - updates well
-  const [statsData2, setStatsData2] = useState([" ", 0, 0]);
-  const [graphData2, setGraphData2] = useState([0, 0, 0, 0, 0, 0, 0]);
-  useEffect(() => {
-    getGraphData(graphData2, setGraphData2, "Sleep", statsData2, setStatsData2);
-    //console.log(statsData2[1]);
-  }, []);
-  const tempComp3 = (((statsData2[1] - 510) / 510) * 100).toFixed(0); //percentage change of sleep - doesn't update well
+      );
+    },[]);
+    useEffect(() => {
+      getDataAsWeeks("SUM(Length)", "Productivity", setWeekData);
+      getStats("Length", "Productivity", setStatsData, 0, " hours", 60);
+    }, []);
+    var sum1 = graphData.reduce((a,v) =>  a = a + v, 0 );
+    var sum2 = weekData[0].reduce((a,v) =>  a = a + v, 0 );
+    const tempComp1 = (((sum1 - sum2)/sum2)*100).toFixed(0);
 
-  const wcomp1 =
-    tempComp1 > 0 ? " up" + " by " + tempComp1 : " down" + " by " + -tempComp1;
-  const wcomp2 =
-    tempComp2 > 0 ? " up" + " by " + tempComp2 : " down" + " by " + -tempComp2;
-  const wcomp3 =
-    tempComp3 > 0 ? " up" + " by " + tempComp3 : " down" + " by " + -tempComp3;
 
-  //used buttons instead of dropdown - dropdown giving me unnecessary problems
-  var data = {
-    labels: graphData,
-    datasets: [
-      {
-        lineTension: 0.5,
-        borderWidth: 2,
-        data: graphData1,
-      },
-    ],
-  };
-  var [dataval, setdataval] = useState(0);
-  useEffect(() => {
-    setdataval(dataval);
-  });
+    ////////////////////////////////////////////////////////////////
+
+
+    const [statsData1, setStatsData1] = useState([" ", 0, 0]); 
+    const [graphData1, setGraphData1] = useState([0, 0, 0, 0, 0, 0, 0]);
+    const [weekData1, setWeekData1] = useState([[0, 0, 0, 0, 0, 0, 0]]);
+    
+    useEffect(()=>{
+      getGraphData(
+      graphData1,
+      setGraphData1,
+      "Sport",
+      statsData1,
+      setStatsData1
+      );
+    },[]);  
+    useEffect(() => {
+      getDataAsWeeks("SUM(Length)", "Sport", setWeekData1);
+      getStats("Length", "Sport", setStatsData1, 0, " minutes");
+    }, []);
+    sum1 = graphData1.reduce((a,v) =>  a = a + v, 0 );
+    sum2 = weekData1[0].reduce((a,v) =>  a = a + v, 0 );
+    const tempComp2 = (((sum1 - sum2)/sum2)*100).toFixed(0);
+
+
+    //////////////////////////////////////////////////////
+
+
+    const [statsData2, setStatsData2] = useState([" ", 0, 0]); 
+    const [graphData2, setGraphData2] = useState([0, 0, 0, 0, 0, 0, 0]); 
+    const [weekData2, setWeekData2] = useState([[0, 0, 0, 0, 0, 0, 0]]);
+    
+    useEffect(()=>{
+      getGraphDataSleep(
+      graphData2,
+      setGraphData2,
+      "Sleep",
+      statsData2,
+      setStatsData2
+      );
+    },[]);
+    useEffect(() => {
+      getDataAsWeeks("(TimeHours + (TimeMinutes / 60))", "Sleep", setWeekData2);
+      getStats("(TimeHours + TimeMinutes / 60)", "Sleep", setStatsData2, 2, " hours");
+    }, []);
+  
+
+    sum1 = graphData2.reduce((a,v) =>  a = a + v, 0 );
+    sum2 = weekData2[0].reduce((a,v) =>  a = a + v, 0 );
+    const tempComp3 = (((sum1 - sum2)/sum2)*100).toFixed(0);
+    ///////////////////////////////////////////////////
+    const wcomp1 = (tempComp1 > 0) ? " up" + " by " +  (tempComp1): " down" + " by " +  (-tempComp1);
+    const wcomp2 = (tempComp2 > 0) ? " up" + " by " +  (tempComp2): " down" + " by " +  (-tempComp2);
+    const wcomp3 = (tempComp3 > 0) ? " up" + " by " +  (tempComp3): " down" + " by " +  (-tempComp3);
+
+
+    var data = {
+      labels: graphData,
+      datasets: [{
+          lineTension: 0.5,
+          borderWidth: 2,
+          data: graphData1
+    
+      }]
+    }
+    var [dataval, setdataval] = useState(0);
+    useEffect(() => {
+      setdataval(dataval);
+    })
 
   const dataset1 = {
     labels: graphData2,
