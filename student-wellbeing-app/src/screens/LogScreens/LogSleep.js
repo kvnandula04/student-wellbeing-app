@@ -61,8 +61,8 @@ export default function LogSleep({ navigation }) {
               <Text
                 style={{
                   fontWeight: "bold",
-                  marginLeft: "20%",
-                  fontSize: 15,
+                  marginLeft: "22%",
+                  fontSize: 12,
                   paddingTop: 5,
                 }}
               >
