@@ -65,15 +65,19 @@ export default function MoodAnalytics({ navigation }) {
             marginHorizontal: "5%",
             marginTop: "10%",
             justifyContent: "space-between",
-            padding: 10,
+            padding: 20,
+            paddingBottom: 30
           }}
         >
           <View style={{ alignItems: "flex-start", flexDirection: "row" }}>
             <Image
-              source={require("../../assets/mood5.png")}
+              source={require("../../assets/mood.png")}
               style={{
-                width: 130 * 0.6,
-                height: 130 * 0.6,
+                width: 512 * 0.1,
+                height: 512 * 0.1,
+                marginLeft: "7.5%",
+                marginTop: "5%",
+                marginRight: "3%"
               }}
             />
             <View>
@@ -81,14 +85,14 @@ export default function MoodAnalytics({ navigation }) {
                 style={{
                   fontWeight: "bold",
                   marginTop: "10%",
-                  marginLeft: "10%",
+                  marginLeft: "15%",
                   fontSize: 30,
                 }}
               >
                 Mood
               </Text>
               <Text
-                style={{ fontWeight: "bold", marginLeft: "10%", fontSize: 12 }}
+                style={{ fontWeight: "bold", marginLeft: "17%", fontSize: 12 }}
               >
                 Analytics
               </Text>
