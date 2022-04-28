@@ -34,7 +34,6 @@ export default function ProductivityAnalytics({ navigation }) {
     week: 0,
   });
   const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-  const [graphBuffer, setGraphBuffer] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [readHead, setReadHead] = useState(0);
 
   const data = {
@@ -43,23 +42,19 @@ export default function ProductivityAnalytics({ navigation }) {
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: graphBuffer,
+        data: weekData[readHead],
       },
     ],
   };
 
   useEffect(() => {
     getDataAsWeeks("SUM(Length)", "Productivity", setWeekData);
-    getStats("Length", "Productivity", setStats);
+    getStats("Length", "Productivity", setStats, 0, " hours", 60);
   }, []);
 
   useEffect(() => {
     setReadHead(weekData.length - 1);
   }, [weekData]);
-
-  useEffect(() => {
-    setGraphBuffer(weekData[readHead]);
-  }, [readHead]);
 
   return (
     <ScrollView>
@@ -174,12 +169,10 @@ export default function ProductivityAnalytics({ navigation }) {
             Most productive on: <Stat name={stats.mostOn} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's productivity:{" "}
-            <Stat name={(stats.today / 60).toFixed(2) + " hours"} />
+            Today's productivity: <Stat name={stats.today} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's average productivity:{" "}
-            <Stat name={(stats.week / 60).toFixed(2) + " hours"} />
+            This week's average productivity: <Stat name={stats.week} />
           </Text>
         </View>
         <Pressable

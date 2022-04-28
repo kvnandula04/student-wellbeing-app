@@ -361,9 +361,17 @@ export const getDataAsArray = (field, category, setDataArray) => {
   });
 };
 
-export const getStats = (field, category, setStats) => {
+export const getStats = (
+  field,
+  category,
+  setStats,
+  round = 0,
+  suffix = "",
+  divideBy = 1
+) => {
   const db = connectToDB();
-
+  let s = { mostOn: "No Data", today: "No Data", week: "No Data" };
+  setStats(s);
   db.transaction((tx) => {
     tx.executeSql(
       "SELECT Date, SUM(" +
@@ -373,38 +381,39 @@ export const getStats = (field, category, setStats) => {
         " GROUP BY Date ORDER BY DATE ASC",
       [],
       (_, res) => {
-        let rows = res.rows;
-        let dayTotals = [0, 0, 0, 0, 0, 0, 0];
-        let weekTotal = 0;
-        let todayTotal = 0;
-        let today = new Date();
-        let prevMonday = new Date();
-        prevMonday.setDate(prevMonday.getDate() - ((today.getDay() + 6) % 7));
+        if (res.rows.length > 0) {
+          let rows = res.rows;
+          let dayTotals = [0, 0, 0, 0, 0, 0, 0];
+          let weekTotal = 0;
+          let todayTotal = 0;
+          let today = new Date();
+          let prevMonday = new Date();
+          prevMonday.setDate(prevMonday.getDate() - ((today.getDay() + 6) % 7));
 
-        for (let i = 0; i < rows.length; i++) {
-          let element = rows.item(i);
-          let date = new Date(element.Date);
-          dayTotals[date.getDay()] += element.TotalLength;
+          for (let i = 0; i < rows.length; i++) {
+            let element = rows.item(i);
+            let date = new Date(element.Date);
+            dayTotals[date.getDay()] += element.TotalLength;
 
-          if (today.getDate() == date.getDate()) {
-            todayTotal += element.TotalLength;
+            if (today.getDate() == date.getDate()) {
+              todayTotal += element.TotalLength;
+            }
+
+            if (date.getDate() >= prevMonday.getDate()) {
+              //console.log(element.Date);
+              weekTotal += element.TotalLength;
+            }
           }
-
-          if (date.getDate() >= prevMonday.getDate()) {
-            //console.log(element.Date);
-            weekTotal += element.TotalLength;
-          }
+          let highest = daysOfTheWeek[argmax(dayTotals)];
+          let avg = weekTotal / ((today.getDay() + 6) % 7);
+          setStats({
+            mostOn: highest,
+            today: (todayTotal / divideBy).toFixed(round) + suffix,
+            week: (avg / divideBy).toFixed(round) + suffix,
+          });
         }
-        let highest = daysOfTheWeek[argmax(dayTotals)];
-        setStats({
-          mostOn: highest,
-          today: todayTotal,
-          week: weekTotal / ((today.getDay() + 6) % 7),
-        });
       },
       (_, err) => console.log(err)
     );
   });
 };
-
-getSleepStats = () => {};

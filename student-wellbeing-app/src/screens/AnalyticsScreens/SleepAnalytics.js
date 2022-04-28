@@ -35,7 +35,6 @@ export default function SleepAnalytics({ navigation }) {
     week: 0,
   });
   const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-  const [graphBuffer, setGraphBuffer] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [readHead, setReadHead] = useState(0);
 
   const data = {
@@ -44,23 +43,19 @@ export default function SleepAnalytics({ navigation }) {
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: graphBuffer,
+        data: weekData[readHead],
       },
     ],
   };
 
   useEffect(() => {
     getDataAsWeeks("(TimeHours + (TimeMinutes / 60))", "Sleep", setWeekData);
-    getStats("(TimeHours + TimeMinutes / 60)", "Sleep", setStats);
+    getStats("(TimeHours + TimeMinutes / 60)", "Sleep", setStats, 2, " hours");
   }, []);
 
   useEffect(() => {
     setReadHead(weekData.length - 1);
   }, [weekData]);
-
-  useEffect(() => {
-    setGraphBuffer(weekData[readHead]);
-  }, [readHead]);
 
   return (
     <ScrollView>

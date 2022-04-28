@@ -4,22 +4,31 @@ import { goalStorageKeys } from "../styles/Constants";
 
 const divider = " - ";
 
-export const getHomeScreenInfo = (info, setInfo) => {
+export const getHomeScreenInfo = (setInfo) => {
   const db = connectToDB();
 
+  let info = {
+    prod: "No data",
+    sport: "No data",
+    sleep: "No data",
+    food: "No data",
+  };
+  setInfo(info);
   //PRODUCTIVITY
   db.transaction((tx) => {
     tx.executeSql(
-      "SELECT Subject, Length FROM Productivity ORDER BY Date ASC",
+      "SELECT Subject, Length FROM Productivity ORDER BY Date DESC",
       [],
       (txObj, result) => {
-        let x = result.rows.item(result.rows.length - 1);
-        let subject = x.Subject;
-        let length = x.Length;
-        setInfo((prevState) => ({
-          ...prevState,
-          prod: subject + divider + length,
-        }));
+        if (result.rows.length > 0) {
+          let x = result.rows.item(0);
+          let subject = x.Subject;
+          let length = x.Length;
+          setInfo((prevState) => ({
+            ...prevState,
+            prod: subject + divider + length,
+          }));
+        }
       },
       (txObj, error) => console.log("ERROR ", error)
     );
@@ -28,16 +37,18 @@ export const getHomeScreenInfo = (info, setInfo) => {
   //SPORT
   db.transaction((tx) => {
     tx.executeSql(
-      "SELECT Activity, Length FROM Sport ORDER BY Date ASC",
+      "SELECT Activity, Length FROM Sport ORDER BY Date DESC",
       [],
       (txObj, result) => {
-        let x = result.rows.item(result.rows.length - 1);
-        let activity = x.Activity;
-        let length = x.Length;
-        setInfo((prevState) => ({
-          ...prevState,
-          sport: activity + divider + length,
-        }));
+        if (result.rows.length > 0) {
+          let x = result.rows.item(0);
+          let activity = x.Activity;
+          let length = x.Length;
+          setInfo((prevState) => ({
+            ...prevState,
+            sport: activity + divider + length,
+          }));
+        }
       },
       (txObj, error) => console.log("ERROR ", error)
     );
@@ -46,17 +57,19 @@ export const getHomeScreenInfo = (info, setInfo) => {
   //FOOD
   db.transaction((tx) => {
     tx.executeSql(
-      "SELECT FoodName, Calories FROM Food ORDER BY Date ASC",
+      "SELECT FoodName, Calories FROM Food ORDER BY Date DESC",
       [],
       (txObj, result) => {
-        let x = result.rows.item(result.rows.length - 1);
-        let food = x.FoodName;
-        let calories = x.Calories;
+        if (result.rows.length > 0) {
+          let x = result.rows.item(0);
+          let food = x.FoodName;
+          let calories = x.Calories;
 
-        setInfo((prevState) => ({
-          ...prevState,
-          food: food + divider + calories,
-        }));
+          setInfo((prevState) => ({
+            ...prevState,
+            food: food + divider + calories,
+          }));
+        }
       },
       (txObj, error) => console.log("ERROR ", error)
     );
@@ -65,15 +78,18 @@ export const getHomeScreenInfo = (info, setInfo) => {
   //SLEEP
   db.transaction((tx) => {
     tx.executeSql(
-      "SELECT TimeHours FROM Sleep ORDER BY Date ASC",
+      "SELECT TimeHours FROM Sleep ORDER BY Date DESC",
       [],
       (txObj, result) => {
-        let x = result.rows.item(result.rows.length - 1);
-        let length = x.TimeHours;
-        setInfo((prevState) => ({
-          ...prevState,
-          sleep: "Last Sleep" + divider + length,
-        }));
+        if (result.rows.length > 0) {
+          let x = result.rows.item(0);
+
+          let length = x.TimeHours;
+          setInfo((prevState) => ({
+            ...prevState,
+            sleep: "Last Sleep" + divider + length,
+          }));
+        }
       },
       (txObj, error) => console.log("ERROR ", error)
     );

@@ -23,13 +23,13 @@ import { useIsFocused } from "@react-navigation/native";
 
 export default function HomeScreen({ navigation }) {
   //info -> the last entry in the table to do with that thing
-  const [info, setInfo] = useState({});
+  const [info, setInfo] = useState({ prod: 0, sport: 0, sleep: 0, food: 0 });
   const [goals, setGoals] = useState({});
   const [todaysInfo, setTodaysInfo] = useState({});
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    getHomeScreenInfo(info, setInfo);
+    getHomeScreenInfo(setInfo);
     getTodaysInfo(todaysInfo, setTodaysInfo);
     getGoals(setGoals);
   }, [isFocused]);

@@ -33,7 +33,6 @@ export default function MoodAnalytics({ navigation }) {
     week: 0,
   });
   const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-  const [graphBuffer, setGraphBuffer] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [readHead, setReadHead] = useState(0);
 
   const data = {
@@ -42,7 +41,7 @@ export default function MoodAnalytics({ navigation }) {
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: graphBuffer,
+        data: weekData[readHead],
       },
     ],
   };
@@ -56,10 +55,6 @@ export default function MoodAnalytics({ navigation }) {
   useEffect(() => {
     setReadHead(weekData.length - 1);
   }, [weekData]);
-
-  useEffect(() => {
-    setGraphBuffer(weekData[readHead]);
-  }, [readHead]);
 
   return (
     <ScrollView>
@@ -177,8 +172,7 @@ export default function MoodAnalytics({ navigation }) {
             Today's mood: <Stat name={stats.today} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's average mood:{" "}
-            <Stat name={(stats.week / 60).toFixed(2)} />
+            This week's average mood: <Stat name={stats.week} />
           </Text>
         </View>
         <Pressable

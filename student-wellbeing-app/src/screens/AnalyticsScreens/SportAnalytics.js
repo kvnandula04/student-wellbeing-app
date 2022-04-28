@@ -32,7 +32,6 @@ export default function SportAnalytics({ navigation }) {
     week: 0,
   });
   const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-  const [graphBuffer, setGraphBuffer] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [readHead, setReadHead] = useState(0);
 
   const data = {
@@ -41,23 +40,19 @@ export default function SportAnalytics({ navigation }) {
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: graphBuffer,
+        data: weekData[readHead],
       },
     ],
   };
 
   useEffect(() => {
     getDataAsWeeks("SUM(Length)", "Sport", setWeekData);
-    getStats("Length", "Sport", setStats);
+    getStats("Length", "Sport", setStats, 0, " minutes");
   }, []);
 
   useEffect(() => {
     setReadHead(weekData.length - 1);
   }, [weekData]);
-
-  useEffect(() => {
-    setGraphBuffer(weekData[readHead]);
-  }, [readHead]);
 
   return (
     <ScrollView>
@@ -172,12 +167,10 @@ export default function SportAnalytics({ navigation }) {
             Most active on: <Stat name={stats.mostOn} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            Today's activity:{" "}
-            <Stat name={stats.today.toFixed(2) + " minutes"} />
+            Today's activity: <Stat name={stats.today} />
           </Text>
           <Text style={AnalyticsScreenStyles.analyticstext}>
-            This week's average:{" "}
-            <Stat name={stats.week.toFixed(2) + " minutes"} />
+            This week's average: <Stat name={stats.week} />
           </Text>
         </View>
         <Pressable

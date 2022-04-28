@@ -32,7 +32,6 @@ export default function FoodAnalytics({ navigation }) {
     week: 0,
   });
   const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-  const [graphBuffer, setGraphBuffer] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [readHead, setReadHead] = useState(0);
 
   const data = {
@@ -41,23 +40,19 @@ export default function FoodAnalytics({ navigation }) {
       {
         lineTension: 0.5,
         borderWidth: 2,
-        data: graphBuffer,
+        data: weekData[readHead],
       },
     ],
   };
 
   useEffect(() => {
     getDataAsWeeks("SUM(Calories)", "Food", setWeekData);
-    getStats("Calories", "Food", setStats);
+    getStats("Calories", "Food", setStats, 0, " kcal");
   }, []);
 
   useEffect(() => {
     setReadHead(weekData.length - 1);
   }, [weekData]);
-
-  useEffect(() => {
-    setGraphBuffer(weekData[readHead]);
-  }, [readHead]);
 
   return (
     <ScrollView>
@@ -66,7 +61,7 @@ export default function FoodAnalytics({ navigation }) {
           elevated={true}
           style={{
             marginHorizontal: "5%",
-            marginTop: "20%",
+            marginTop: "10%",
             padding: "7%",
             justifyContent: "space-between",
           }}
