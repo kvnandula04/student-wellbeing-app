@@ -13,7 +13,11 @@ import { EmptyCard } from "../../components/EmptyCard";
 import { LineChart } from "react-native-chart-kit";
 import AnalyticsScreenStyles from "../../styles/AnalyticsScreenStyles";
 import Colors from "../../styles/Colors";
-import { getGraphData, getGraphDataSleep, getStats} from "../../utils/GetDataDB";
+import {
+  getGraphData,
+  getGraphDataSleep,
+  getStats,
+} from "../../utils/GetDataDB";
 import { getDataAsWeeks } from "../../utils/GraphDBFunc";
 
 const screenWidth = Dimensions.get("window").width;
@@ -21,7 +25,7 @@ const backendvalue1 = "Productivity";
 const backendvalue2 = "Sports Activity";
 const backendvalue3 = "Overall Sleep";
 
-const good_prod_message = "Good Job being productive, keep it up!";
+const good_prod_message = "Good job being productive, keep it up!";
 const bad_prod_message =
   "Got a little lazy this week? Try planning your days a little more often!";
 const good_sports_message = "Got a good amount of exercise this week!";
@@ -36,10 +40,10 @@ const bad_sleep_message =
 /////'s are used to indicate where i have changed the original design rules.
 */
 
-export default function WeeklySummary({navigation}) {
-    const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const [statsData, setStatsData] = useState([" ", 0, 0]); 
-    const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
+export default function WeeklySummary({ navigation }) {
+  const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [statsData, setStatsData] = useState([" ", 0, 0]);
+  const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
 
   useEffect(() => {
     getGraphData(
@@ -48,86 +52,84 @@ export default function WeeklySummary({navigation}) {
       "Productivity",
       statsData,
       setStatsData
-      );
-    },[]);
-    useEffect(() => {
-      getDataAsWeeks("SUM(Length)", "Productivity", setWeekData);
-      getStats("Length", "Productivity", setStatsData, 0, " hours", 60);
-    }, []);
-    var sum1 = graphData.reduce((a,v) =>  a = a + v, 0 );
-    var sum2 = weekData[0].reduce((a,v) =>  a = a + v, 0 );
-    const tempComp1 = (((sum1 - sum2)/sum2)*100).toFixed(0);
+    );
+  }, []);
+  useEffect(() => {
+    getDataAsWeeks("SUM(Length)", "Productivity", setWeekData);
+    getStats("Length", "Productivity", setStatsData, 0, " hours", 60);
+  }, []);
+  var sum1 = graphData.reduce((a, v) => (a = a + v), 0);
+  var sum2 = weekData[0].reduce((a, v) => (a = a + v), 0);
+  const tempComp1 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
 
+  ////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////
+  const [statsData1, setStatsData1] = useState([" ", 0, 0]);
+  const [graphData1, setGraphData1] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [weekData1, setWeekData1] = useState([[0, 0, 0, 0, 0, 0, 0]]);
 
+  useEffect(() => {
+    getGraphData(graphData1, setGraphData1, "Sport", statsData1, setStatsData1);
+  }, []);
+  useEffect(() => {
+    getDataAsWeeks("SUM(Length)", "Sport", setWeekData1);
+    getStats("Length", "Sport", setStatsData1, 0, " minutes");
+  }, []);
+  sum1 = graphData1.reduce((a, v) => (a = a + v), 0);
+  sum2 = weekData1[0].reduce((a, v) => (a = a + v), 0);
+  const tempComp2 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
 
-    const [statsData1, setStatsData1] = useState([" ", 0, 0]); 
-    const [graphData1, setGraphData1] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const [weekData1, setWeekData1] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-    
-    useEffect(()=>{
-      getGraphData(
-      graphData1,
-      setGraphData1,
-      "Sport",
-      statsData1,
-      setStatsData1
-      );
-    },[]);  
-    useEffect(() => {
-      getDataAsWeeks("SUM(Length)", "Sport", setWeekData1);
-      getStats("Length", "Sport", setStatsData1, 0, " minutes");
-    }, []);
-    sum1 = graphData1.reduce((a,v) =>  a = a + v, 0 );
-    sum2 = weekData1[0].reduce((a,v) =>  a = a + v, 0 );
-    const tempComp2 = (((sum1 - sum2)/sum2)*100).toFixed(0);
+  //////////////////////////////////////////////////////
 
+  const [statsData2, setStatsData2] = useState([" ", 0, 0]);
+  const [graphData2, setGraphData2] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [weekData2, setWeekData2] = useState([[0, 0, 0, 0, 0, 0, 0]]);
 
-    //////////////////////////////////////////////////////
-
-
-    const [statsData2, setStatsData2] = useState([" ", 0, 0]); 
-    const [graphData2, setGraphData2] = useState([0, 0, 0, 0, 0, 0, 0]); 
-    const [weekData2, setWeekData2] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-    
-    useEffect(()=>{
-      getGraphDataSleep(
+  useEffect(() => {
+    getGraphDataSleep(
       graphData2,
       setGraphData2,
       "Sleep",
       statsData2,
       setStatsData2
-      );
-    },[]);
-    useEffect(() => {
-      getDataAsWeeks("(TimeHours + (TimeMinutes / 60))", "Sleep", setWeekData2);
-      getStats("(TimeHours + TimeMinutes / 60)", "Sleep", setStatsData2, 2, " hours");
-    }, []);
-  
+    );
+  }, []);
+  useEffect(() => {
+    getDataAsWeeks("(TimeHours + (TimeMinutes / 60))", "Sleep", setWeekData2);
+    getStats(
+      "(TimeHours + TimeMinutes / 60)",
+      "Sleep",
+      setStatsData2,
+      2,
+      " hours"
+    );
+  }, []);
 
-    sum1 = graphData2.reduce((a,v) =>  a = a + v, 0 );
-    sum2 = weekData2[0].reduce((a,v) =>  a = a + v, 0 );
-    const tempComp3 = (((sum1 - sum2)/sum2)*100).toFixed(0);
-    ///////////////////////////////////////////////////
-    const wcomp1 = (tempComp1 > 0) ? " up" + " by " +  (tempComp1): " down" + " by " +  (-tempComp1);
-    const wcomp2 = (tempComp2 > 0) ? " up" + " by " +  (tempComp2): " down" + " by " +  (-tempComp2);
-    const wcomp3 = (tempComp3 > 0) ? " up" + " by " +  (tempComp3): " down" + " by " +  (-tempComp3);
+  sum1 = graphData2.reduce((a, v) => (a = a + v), 0);
+  sum2 = weekData2[0].reduce((a, v) => (a = a + v), 0);
+  const tempComp3 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
+  ///////////////////////////////////////////////////
+  const wcomp1 =
+    tempComp1 > 0 ? " up" + " by " + tempComp1 : " down" + " by " + -tempComp1;
+  const wcomp2 =
+    tempComp2 > 0 ? " up" + " by " + tempComp2 : " down" + " by " + -tempComp2;
+  const wcomp3 =
+    tempComp3 > 0 ? " up" + " by " + tempComp3 : " down" + " by " + -tempComp3;
 
-
-    var data = {
-      labels: graphData,
-      datasets: [{
-          lineTension: 0.5,
-          borderWidth: 2,
-          data: graphData1
-    
-      }]
-    }
-    var [dataval, setdataval] = useState(0);
-    useEffect(() => {
-      setdataval(dataval);
-    })
+  var data = {
+    labels: graphData,
+    datasets: [
+      {
+        lineTension: 0.5,
+        borderWidth: 2,
+        data: graphData1,
+      },
+    ],
+  };
+  var [dataval, setdataval] = useState(0);
+  useEffect(() => {
+    setdataval(dataval);
+  });
 
   const dataset1 = {
     labels: graphData2,
@@ -180,21 +182,31 @@ export default function WeeklySummary({navigation}) {
               <Image
                 source={require("../../assets/stats.png")}
                 style={{
-                  width: 130 * 0.6,
-                  height: 130 * 0.6,
+                  width: 130 * 0.4,
+                  height: 130 * 0.4,
+                  marginLeft: "5%",
                 }}
               />
               <View>
                 <Text
                   style={{
                     fontWeight: "bold",
-                    marginLeft: "10%",
-                    marginTop: "8%",
+                    marginLeft: "8%",
+                    marginTop: "5%",
                     fontSize: 20,
                     textAlign: "center",
                   }}
                 >
                   Weekly Summary
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    marginLeft: "11%",
+                    fontSize: 12,
+                  }}
+                >
+                  Insights & Feedback
                 </Text>
               </View>
             </View>
@@ -205,10 +217,10 @@ export default function WeeklySummary({navigation}) {
                 textAlign: "center",
                 marginBottom: "3%",
                 fontWeight: "bold",
-                marginTop: "3%",
+                marginTop: "5%",
               }}
             >
-              Select the Graph you want to display:
+              Select the graph you want to display
             </Text>
             <Text
               style={{
@@ -271,10 +283,10 @@ export default function WeeklySummary({navigation}) {
           <Text
             style={{
               textAlign: "center",
-              marginBottom: "2%",
+              marginBottom: "8%",
               fontSize: 8,
               fontWeight: "bold",
-              marginTop: "1%",
+              marginTop: "3%",
             }}
           >
             {" "}
@@ -283,7 +295,7 @@ export default function WeeklySummary({navigation}) {
         </View>
 
         <View>
-          <Text style={styles.text}> Weekly Comparison: </Text>
+          <Text style={styles.text}> Weekly Comparison </Text>
           <View style={styles.container}>
             <EmptyCard
               elevated={true}
@@ -293,7 +305,7 @@ export default function WeeklySummary({navigation}) {
                 marginTop: "3%", ///
                 marginBottom: "3%", ////
                 padding: "7%",
-                height: screenWidth * 0.3, ///
+                height: screenWidth * 0.25, ///
                 borderRadius: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -326,20 +338,21 @@ export default function WeeklySummary({navigation}) {
                     tempComp3 > 0 ? styles.ispositive : styles.isnegative,
                   ]}
                 >
+                  {" "}
                   {backendvalue3}
                   {wcomp3}% this week{" "}
                 </Text>
               </View>
             </EmptyCard>
-            <Text style={styles.text}> Insights: </Text>
+            <Text style={styles.text}> Insights </Text>
             <EmptyCard
               elevated={true}
               style={{
                 backgroundColor: Colors.CARDCOLOR,
                 marginHorizontal: "5%",
                 marginTop: "3%", ///
-                padding: "5%",
-                height: screenWidth * 0.3, ////
+                padding: "6%",
+                height: screenWidth * 0.4, ////
                 borderRadius: 10,
                 flexDirection: "column", ////
                 justifyContent: "center", /////
@@ -352,7 +365,7 @@ export default function WeeklySummary({navigation}) {
                     tempComp1 > 0 ? styles.ispositive : styles.isnegative,
                   ]}
                 >
-                  {" "}
+                  {/* {" "} */}
                   {tempComp1 > 0 ? good_prod_message : bad_prod_message}{" "}
                 </Text>
                 <Text
@@ -361,7 +374,7 @@ export default function WeeklySummary({navigation}) {
                     tempComp2 > 0 ? styles.ispositive : styles.isnegative,
                   ]}
                 >
-                  {" "}
+                  {/* {" "} */}
                   {tempComp2 > 0
                     ? good_sports_message
                     : bad_sports_message}{" "}
@@ -372,7 +385,7 @@ export default function WeeklySummary({navigation}) {
                     tempComp3 > 0 ? styles.ispositive : styles.isnegative,
                   ]}
                 >
-                  {" "}
+                  {/* {" "} */}
                   {tempComp3 > 0 ? good_sleep_message : bad_sleep_message}{" "}
                 </Text>
               </View>
@@ -426,15 +439,16 @@ const styles = StyleSheet.create({
   },
   wcomptext: {
     fontWeight: "bold",
-    textAlign: "center",
+    textAlign: "left",
     textTransform: "uppercase",
     fontSize: 12,
+    marginBottom: "2%"
   },
   insightstext: {
     fontWeight: "bold",
-    textAlign: "center",
-    textTransform: "uppercase",
-    fontSize: 10,
+    textAlign: "left",
+    fontSize: 13,
+    marginBottom: "2%"
   },
   selectionButton: {
     backgroundColor: Colors.PRIMARYCOLOR,
