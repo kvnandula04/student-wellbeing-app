@@ -26,6 +26,7 @@
     "expo-font": "^10.0.5",
     "expo-sqlite": "^10.1.1",
     "expo-status-bar": "~1.2.0",
+    "expo-updates": "^0.11.6",
     "import": "^0.0.6",
     "react": "17.0.1",
     "react-dom": "17.0.1",
