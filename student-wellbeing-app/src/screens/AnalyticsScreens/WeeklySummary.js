@@ -58,8 +58,8 @@ export default function WeeklySummary({ navigation }) {
     getDataAsWeeks("SUM(Length)", "Productivity", setWeekData);
     getStats("Length", "Productivity", setStatsData, 0, " hours", 60);
   }, []);
-  var sum1 = graphData.reduce((a, v) => (a = a + v), 0);
-  var sum2 = weekData[0].reduce((a, v) => (a = a + v), 0);
+  var sum1 = parseInt(graphData.reduce((a, v) => (a = a + v), 0));
+  var sum2 = parseInt(weekData[0].reduce((a, v) => (a = a + v), 0));
   const tempComp1 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
 
   ////////////////////////////////////////////////////////////////
@@ -75,8 +75,8 @@ export default function WeeklySummary({ navigation }) {
     getDataAsWeeks("SUM(Length)", "Sport", setWeekData1);
     getStats("Length", "Sport", setStatsData1, 0, " minutes");
   }, []);
-  sum1 = graphData1.reduce((a, v) => (a = a + v), 0);
-  sum2 = weekData1[0].reduce((a, v) => (a = a + v), 0);
+  sum1 = parseInt(graphData1.reduce((a, v) => (a = a + v), 0));
+  sum2 = parseInt(weekData1[0].reduce((a, v) => (a = a + v), 0));
   const tempComp2 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
 
   //////////////////////////////////////////////////////
@@ -105,8 +105,8 @@ export default function WeeklySummary({ navigation }) {
     );
   }, []);
 
-  sum1 = graphData2.reduce((a, v) => (a = a + v), 0);
-  sum2 = weekData2[0].reduce((a, v) => (a = a + v), 0);
+  sum1 = parseInt(graphData2.reduce((a, v) => (a = a + v), 0));
+  sum2 = parseInt(weekData2[0].reduce((a, v) => (a = a + v), 0));
   const tempComp3 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
   ///////////////////////////////////////////////////
   const wcomp1 =
@@ -305,7 +305,7 @@ export default function WeeklySummary({ navigation }) {
                 marginTop: "3%", ///
                 marginBottom: "3%", ////
                 padding: "7%",
-                height: screenWidth * 0.25, ///
+                height: screenWidth * 0.35, ///
                 borderRadius: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -352,9 +352,9 @@ export default function WeeklySummary({ navigation }) {
                 marginHorizontal: "5%",
                 marginTop: "3%", ///
                 padding: "6%",
-                height: screenWidth * 0.4, ////
+                height: screenWidth * 0.5, ////
                 borderRadius: 10,
-                flexDirection: "column", ////
+                flexDirection: "row", ////
                 justifyContent: "center", /////
               }}
             >
