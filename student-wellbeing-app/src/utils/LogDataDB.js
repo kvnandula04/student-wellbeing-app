@@ -68,7 +68,7 @@ export const logMoodData = (rating) => {
     tx.executeSql(
       "REPLACE INTO Mood (Date, Rating) values (date('now'), ?)",
       [rating],
-      (_, res) => alert(`Logged rating '${rating}'`),
+      (_, res) => Alert.alert("Mood successfully logged!"),
       (_, err) => console.log(err)
     );
   });
