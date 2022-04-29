@@ -13,7 +13,7 @@ export const getAllCategoryData = (category, setData) => {
           // console.log(element);
           tmp_data_arr.push(element);
         });
-        console.log(tmp_data_arr);
+        // console.log(tmp_data_arr);
         setData(tmp_data_arr);
       }
     );
