@@ -104,6 +104,7 @@ const data = {
     ["-3 days", "-2 hours", "Tennis", 30, 2],
     ["-2 days", "-8 hours", "Surf", 50, 4],
     ["-1 days", "-30 minutes", "Skate", 110, 5],
+    ["-4 hours", "-30 minutes", "Cricket", 30, 4],
   ],
   food: [
     ["-14 days", "-5 hours", "Pasta", 400],
@@ -120,6 +121,7 @@ const data = {
     ["-2 days", "-2 hours", "Burger", 500],
     ["-1 days", "-4 hours", "Rice", 200],
     ["-1 days", "-3 hours", "Sandwhich", 350],
+    ["-4 hours", "-30 minutes", "Rice & Curry", 550],
   ],
   sleep: [
     ["-14 days", "-7 hours", 8, 30, 4, "journal"],
@@ -137,6 +139,7 @@ const data = {
     ["-3 days", "-7 hours", 7, 30, 5, "journal"],
     ["-2 days", "-7 hours", 8, 20, 5, "journal"],
     ["-1 days", "-7 hours", 6, 0, 3, "journal"],
+    ["-4 hours", "-30 minutes", 6, 0, 3, "journal"],
   ],
   mood: [
     ["-10 days", 4],
