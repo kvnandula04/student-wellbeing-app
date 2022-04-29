@@ -44,7 +44,7 @@ export default function WeeklySummary({ navigation }) {
   const [graphData, setGraphData] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [statsData, setStatsData] = useState([" ", 0, 0]);
   const [weekData, setWeekData] = useState([[0, 0, 0, 0, 0, 0, 0]]);
-
+  var sum1, sum2 = 0;
   useEffect(() => {
     getGraphData(
       graphData,
@@ -58,8 +58,10 @@ export default function WeeklySummary({ navigation }) {
     getDataAsWeeks("SUM(Length)", "Productivity", setWeekData);
     getStats("Length", "Productivity", setStatsData, 0, " hours", 60);
   }, []);
-  var sum1 = graphData.reduce((a, v) => (a = a + v), 0);
-  var sum2 = weekData[0].reduce((a, v) => (a = a + v), 0);
+  if (weekData[1] != undefined) {
+    sum1 = parseInt(weekData[weekData.length - 1].reduce((a, v) => (a = a + v), 0));
+    sum2 = parseInt(weekData[weekData.length - 2].reduce((a, v) => (a = a + v), 0));
+  }
   const tempComp1 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
 
   ////////////////////////////////////////////////////////////////
@@ -75,8 +77,10 @@ export default function WeeklySummary({ navigation }) {
     getDataAsWeeks("SUM(Length)", "Sport", setWeekData1);
     getStats("Length", "Sport", setStatsData1, 0, " minutes");
   }, []);
-  sum1 = graphData1.reduce((a, v) => (a = a + v), 0);
-  sum2 = weekData1[0].reduce((a, v) => (a = a + v), 0);
+  if (weekData1[1] != undefined) {
+    sum1 = parseInt(weekData1[weekData1.length - 1].reduce((a, v) => (a = a + v), 0));
+    sum2 = parseInt(weekData1[weekData1.length - 2].reduce((a, v) => (a = a + v), 0));
+  }
   const tempComp2 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
 
   //////////////////////////////////////////////////////
@@ -105,17 +109,22 @@ export default function WeeklySummary({ navigation }) {
     );
   }, []);
 
-  sum1 = graphData2.reduce((a, v) => (a = a + v), 0);
-  sum2 = weekData2[0].reduce((a, v) => (a = a + v), 0);
-  const tempComp3 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
-  ///////////////////////////////////////////////////
-  const wcomp1 =
-    tempComp1 > 0 ? " up" + " by " + tempComp1 : " down" + " by " + -tempComp1;
-  const wcomp2 =
-    tempComp2 > 0 ? " up" + " by " + tempComp2 : " down" + " by " + -tempComp2;
-  const wcomp3 =
-    tempComp3 > 0 ? " up" + " by " + tempComp3 : " down" + " by " + -tempComp3;
-
+  var wcomp1 = "";
+  var wcomp2 = "";
+  var wcomp3 = "";
+  var tempComp3 = "";
+  if (weekData2[1] != undefined) {
+    sum1 = parseInt(weekData2[weekData2.length - 1].reduce((a, v) => (a = a + v), 0));
+    sum2 = parseInt(weekData2[weekData2.length - 2].reduce((a, v) => (a = a + v), 0));
+    tempComp3 = (((sum1 - sum2) / sum2) * 100).toFixed(0);
+    ///////////////////////////////////////////////////
+    wcomp1 =
+      tempComp1 > 0 ? " up" + " by " + tempComp1 : " down" + " by " + -tempComp1;
+    wcomp2 =
+      tempComp2 > 0 ? " up" + " by " + tempComp2 : " down" + " by " + -tempComp2;
+    wcomp3 =
+      tempComp3 > 0 ? " up" + " by " + tempComp3 : " down" + " by " + -tempComp3;
+    }
   var data = {
     labels: graphData,
     datasets: [
@@ -305,7 +314,7 @@ export default function WeeklySummary({ navigation }) {
                 marginTop: "3%", ///
                 marginBottom: "3%", ////
                 padding: "7%",
-                height: screenWidth * 0.25, ///
+                height: screenWidth * 0.35, ///
                 borderRadius: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -352,9 +361,9 @@ export default function WeeklySummary({ navigation }) {
                 marginHorizontal: "5%",
                 marginTop: "3%", ///
                 padding: "6%",
-                height: screenWidth * 0.4, ////
+                height: screenWidth * 0.5, ////
                 borderRadius: 10,
-                flexDirection: "column", ////
+                flexDirection: "row", ////
                 justifyContent: "center", /////
               }}
             >
